@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+        html {
+            margin: 0 auto;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* p{
+            color: #303133;
+        } */
+        .header {
+            height: 88px;
+            width: 100%;
+            background-color: #409EFF;
+        }
+
+        .main {
+            padding: 20px 20px;
+        }
+
+        .contai {
+            width: 100%;
+            /* height: 600px; */
+            border: 1px solid #EBEEF5;
+        }
+
+        .contai>p {
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+            background-color: #E4E7ED;
+        }
+
+        .contai>span {
+            font-size: 12px;
+            padding-left: 56px;
+            line-height: 40px;
+        }
+
+        .tabel-conati {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .title {
+            /* height: 120px; */
+            width: 100%;
+            box-sizing: border-box;
+            padding: 6px 16px;
+        }
+
+        .title>p {
+            text-align: left;
+            font-size: 12px;
+            line-height: 30px;
+        }
+
+        .title>p:nth-of-type(2) {
+            padding-left: 40px;
+        }
+
+        .title>div {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            box-sizing: border-box;
+            padding: 10px 40px;
+
+        }
+
+        .xiahuax {
+            width: 80px;
+            display: inline-block;
+            outline: none;
+            user-select: none;
+            border: none;
+            border-bottom: 1px solid black;
+            text-align: center;
+        }
+
+        .xiahuax1 {
+            width: 150px;
+            display: inline-block;
+            outline: none;
+            border: none;
+            border-bottom: 1px solid black;
+            text-align: center;
+        }
+
+        .datet {
+            display: inline-block;
+            width: 30px;
+            border: none;
+            outline: none;
+            user-select: none;
+            text-align: center;
+        }
+
+        .num {
+            box-sizing: border-box;
+            border-left: 1px solid lightgray;
+            width: 12.5%;
+            height: 34px;
+            text-align: center;
+            line-height: 34px;
+            font-size: 12px;
+            padding: 2px;
+            /* background-color: red; */
+        }
+
+        .num:nth-of-type(1) {
+            border-left: none;
+        }
+
+        .flexbox {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            /* height: 100%; */
+        }
+
+        td,
+        th {
+            height: 34px;
+            border: 1px solid lightgray;
+            box-sizing: border-box;
+        }
+
+        td>span {
+            font-size: 12px;
+            padding-left: 16px;
+        }
+
+        .imgup {
+            width: 100%;
+            /* height: 120px; */
+        }
+
+        .imgup>p {
+            font-size: 12px;
+            padding: 16px 0 0 16px;
+        }
+
+        .imgup>label {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            border: 2px dashed lightgray;
+            border-radius: 8px;
+            margin: 10px 0 30px 80px;
+            text-align: center;
+            line-height: 70px;
+        }
+
+        .iconimg {
+            font-size: 30px;
+            color: lightgray;
+        }
+
+        .check {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .checkbox {
+            width: 420px;
+            height: 40px;
+            /* border: 1px solid black; */
+        }
+
+        #tip {
+            width: 200px;
+            height: 200px;
+            border: 1px solid black;
+            position: fixed;
+            top: 140px;
+            left: 500px;
+            display: none;
+            background-color: #fff;
+        }
+
+        .xmzhijian,
+        .sgzhijian,
+        .gctitle,
+        .xmname {
+            border: none;
+            outline: none;
+            user-select: none;
+        }
+
+        .textdrs,
+        .textxb {
+            width: 100%;
+            border: none;
+            outline: none;
+            user-select: none;
+        }
+
+        button {
+            width: 100px;
+            height: 28px;
+        }
+
+        .int {
+            width: 100%;
+            outline: none;
+            user-select: none;
+            border: none;
+            text-align: center;
+        }
+
+        #tip1 {
+            width: 300px;
+            height: 400px;
+            position: fixed;
+            top: 140px;
+            left: 500px;
+            display: none;
+            background-color: #fff;
+        }
+
+        ul,
+        li {
+            list-style: none;
+        }
+
+        ul {
+            padding: 0px 40px;
+        }
+
+        li {
+            /* padding-left:40px ; */
+            line-height: 44px;
+            border-bottom: 1px solid lightgray;
+        }
+
+        input {
+            text-align: center;
+        }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            height: 98px;
+            max-width: 1200px;
+            width: 100%;
+            margin-left: -600px;
+            background-color: #409EFF;
+        }
+
+        button {
+            width: 100px;
+            height: 28px;
+            border: none;
+            background-color: #409EFF;
+            color: white;
+            border-radius: 8px;
+            user-select: none;
+            outline: none;
+            margin-left: 60px;
+        }
+        .motai {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            /* max-width: 1200px; */
+            background-color: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 20;
+        }
+        #tip1 {
+            width: 300px;
+            height: 400px;
+            position: fixed;
+            top: 140px;
+            left: 50%;
+            margin-left: -150px;
+            display: none;
+            background-color: #fff;
+            border-radius: 8px;
+        }
+
+        #tip1>h4 {
+            border-bottom: 1px solid lightgray;
+            padding: 20px 0 20px 20px;
+        }
+
+        .imgsty {
+            width: 64px;
+            height: 64px;
+            margin-left: 20px;
+        }
+
+
+
+    </style>
+</head>
+
+<body>
+<div class="motai">
+    <div id="tip1">
+        <h4>选择型号</h4>
+        <ul class="xinghao">
+            <li>JYD-185/25</li>
+            <li>JYD-185/30</li>
+            <li>JYD-185/45</li>
+            <li>JYD-240/30</li>
+            <li>JYD-240/40</li>
+            <li>JYD-240/55</li>
+            <li>JYD-300/15</li>
+        </ul>
+    </div>
+</div>
+<!-- <div class="header"></div> -->
+
+<div class="main">
+    <div class="contai">
+        <p>隐蔽工程（直线液压管）签证记录表</p>
+        <span class="main-title">工程名称: <input type="text" class="gctitle proname"> </span>
+        <div class="tabel-conati">
+            <table cellspacing="0">
+                <thead>
+                <tr>
+                    <td colspan="4">
+                        <div class="title">
+                            <p>致监理项目部: <input type="text" class="xmname projianliname"></p>
+                            <p>耐张段桩号 <input class="xiahuax naizhangzhuanghao" type="text"></input> 至
+                                <input
+                                        class="xiahuax naizhangzhuanghao"
+                                        type="text"></input> ， 压接管型号 <input
+                                        class="xiahuax1 yajieguan"
+                                        type="text"
+                                        onclick="myObj.showList()"
+                                        readonly></input>，压接准备工作就绪,
+                                请现场监督检查</p>
+                            <div>
+                                <span>项目部专职质检员：<input type="text" class="xmzhijian"></span>
+                                <span>施工队质检员 : <input type="text" class="sgzhijian"></span>
+                                <span>
+                                            <input type="text" class="datet year">年
+                                            <input type="text" class="datet mounth">月
+                                            <input type="text" class="datet day">日
+                                        </span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><span>压接管位置</span></td>
+                    <td colspan="3"><input type="text" class="textdrs"></td>
+                </tr>
+                <tr>
+                    <td><span>相别</span></td>
+                    <td><input type="text" class="textxb"></td>
+                    <td><input type="text" class="textxb"></td>
+                    <td><input type="text" class="textxb"></td>
+                </tr>
+                <tr class="detl">
+                    <td><span>线别</span></td>
+                    <td>
+                        <div class="flexbox">
+                            <div class="num tx1">1</div>
+                            <div class="num tx2">2</div>
+                            <div class="num tx3">3</div>
+                            <div class="num tx4">4</div>
+                            <div class="num tx5">5</div>
+                            <div class="num tx6">6</div>
+                            <div class="num tx7">7</div>
+                            <div class="num tx8">8</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flexbox">
+                            <div class="num tx9">1</div>
+                            <div class="num tx10">2</div>
+                            <div class="num tx11">3</div>
+                            <div class="num tx12">4</div>
+                            <div class="num tx13">5</div>
+                            <div class="num tx14">6</div>
+                            <div class="num tx15">7</div>
+                            <div class="num tx16">8</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flexbox">
+                            <div class="num tx17">1</div>
+                            <div class="num tx18">2</div>
+                            <div class="num tx19">3</div>
+                            <div class="num tx20">4</div>
+                            <div class="num tx21">5</div>
+                            <div class="num tx22">6</div>
+                            <div class="num tx23">7</div>
+                            <div class="num tx24">8</div>
+                        </div>
+                    </td>
+                </tr>
+                <!-- <tr class="detl"> -->
+                <tr id="numb">
+                    <td><span>弯曲度测量</span></td>
+                    <td>
+                        <div class="flexbox">
+                            <div class="num tx1 numtex" onclick="myObj.getValues('tx1')"></div>
+                            <div class="num tx2 numtex" onclick="myObj.getValues('tx2')"></div>
+                            <div class="num tx3 numtex" onclick="myObj.getValues('tx3')"></div>
+                            <div class="num tx4 numtex" onclick="myObj.getValues('tx4')"></div>
+                            <div class="num tx5 numtex" onclick="myObj.getValues('tx5')"></div>
+                            <div class="num tx6 numtex" onclick="myObj.getValues('tx6')"></div>
+                            <div class="num tx7 numtex" onclick="myObj.getValues('tx7')"></div>
+                            <div class="num tx8 numtex" onclick="myObj.getValues('tx8')"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flexbox">
+                            <div class="num tx9 numtex" onclick="myObj.getValues('tx9')"></div>
+                            <div class="num tx10 numtex" onclick="myObj.getValues('tx10')"></div>
+                            <div class="num tx11 numtex" onclick="myObj.getValues('tx11')"></div>
+                            <div class="num tx12 numtex" onclick="myObj.getValues('tx12')"></div>
+                            <div class="num tx13 numtex" onclick="myObj.getValues('tx13')"></div>
+                            <div class="num tx14 numtex" onclick="myObj.getValues('tx14')"></div>
+                            <div class="num tx15 numtex" onclick="myObj.getValues('tx15')"></div>
+                            <div class="num tx16 numtex" onclick="myObj.getValues('tx16')"></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="flexbox">
+                            <div class="num tx17 numtex" onclick="myObj.getValues('tx17')"></div>
+                            <div class="num tx18 numtex" onclick="myObj.getValues('tx18')"></div>
+                            <div class="num tx19 numtex" onclick="myObj.getValues('tx19')"></div>
+                            <div class="num tx20 numtex" onclick="myObj.getValues('tx20')"></div>
+                            <div class="num tx21 numtex" onclick="myObj.getValues('tx21')"></div>
+                            <div class="num tx22 numtex" onclick="myObj.getValues('tx22')"></div>
+                            <div class="num tx23 numtex" onclick="myObj.getValues('tx23')"></div>
+                            <div class="num tx24 numtex" onclick="myObj.getValues('tx24')"></div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- 照片 -->
+            <!--<div class="imgup">-->
+            <!--<p>图片上传:</p>-->
+            <!--<label for="img" id="imgLab" onclick="myObj.showPhoto()">-->
+            <!--<i class="el-icon-camera-solid iconimg"></i>-->
+            <!--<input type="file" hidden id="img">-->
+            <!--</label>-->
+            <!--<img src="" id="image" onclick="myObj.amplificationPhoto()"-->
+            <!--style="width: 60px;  height: 60px; display:none; margin: 30px 60px;">-->
+            <!--</div>-->
+            <div class="imgup">
+                <p>图片上传:</p>
+                <div style="display: flex; margin: 20px 0 20px 20px;">
+                    <div style="display: flex;" id="imgcontainer"
+                         onclick="myObj.amplificationPhoto(event.target.src)">
+                    </div>
+                    <div onclick="myObj.showPhoto()"
+                         style="width: 64px;height: 64px; text-align: center;line-height: 84px;  border: 2px dashed lightgray; border-radius: 8px; margin-left: 20px;">
+                        <img src="file:///android_res/drawable/icon_camera.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<img src="" alt="" id="motai" onclick="myObj.narrowPhoto()"
+     style="position: fixed; top:0;left:0;display: none; width:100%;height:100%;z-index:99;">
+<div id="tip">
+    <input class="textinp" type="text">
+    <input class="textinp" type="text">
+    <input class="textinp" type="text">
+    <input class="textinp" type="text">
+    <input class="textinp" type="text">
+    <button id="btt">确定</button>
+</div>
+<div class="check">
+    <div class="checkbox" style="display: flex;align-items: center;">
+        <span>弯曲度测量：</span>
+        <div id="hege"
+             style="width: 18px; height: 18px; border-radius: 50%;margin: 0 10px;border: 1px solid #bfbfbf;"></div>
+        <div style="line-height: 18px;">合格</div>
+        <div id="buhege"
+             style="width: 18px; height: 18px;  border-radius: 50%;margin: 0 10px;border: 1px solid #bfbfbf;"></div>
+        <div style="line-height: 18px;">不合格</div>
+        <button id="bt_save">保存</button>
+    </div>
+    <!--<input type="button" value="list"-->
+    <!--onclick="myObj.showList();">-->
+</div>
+<!-- <div class="footer"></div> -->
+<!-- <script src="./rem.js"></script> -->
+<script>
+
+      var msglist = []
+        function clo(message) {
+            var va = JSON.parse(message)
+            document.querySelectorAll('.' + va.value)[1].innerText = va.valueTwo
+            if(msglist.filter( function (el){return el.value == va.value}).length <= 0){
+                msglist.push(va)
+            }else{
+                for (var i = 0; i < msglist.length; i++) {
+                    if (msglist[i].value == va.value) {
+                        msglist[i].valueTwo = va.valueTwo
+                    }
+                }
+            }
+            for (var z = 0; z < msglist.length; z++) {
+                if(msglist[z].valueTwo == '不合格'){
+                    document.querySelector('#buhege').style.backgroundColor = 'red';
+                    document.querySelector('#hege').style.backgroundColor = 'white';
+                    break
+                }else{
+                    document.querySelector('#hege').style.backgroundColor = '#00d400';
+                    document.querySelector('#buhege').style.backgroundColor = 'white';
+                }
+            }
+        }
+        function resultModel(msg){
+             document.querySelector('.xiahuax1').value = msg
+        }
+        var imgUrl = '';
+
+         function resultPhoto(value) {
+            var img = document.createElement('img')
+            img.src = value
+            img.className = 'imgsty'
+            <!--img.onclick="myObj.amplificationPhoto(this.src)"-->
+            document.querySelector('#imgcontainer').appendChild(img)
+        }
+        function amplificationPhoto(msg){
+            document.querySelector('#motai').style.display= 'inline'
+            document.querySelector('#motai').src = msg
+        }
+        function narrowPhoto(){
+            document.querySelector('#motai').style.display= 'none'
+        }
+           var data = {}
+        function dataText (msg){
+             <!--//工程名称-->
+            data.proname = document.querySelector('.proname').value
+            <!--//监理项目部-->
+            data.projianliname = document.querySelector('.projianliname').value
+            <!--//耐张段桩号-->
+            data.naizhangnum = []
+            for (var i = 0; i < document.querySelectorAll('.naizhangzhuanghao').length; i++) {
+                data.naizhangnum.push( document.querySelectorAll('.naizhangzhuanghao')[i].value)
+            }
+            <!--//压接管型号-->
+            data.yejieguannum = document.querySelector('.yajieguan').value
+            <!--//项目部质检员-->
+            data.proprson = document.querySelector('.xmzhijian').value
+            <!--//施工队质检员-->
+            data.workprson = document.querySelector('.sgzhijian').value
+            <!--//日期-->
+            data.date = document.querySelector('.year').value + '-' + document.querySelector('.mounth').value + '-' + document.querySelector('.day').value
+            <!--//压接管位置-->
+            data.yajieguanweizhi = document.querySelector('.textdrs').value
+            <!--//相别-->
+            data.xbnum = []
+            for (var i = 0; i < document.querySelectorAll('.textxb').length; i++) {
+                data.xbnum.push(document.querySelectorAll('.textxb')[i].value)
+            }
+            <!--//弯曲度测量-->
+            data.wanqudu = []
+            for (var i = 0; i < document.querySelectorAll('.numtex').length; i++) {
+                data.wanqudu.push( document.querySelectorAll('.numtex')[i].innerText)
+            }
+            data.imgUrl = []
+            for (var i = 0; i < document.querySelectorAll('img').length - 1; i++) {
+            data.imgUrl.push(document.querySelectorAll('img')[i].src)
+            }
+              data.checked = "合格"
+            data.wanqudu.forEach(function(el) {
+                if (el == '不合格') {
+                    data.checked = "不合格"
+                }
+            });
+            data = JSON.stringify(data)
+        }
+        document.querySelector('#bt_save').addEventListener('click',function (){
+            dataText()
+            myObj.save(data)
+        })
+
+       function getValue (data){
+            data = JSON.parse(data)
+            document.querySelector('.proname').value = data.proname
+            document.querySelector('.projianliname').value = data.projianliname
+
+            for (var i = 0; i < document.querySelectorAll('.naizhangzhuanghao').length; i++) {
+                document.querySelectorAll('.naizhangzhuanghao')[i].value = data.naizhangnum[i]
+            }
+
+            document.querySelector('.yajieguan').value = data.yejieguannum
+
+            document.querySelector('.xmzhijian').value = data.proprson
+
+            document.querySelector('.sgzhijian').value = data.workprson
+
+            document.querySelector('.year').value = data.date.split('-')[0]
+            document.querySelector('.mounth').value = data.date.split('-')[1]
+            document.querySelector('.day').value = data.date.split('-')[2]
+            document.querySelector('.textdrs').value = data.yajieguanweizhi
+            for (var i = 0; i < document.querySelectorAll('.textxb').length; i++) {
+                document.querySelectorAll('.textxb')[i].value = data.xbnum[i]
+            }
+            for (var i = 0; i < document.querySelectorAll('.numtex').length; i++) {
+                document.querySelectorAll('.numtex')[i].innerText = data.wanqudu[i]
+            }
+            for (var i = 0; i < data.imgUrl.length - 1; i++) {
+                var img = document.createElement('img')
+                img.src = data.imgUrl[i]
+                img.className = 'imgsty'
+                document.querySelector('#imgcontainer').appendChild(img)
+            }
+            if (data.checked == '不合格') {
+                document.querySelector('#buhege').style.backgroundColor = 'red';
+                document.querySelector('#hege').style.backgroundColor = 'white';
+            } else {
+                document.querySelector('#hege').style.backgroundColor = '#00d400';
+                document.querySelector('#buhege').style.backgroundColor = 'white';
+
+            }
+
+        }
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,2470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        body {
+            /* max-width: 1200px; */
+            box-sizing: border-box;
+            padding: 40px 40px;
+        }
+
+        .container {
+            width: 1600px
+            border: 1px solid #EBEEF5;
+            /* height: 600px; */
+        }
+
+        .title {
+            text-align: center;
+            height: 40px;
+            line-height: 40px;
+            background-color: #E4E7ED;
+        }
+
+        .title1 {
+            text-align: left;
+            font-size: 12px;
+            padding-left: 56px;
+            line-height: 40px;
+        }
+
+        .main {
+            <!--width: 100%;-->
+            <!--box-sizing: border-box;-->
+            padding: 20px 40px;
+            /* border: 1px solid #EBEEF5; */
+        }
+
+        input {
+            border: none;
+            user-select: none;
+            outline: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+
+        }
+
+        td {
+            width: 53px;
+            height: 40px;
+            border: 1px solid lightgray;
+        }
+
+        .motai {
+            display: none;
+            width: 100%;
+            height: 100vh;
+            /* max-width: 1200px; */
+            background-color: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 20;
+        }
+
+        #tip>h4 {
+            border-bottom: 1px solid lightgray;
+            padding: 20px 0 20px 20px;
+        }
+
+        #tip>button {
+            display: inline-block;
+            border: none;
+            width: 110px;
+            height: 30px;
+            background-color: #409EFF;
+            color: white;
+            margin: 64px 0 0 0;
+            border-radius: 8px;
+            user-select: none;
+            outline: none;
+        }
+
+        #tip>div {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        #tip>div>input {
+            width: 16%;
+            height: 36px;
+            border-radius: 8px;
+            outline: none;
+            user-select: none;
+            border: 1px solid lightgray;
+            text-align: center;
+        }
+
+        #tip {
+            width: 480px;
+            height: 260px;
+            /* border: 1px solid black; */
+            position: fixed;
+            top: 140px;
+            left: 50%;
+            margin-left: -220px;
+            display: none;
+            background-color: #fff;
+            border-radius: 8px;
+        }
+
+        .imgup {
+            text-align: left;
+            width: 100%;
+            /* height: 120px; */
+        }
+
+        .imgup>p {
+            text-align: left;
+
+            font-size: 12px;
+            padding: 16px 0 0 16px;
+        }
+        button {
+            width: 100px;
+            height: 28px;
+            border: none;
+            background-color: #409EFF;
+            color: white;
+            border-radius: 8px;
+            user-select: none;
+            outline: none;
+            margin-left: 60px;
+        }
+        .imgup>label {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            border: 2px dashed lightgray;
+            border-radius: 8px;
+            margin: 10px 0 30px 80px;
+            text-align: center;
+            line-height: 70px;
+        }
+
+        .iconimg {
+            font-size: 30px;
+            color: lightgray;
+        }
+        .check {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 120px;
+            /* flex-direction: column; */
+            align-items: center;
+            margin-top: 60px;
+        }
+
+        .checkbox {
+            height: 40px;
+            margin-right: 60px;
+            /* border: 1px solid black; */
+        }
+
+        .checkbox>div {
+            margin-bottom: 10px;
+            text-align: right;
+        }
+
+        button {
+            width: 100px;
+            height: 28px;
+            border: none;
+            background-color: #409EFF;
+            color: white;
+            border-radius: 8px;
+            user-select: none;
+            outline: none;
+        }
+
+        label>input {
+            height: auto;
+        }
+
+        .imgsty {
+            width: 64px;
+            height: 64px;
+            margin-left: 20px;
+        }
+
+
+
+
+
+
+
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="title">导线、地线耐张液压管施工检查以及评定记录表（线线3）</div>
+    <div class="title1">工程名称: <input type="text" class="proname"></div>
+    <div class="main">
+        <table border="1">
+            <tr>
+                <td colspan="3">耐张段施工桩号</td>
+                <td colspan="5"><input type="text" class="zhuanghao" style="width: 70px;">
+                </td>
+                <td colspan="4">耐张段运行塔号</td>
+                <td colspan="4"><input type="text" class="tahao" style="width: 70px;">号至<input
+                        type="text" class="tahao" style="width: 70px;">号
+                </td>
+                <td colspan="2" style="text-align: left;padding-left: 20px;">导线或<br>地线规格</td>
+                <td colspan="4">导线：<input type="text" class="daoxian" readonly
+                                          onclick="myObj.showWireList()"
+                                          style="width: 120px;"><br>地线：<input type="text"
+                                                                              class="dixian"
+                                                                              style="width: 120px;">
+                </td>
+                <td colspan="3">施工日期</td>
+                <td colspan="8"><input type="text" class="date" style="width: 200px;"></td>
+            </tr>
+            <tr>
+                <td rowspan="4">施工<br>桩号</td>
+                <td colspan="2" rowspan="4">大号侧<br>或<br>小号侧</td>
+                <td rowspan="4">相别</td>
+                <td rowspan="4">线<br>别</td>
+                <td colspan="4">压前铝管</td>
+                <td colspan="4">压前钢管</td>
+                <td colspan="4">压后铝管</td>
+                <td colspan="4">压后钢管</td>
+                <td colspan="3" rowspan="4">外观<br>检查</td>
+                <td colspan="3" rowspan="4">压接人</td>
+                <td colspan="3" rowspan="4">钢印<br>代号</td>
+                <td colspan="3" rowspan="4">评定</td>
+            </tr>
+            <tr style="height: 40px;">
+                <td rowspan="2" colspan="2">外径<br>d2<br>(mm)</td>
+                <td rowspan="3" colspan="2">需要长度<br>(mm)</td>
+                <td rowspan="2" colspan="2">外径<br>d1<br>(mm)</td>
+                <td rowspan="3" colspan="2">需要长度<br>(mm)</td>
+
+                <td rowspan="2" colspan="2">对边距<br>(mm)</td>
+                <td rowspan="3" colspan="2">压接长度<br>(mm)</td>
+                <td colspan="2" rowspan="2">对边距<br>(mm)</td>
+                <td colspan="2" rowspan="3">压接长度<br>(mm)</td>
+            </tr>
+            <tr style="height: 40px;">
+            </tr>
+            <tr>
+                <td>最大</td>
+                <td>最小</td>
+                <td>最大</td>
+                <td>最小</td>
+                <td>最大</td>
+                <td>最小</td>
+                <td>最大</td>
+                <td>最小</td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq1 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq1 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq1 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq1 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq1 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq1 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq1 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq1 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq2 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq2 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq2 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq2 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq2 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq2 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq2 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq2 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq3 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq3 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq3 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq3 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq3 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq3 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq3 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq3 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq4 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq4 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq4 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq4 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq4 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq4 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq4 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq4 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq5 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq5 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq5 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq5 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq5 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq5 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq5 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq5 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq6 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq6 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq6 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq6 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq6 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq6 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq6 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq6 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq7 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq7 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq7 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq7 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq7 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq7 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq7 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq7 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq8 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq8 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq8 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq8 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq8 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq8 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq8 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq8 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq9 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq9 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq9 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq9 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq9 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq9 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq9 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq9 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq10 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq10 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq10 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq10 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq10 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq10 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq10 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq10 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq11 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq11 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq11 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq11 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq11 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq11 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq11 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq11 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq12 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq12 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq12 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq12 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq12 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq12 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq12 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq12 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq13 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq13 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq13 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq13 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq13 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq13 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq13 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq13 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq14 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq14 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq14 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq14 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq14 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq14 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq14 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq14 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq15 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq15 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq15 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq15 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq15 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq15 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq15 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq15 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq16 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq16 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq16 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq16 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq16 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq16 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq16 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq16 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq17 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq17 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq17 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq17 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq17 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq17 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq17 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq17 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq18 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq18 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq18 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq18 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq18 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq18 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq18 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq18 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq19 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq19 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq19 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq19 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq19 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq19 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq19 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq19 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq20 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq20 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq20 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq20 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq20 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq20 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq20 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq20 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq21 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq21 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq21 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq21 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq21 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq21 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq21 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq1 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq22 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq22 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq22 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq22 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq22 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq22 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq22 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq22 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq23 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq23 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq23 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq23 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq23 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq23 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq23 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq23 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td class="text">
+                    <input type="text" class="text1 yejieguan" style="width: 70px;">
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 dahaonum" style="width: 50px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xianbnum" style="width: 70px;">
+                </td>
+                <td class="text">
+                    <input type="text" class="text1 xiangbnum" style="width: 70px;">
+                </td>
+                <td class="text lqwq24 lqwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lqwq24 lqwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lqlength" style="width: 70px;">
+                </td>
+                <td class="text ggwq24 ggwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ggwq24 ggwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 gqlength" style="width: 70px;">
+                </td>
+                <td class="text lhwq24 lhwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text lhwq24 lhwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 lhlength" style="width: 70px;">
+                </td>
+                <td class="text ghwq24 ghwqmax"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text ghwq24 ghwqmin"
+                    onclick="myObj.showValue(JSON.stringify(event.target.className.split(' ')))">
+
+                </td>
+                <td class="text" colspan="2">
+                    <input type="text" class="text1 ghlength" style="width: 70px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 outercheck" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 yajieren" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 daihao" style="width: 90px;">
+                </td>
+                <td class="text" colspan="3">
+                    <input type="text" class="text1 pingding" style="width: 90px;">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="33">
+                    <img src="file:///android_res/drawable/icon_three.png" width="100%" alt="">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="33" style="text-align: left;padding-left: 60px;">
+                    监理<input type="text" class="jianli">
+                    专职质检员<input type="text" class="zhijianyuan">
+                    施工负责人<input type="text" class="fuzheren">
+                    检查人<input type="text" class="jiancharen">
+                </td>
+            </tr>
+            <!-- <tr id="onTr">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr> -->
+        </table>
+        <div class="imgup">
+            <p>图片上传:</p>
+            <div style="display: flex; margin: 20px 0 20px 20px;">
+                <div style="display: flex;" id="imgcontainer"
+                     onclick="myObj.amplificationPhoto(event.target.src)">
+                </div>
+                <div onclick="myObj.showPhoto()"
+                     style="width: 64px;height: 64px; text-align: center;line-height: 84px;  border: 2px dashed lightgray; border-radius: 8px; margin-left: 20px;">
+                    <img src="file:///android_res/drawable/icon_camera.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="check">
+    <div class="checkbox">
+        <div style="display: flex;align-items: center;">
+            <span>金具复测：</span>
+            <div id="jhege"
+                 style="width: 18px; height: 18px; border-radius: 50%;margin: 0 10px;border: 1px solid #bfbfbf;"></div>
+            <div style="line-height: 18px;">合格</div>
+            <div id="jbuhege"
+                 style="width: 18px; height: 18px;  border-radius: 50%;margin: 0 10px;border: 1px solid #bfbfbf;"></div>
+            <div style="line-height: 18px;">不合格</div>
+        </div>
+        <div style="display: flex;align-items: center;">
+            <span>对边距测量：</span>
+            <div id="dhege"
+                 style="width: 18px; height: 18px; border-radius: 50%;margin: 0 10px;border: 1px solid #bfbfbf;"></div>
+            <div style="line-height: 18px;">合格</div>
+            <div id="dbuhege"
+                 style="width: 18px; height: 18px;  border-radius: 50%;margin: 0 10px;border: 1px solid #bfbfbf;"></div>
+            <div style="line-height: 18px;">不合格</div>
+        </div>
+    </div>
+    <button id="bt_save">保存</button>
+</div>
+<img src="" alt="" id="motai" onclick="myObj.narrowPhoto()"
+     style="position: fixed; top:0;left:0;display: none; width:100%;height:100%;z-index:99;">
+<div class="motai">
+    <div id="tip">
+        <h4>测量</h4>
+        <div>
+            <input class="textinp" type="text">
+            <!-- <input class="textinp" type="text">
+            <input class="textinp" type="text">
+            <input class="textinp" type="text">
+            <input class="textinp" type="text"> -->
+        </div>
+    </div>
+</div>
+<script>
+       function maxormin(va) {
+            var listTest = []
+            va = JSON.parse(va)
+            va.listValue.sort(function (a, b) {
+                return b - a
+            })
+            document.querySelectorAll('.' + va.measureValueJs)[0].innerText = va.listValue[0]
+            document.querySelectorAll('.' + va.measureValueJs)[1].innerText = va.listValue[va.listValue.length - 1]
+            if (va.listValue[0] > va.max || va.listValue[0] < va.min) {
+                document.querySelectorAll('.' + va.measureValueJs)[0].style.color = 'red'
+            } else {
+                document.querySelectorAll('.' + va.measureValueJs)[0].style.color = 'black'
+            }
+            if (va.listValue[va.listValue.length - 1] < va.min || va.listValue[va.listValue.length - 1] > va.max) {
+                document.querySelectorAll('.' + va.measureValueJs)[1].style.color = 'red'
+            } else {
+                document.querySelectorAll('.' + va.measureValueJs)[1].style.color = 'black'
+            }
+
+            var lqwqmax = document.querySelectorAll('.lqwqmax')
+            var lqwqmin = document.querySelectorAll('.lqwqmin')
+            var ggwqmax = document.querySelectorAll('.ggwqmax')
+            var ggwqmin = document.querySelectorAll('.ggwqmin')
+
+            for (var i = 0; i < lqwqmax.length; i++) {
+                listTest.push(lqwqmax[i].style.color)
+                listTest.push(lqwqmin[i].style.color)
+                listTest.push(ggwqmax[i].style.color)
+                listTest.push(ggwqmin[i].style.color)
+            }
+            for (var z = 0; z < listTest.length; z++) {
+                if (listTest[z] == 'red') {
+                    document.querySelector('#jbuhege').style.backgroundColor = 'red';
+                    document.querySelector('#jhege').style.backgroundColor = 'white';
+                    break
+                } else {
+                    document.querySelector('#jbuhege').style.backgroundColor = 'white';
+                    document.querySelector('#jhege').style.backgroundColor = '#00d400';
+                }
+            }
+        }
+
+        function maxorminafter(va) {
+            var listTest = []
+            va = JSON.parse(va)
+            va.listValue.sort(function (a, b) {
+                return b - a
+            })
+            document.querySelectorAll('.' + va.measureValueJs)[0].innerText = va.listValue[0]
+            document.querySelectorAll('.' + va.measureValueJs)[1].innerText = va.listValue[va.listValue.length - 1]
+            if (va.listValue[0] > va.max || va.listValue[0] < va.min) {
+                document.querySelectorAll('.' + va.measureValueJs)[0].style.color = 'red'
+            } else {
+                document.querySelectorAll('.' + va.measureValueJs)[0].style.color = 'black'
+            }
+            if (va.listValue[va.listValue.length - 1] < va.min || va.listValue[va.listValue.length - 1] > va.max) {
+                document.querySelectorAll('.' + va.measureValueJs)[1].style.color = 'red'
+            } else {
+                document.querySelectorAll('.' + va.measureValueJs)[1].style.color = 'black'
+            }
+
+            var lhwqmax = document.querySelectorAll('.lhwqmax')
+            var lhwqmin = document.querySelectorAll('.lhwqmin')
+            var ghwqmax = document.querySelectorAll('.ghwqmax')
+            var ghwqmin = document.querySelectorAll('.ghwqmin')
+
+            for (var i = 0; i < lhwqmax.length; i++) {
+                listTest.push(lhwqmax[i].style.color)
+                listTest.push(lhwqmin[i].style.color)
+                listTest.push(ghwqmax[i].style.color)
+                listTest.push(ghwqmin[i].style.color)
+            }
+            for (var z = 0; z < listTest.length; z++) {
+                if (listTest[z] == 'red') {
+                    document.querySelector('#dbuhege').style.backgroundColor = 'red';
+                    document.querySelector('#dhege').style.backgroundColor = 'white';
+                    break
+                } else {
+                    document.querySelector('#dbuhege').style.backgroundColor = 'white';
+                    document.querySelector('#dhege').style.backgroundColor = '#00d400';
+                }
+            }
+        }
+        var imgUrl = '';
+
+         function resultPhoto(value) {
+            var img = document.createElement('img')
+            img.src = value
+            img.className = 'imgsty'
+            document.querySelector('#imgcontainer').appendChild(img)
+        }
+        function amplificationPhoto(msg){
+            document.querySelector('#motai').style.display= 'inline'
+            document.querySelector('#motai').src = msg
+        }
+        function narrowPhoto(){
+            document.querySelector('#motai').style.display= 'none'
+        }
+        var data = {}
+     function dataText(msg) {
+            //工程名称
+            data.proName = document.querySelector('.proname').value
+            //耐张段施工桩号
+            data.zhuanghaoStr = document.querySelector('.zhuanghao').value
+            //耐张段施工塔号
+            data.tahao = []
+            for (var i = 0; i < document.querySelectorAll('.tahao').length; i++) {
+                data.tahao.push(document.querySelectorAll('.tahao')[i].value)
+            }
+            //导线
+            data.daoxian = document.querySelector('.daoxian').value
+            //地线
+            data.dixian = document.querySelector('.dixian').value
+            //日期
+            data.date = document.querySelector('.date').value
+            //施工桩号
+            data.shigongzhuanghao = []
+            for (var i = 0; i < document.querySelectorAll('.yejieguan').length; i++) {
+                data.shigongzhuanghao.push(document.querySelectorAll('.yejieguan')[i].value)
+            }
+            //相别
+            data.xianbie = []
+            for (var i = 0; i < document.querySelectorAll('.xiangbnum').length; i++) {
+                data.xianbie.push(document.querySelectorAll('.xiangbnum')[i].value)
+            }
+            //大号或小号
+            data.maxOrmin = []
+            for (var i = 0; i < document.querySelectorAll('.dahaonum').length; i++) {
+                data.maxOrmin.push(document.querySelectorAll('.dahaonum')[i].value)
+            }
+            //线别
+            data.xiangbie = []
+            for (var i = 0; i < document.querySelectorAll('.xianbnum').length; i++) {
+                data.xiangbie.push(document.querySelectorAll('.xianbnum')[i].value)
+            }
+            //压前铝管最大
+            data.lyqminmax = []
+            for (var i = 0; i < document.querySelectorAll('.lqwqmax').length; i++) {
+                data.lyqminmax.push(document.querySelectorAll('.lqwqmax')[i].innerText)
+            }
+            //压前铝管最小
+            data.lyqminmin = []
+            for (var i = 0; i < document.querySelectorAll('.lqwqmin').length; i++) {
+                data.lyqminmin.push(document.querySelectorAll('.lqwqmin')[i].innerText)
+            }
+            //压前钢管最大
+            data.gyqminmax = []
+            for (var i = 0; i < document.querySelectorAll('.ggwqmax').length; i++) {
+                data.gyqminmax.push(document.querySelectorAll('.ggwqmax')[i].innerText)
+            }
+            //压前钢管最小
+            data.gyqminmin = []
+            for (var i = 0; i < document.querySelectorAll('.ggwqmin').length; i++) {
+                data.gyqminmin.push(document.querySelectorAll('.ggwqmin')[i].innerText)
+            }
+
+            //压后铝管最大
+            data.lyhminmax = []
+            for (var i = 0; i < document.querySelectorAll('.lhwqmax').length; i++) {
+                data.lyhminmax.push(document.querySelectorAll('.lhwqmax')[i].innerText)
+            }
+            //压后铝管最小
+            data.lyhminmin = []
+            for (var i = 0; i < document.querySelectorAll('.lhwqmin').length; i++) {
+                data.lyhminmin.push(document.querySelectorAll('.lhwqmin')[i].innerText)
+            }
+            //压后钢管最大
+            data.gyhminmax = []
+            for (var i = 0; i < document.querySelectorAll('.ghwqmax').length; i++) {
+                data.gyhminmax.push(document.querySelectorAll('.ghwqmax')[i].innerText)
+            }
+            //压后钢管最小
+            data.gyhminmin = []
+            for (var i = 0; i < document.querySelectorAll('.ghwqmin').length; i++) {
+                data.gyhminmin.push(document.querySelectorAll('.ghwqmin')[i].innerText)
+            }
+
+          data.outercheck = []
+            for (var i = 0; i < document.querySelectorAll('.outercheck').length; i++) {
+                data.outercheck.push(document.querySelectorAll('.outercheck')[i].value)
+            }
+            //压接人
+            data.yajieren = []
+            for (var i = 0; i < document.querySelectorAll('.yajieren').length; i++) {
+                data.yajieren.push(document.querySelectorAll('.yajieren')[i].value)
+            }
+
+            //钢印代号
+            data.daihao = []
+            for (var i = 0; i < document.querySelectorAll('.daihao').length; i++) {
+                data.daihao.push(document.querySelectorAll('.daihao')[i].value)
+            }
+            //评定
+            data.pingding = []
+            for (var i = 0; i < document.querySelectorAll('.pingding').length; i++) {
+                data.pingding.push(document.querySelectorAll('.pingding')[i].value)
+            }
+
+            //压前铝管长度
+            data.lqlength = []
+            for (var i = 0; i < document.querySelectorAll('.lqlength').length; i++) {
+                data.lqlength.push(document.querySelectorAll('.lqlength')[i].value)
+            }
+            //钢管压前长度
+            data.gqlength = []
+            for (var i = 0; i < document.querySelectorAll('.gqlength').length; i++) {
+                data.gqlength.push(document.querySelectorAll('.gqlength')[i].value)
+            }
+            //铝管压后长度
+            data.lhlength = []
+            for (var i = 0; i < document.querySelectorAll('.lhlength').length; i++) {
+                data.lhlength.push(document.querySelectorAll('.lhlength')[i].value)
+            }
+            //钢管压后长度
+            data.ghlength = []
+            for (var i = 0; i < document.querySelectorAll('.ghlength').length; i++) {
+                data.ghlength.push(document.querySelectorAll('.ghlength')[i].value)
+            }
+            //监理
+            data.jianli = document.querySelector('.jianli').value
+            //质检员
+            data.zhijianyuan = document.querySelector('.zhijianyuan').value
+            //负责人
+            data.fuzheren = document.querySelector('.fuzheren').value
+            //检查人
+            data.jiancharen = document.querySelector('.jiancharen').value
+            data.imgUrl = []
+            for (var i = 1; i < document.querySelectorAll('img').length - 2; i++) {
+                data.imgUrl.push(document.querySelectorAll('img')[i].src)
+            }
+
+            if (document.querySelector('#jbuhege').style.backgroundColor == 'red') {
+                data.checked = '不合格'
+            } else {
+                data.checked = '合格'
+            }
+            if (document.querySelector('#dbuhege').style.backgroundColor == 'red') {
+                data.checked1 = '不合格'
+            } else {
+                data.checked1 = '合格'
+            }
+            data = JSON.stringify(data)
+
+        }
+        function getValue (data) {
+            data = JSON.parse(data)
+            //工程名称
+            document.querySelector('.proname').value = data.proName
+            //耐张段施工桩号
+
+            document.querySelector('.zhuanghao').value = data.zhuanghaoStr
+
+            //耐张段施工塔号
+            for (var i = 0; i < document.querySelectorAll('.tahao').length; i++) {
+                document.querySelectorAll('.tahao')[i].value = data.tahao[i]
+            }
+            //导线
+            document.querySelector('.daoxian').value = data.daoxian
+            //地线
+            document.querySelector('.dixian').value = data.daoxian
+            //日期
+            document.querySelector('.date').value = data.date
+            //压接管位置号
+
+
+            for (var i = 0; i < document.querySelectorAll('.yejieguan').length; i++) {
+                document.querySelectorAll('.yejieguan')[i].value = data.shigongzhuanghao[i]
+            }
+            //相别
+
+            for (var i = 0; i < document.querySelectorAll('.xianbnum').length; i++) {
+                document.querySelectorAll('.xianbnum')[i].value = data.xiangbie[i]
+            }
+            //大号或小号
+
+            for (var i = 0; i < document.querySelectorAll('.dahaonum').length; i++) {
+                document.querySelectorAll('.dahaonum')[i].value = data.maxOrmin[i]
+            }
+            //线别
+
+            for (var i = 0; i < document.querySelectorAll('.xiangbnum').length; i++) {
+                document.querySelectorAll('.xiangbnum')[i].value = data.xianbie[i]
+            }
+            //压前铝管最大
+
+            for (var i = 0; i < document.querySelectorAll('.lqwqmax').length; i++) {
+                document.querySelectorAll('.lqwqmax')[i].innerText = data.lyqminmax[i]
+            }
+            //压前铝管最小
+
+            for (var i = 0; i < document.querySelectorAll('.lqwqmin').length; i++) {
+                document.querySelectorAll('.lqwqmin')[i].innerText = data.lyqminmin[i]
+            }
+            //压前钢管最大
+
+            for (var i = 0; i < document.querySelectorAll('.ggwqmax').length; i++) {
+                document.querySelectorAll('.ggwqmax')[i].innerText = data.gyqminmax[i]
+            }
+            //压前钢管最小
+
+            for (var i = 0; i < document.querySelectorAll('.ggwqmin').length; i++) {
+                document.querySelectorAll('.ggwqmin')[i].innerText = data.gyqminmin[i]
+            }
+            //压后铝管最大
+
+            for (var i = 0; i < document.querySelectorAll('.lhwqmax').length; i++) {
+                document.querySelectorAll('.lhwqmax')[i].innerText =  data.lyhminmax[i]
+            }
+            //压后铝管最小
+
+            for (var i = 0; i < document.querySelectorAll('.lhwqmin').length; i++) {
+                document.querySelectorAll('.lhwqmin')[i].innerText = data.lyhminmin[i]
+            }
+            //压后钢管最大
+
+            for (var i = 0; i < document.querySelectorAll('.ghwqmax').length; i++) {
+                document.querySelectorAll('.ghwqmax')[i].innerText = data.gyhminmax[i]
+            }
+            //压后钢管最小
+
+            for (var i = 0; i < document.querySelectorAll('.ghwqmin').length; i++) {
+                document.querySelectorAll('.ghwqmin')[i].innerText = data.gyhminmin[i]
+            }
+
+            for (var i = 0; i < document.querySelectorAll('.outercheck').length; i++) {
+                document.querySelectorAll('.outercheck')[i].value = data.outercheck[i]
+            }
+            //压接人
+
+            for (var i = 0; i < document.querySelectorAll('.yajieren').length; i++) {
+                document.querySelectorAll('.yajieren')[i].value = data.yajieren[i]
+            }
+
+            //钢印代号
+
+            for (var i = 0; i < document.querySelectorAll('.daihao').length; i++) {
+                document.querySelectorAll('.daihao')[i].value =  data.daihao[i]
+            }
+            //评定
+
+            for (var i = 0; i < document.querySelectorAll('.pingding').length; i++) {
+                document.querySelectorAll('.pingding')[i].value = data.pingding[i]
+            }
+
+            //压前铝管
+
+            for (var i = 0; i < document.querySelectorAll('.lqlength').length; i++) {
+                document.querySelectorAll('.lqlength')[i].value = data.lqlength[i]
+            }
+
+            for (var i = 0; i < document.querySelectorAll('.gqlength').length; i++) {
+                document.querySelectorAll('.gqlength')[i].value = data.gqlength[i]
+            }
+
+            for (var i = 0; i < document.querySelectorAll('.lhlength').length; i++) {
+                document.querySelectorAll('.lhlength')[i].value = data.lhlength[i]
+            }
+
+            for (var i = 0; i < document.querySelectorAll('.ghlength').length; i++) {
+                document.querySelectorAll('.ghlength')[i].value = data.ghlength[i]
+            }
+            //监理
+            document.querySelector('.jianli').value = data.jianli
+            //质检员
+            document.querySelector('.zhijianyuan').value = data.zhijianyuan
+            //负责人
+            document.querySelector('.fuzheren').value = data.fuzheren
+            //检查人
+            document.querySelector('.jiancharen').value = data.jiancharen
+
+            for (var i = 0; i < data.imgUrl.length; i++) {
+                var img = document.createElement('img')
+                img.src = data.imgUrl[i]
+                img.className = 'imgsty'
+                document.querySelector('#imgcontainer').appendChild(img)
+            }
+            if (data.checked == '合格') {
+                document.querySelector('#jbuhege').style.backgroundColor = 'white';
+                document.querySelector('#jhege').style.backgroundColor = '#00d400';
+            } else {
+                document.querySelector('#jbuhege').style.backgroundColor = 'red';
+                document.querySelector('#jhege').style.backgroundColor = 'white';
+            }
+            if (data.checked1 == '合格') {
+                document.querySelector('#dbuhege').style.backgroundColor = 'white';
+                document.querySelector('#dhege').style.backgroundColor = '#00d400';
+            } else {
+                document.querySelector('#dbuhege').style.backgroundColor = 'red';
+                document.querySelector('#dhege').style.backgroundColor = 'white';
+            }
+
+        }
+        document.querySelector('#bt_save').addEventListener('click',function (){
+            dataText()
+            myObj.hardwareSave(data)
+        })
+
+     function daoxian (val) {
+            document.querySelector('.daoxian').value = val
+        }
+        function dixian (val) {
+            document.querySelector('.dixian').value = val
+        }
+
+
+
+
+
+
+</script>
+</body>
+
+</html>

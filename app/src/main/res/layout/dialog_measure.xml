@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#4D2B2B2B"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="500dp"
+        android:layout_height="298dp"
+        android:background="@drawable/add_bg"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="30dp"
+                android:text="测量"
+                android:textColor="@color/one_gray"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/ib_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:background="@null"
+                android:padding="10dp"
+                android:src="@drawable/icon_close" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorView" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="34dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_value_one"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/add_edit_bg"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/one_gray"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_value_two"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/add_edit_bg"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/one_gray"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_value_three"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/add_edit_bg"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/one_gray"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_value_four"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/add_edit_bg"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/one_gray"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_value_five"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/add_edit_bg"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/one_gray"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="143dp"
+            android:layout_height="37dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="80dp"
+            android:background="@drawable/tv_sumbit"
+            android:gravity="center"
+            android:text="确定"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

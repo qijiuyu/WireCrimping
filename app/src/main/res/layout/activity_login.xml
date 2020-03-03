@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/icon_bj"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="导线压接质量检测系统"
+            android:textColor="@color/white"
+            android:textSize="40sp" />
+
+        <LinearLayout
+            android:layout_width="365dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="75dp"
+            android:background="@drawable/ll_login_one"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/icon_user" />
+
+            <EditText
+                android:id="@+id/et_account"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="请输入用户名"
+                android:text=""
+                android:textColor="@color/white"
+                android:textColorHint="#c8ffff"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="365dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="13dp"
+            android:background="@drawable/ll_login_one"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/icon_code" />
+
+            <EditText
+                android:id="@+id/et_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:hint="请输入密码"
+                android:text=""
+                android:textColor="@color/white"
+                android:textColorHint="#c8ffff"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="365dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="34dp"
+            android:background="@drawable/ll_login_two"
+            android:gravity="center"
+            android:text="登录"
+            android:textColor="#e2eeff"
+            android:textSize="24sp" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="110dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <View
+                android:layout_width="180dp"
+                android:layout_height="0.5dp"
+                android:background="#c9ffff"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:text="南方电网公司"
+                android:textSize="20sp"
+                android:textColor="@color/white"/>
+            <View
+                android:layout_width="180dp"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="40dp"
+                android:background="#c9ffff"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

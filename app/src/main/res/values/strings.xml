@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">南方电网</string>
+    <string name="action_settings">Settings</string>
+    <string name="standard">&lt;= s=0.86D+0.2(mm)</string>
+    <string name="standard_two">压后&lt;= s=</string>
+    <string name="standard_after">压后&lt;= s=0.86D+0.2(mm)</string>
+    <string name="please_open_blue">请先打开蓝牙</string>
+    <string name="notifyTitle">提示</string>
+    <string name="gpsNotifyMsg">当前手机扫描蓝牙需要打开定位功能。</string>
+    <string name="setting">前往设置</string>
+    <string name="cancel">取消</string>
+    <string name="stop_scan">停止扫描</string>
+    <string name="start_scan">开始扫描</string>
+    <string name="connect_fail">连接失败</string>
+    <string name="active_disconnected">断开了</string>
+    <string name="disconnected">连接断开</string>
+    <string name="disconnected_success">连接成功</string>
+
+    <!-- 提示信息 -->
+    <string name="connect_error">网络连接失败,请检查网络</string>
+    <string name="connect_timeout">连接超时,请稍后再试</string>
+    <string name="bad_network">服务器异常</string>
+    <string name="parse_error">解析服务器响应数据失败</string>
+    <string name="unknown_error">未知错误</string>
+    <string name="response_return_error">服务器返回数据失败</string>
+    <string name="illegal_argument">非法参数</string>
+
+</resources>
