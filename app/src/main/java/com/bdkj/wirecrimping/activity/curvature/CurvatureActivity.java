@@ -437,6 +437,7 @@ public class CurvatureActivity extends BaseActivity {
         EventBus.getDefault().unregister(this);
     }
 
+    private int connectNum=0; //重连次数
     private void startScanAndConnect() {
         ViseBle.getInstance().connectByMac(macAddress, new IConnectCallback() {
             @Override
@@ -449,6 +450,18 @@ public class CurvatureActivity extends BaseActivity {
 
             @Override
             public void onConnectFailure(BleException exception) {
+                //蓝牙连接失败后，就清空下蓝牙缓存数据
+                ViseBle.getInstance().clear();
+                if(connectNum==0){
+                    ++connectNum;
+                    new Handler().postDelayed(new Runnable() {
+                        public void run() {
+                            Log.e("tag","重新扫描连接一次");
+                            startScanAndConnect();
+                        }
+                    },1000);
+                    return;
+                }
                 ToastUtils.showShort(exception.getDescription());
             }
 

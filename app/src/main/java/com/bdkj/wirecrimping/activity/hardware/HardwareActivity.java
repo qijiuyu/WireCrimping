@@ -79,7 +79,7 @@ public class HardwareActivity extends BaseActivity {
     TextView tv_date_time;
 
     private String signStr;
-    private List<String> modelString = new ArrayList<>();
+    private List<String> modelString = new ArrayList<>();//型号
     private List<String> wireString = new ArrayList<>(); //使用导线
     private List<StandardValuesBean.DataBean> dataBeanList = new ArrayList<>();
     private Context mContext;
@@ -95,6 +95,11 @@ public class HardwareActivity extends BaseActivity {
     private List<LocalMedia> selectImgs = new ArrayList<>();
     private CustomPopWindow popWindow;
     public static final int REQUEST_CHOOSEFILE = 0X01;
+    /**
+     * true：蓝牙连接成功
+     * false：蓝牙连接失败
+     */
+    public boolean isConnection=false;
     private Handler mHandler = new Handler();
     private Runnable runnable = new Runnable() {
         @Override
@@ -122,8 +127,6 @@ public class HardwareActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         initDatas();
         initView();
-
-
     }
 
     private void initDatas() {
@@ -170,7 +173,7 @@ public class HardwareActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                //通过mac地址扫描并连接
+                //webview页面加载完毕后通过mac地址扫描并连接
                 startScanAndConnect();
                 if ("1".equals(signStr)) {
                     String filePath = "/storage/emulated/0/金具复测及对边测量/直线液压管/" + DateUtils.getCurrentDateTime() + ".xls";
@@ -300,6 +303,14 @@ public class HardwareActivity extends BaseActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    if(TextUtils.isEmpty(hardwareBean.getDate()) || hardwareBean.getDate().equals("--")){
+                        ToastUtils.showShort("请输入文档右上角的日期");
+                        return;
+                    }
+                    if(TextUtils.isEmpty(hardwareBean.getJianlidate()) || hardwareBean.getJianlidate().equals("--")){
+                        ToastUtils.showShort("请输入监理日期");
+                        return;
+                    }
                     if ("1".equals(signStr)) {
                         HardwareStraightExcel.rwExcel("/storage/emulated/0/金具复测及对边测量/hardware_straight.xls", "/storage/emulated/0/金具复测及对边测量/直线液压管/" + DateUtils.getCurrentDateTime() + ".xls", hardwareBean);
                     } else if ("2".equals(signStr)) {
@@ -521,10 +532,12 @@ public class HardwareActivity extends BaseActivity {
 
 
     //扫描设备并连接
+    private int connectNum=0; //重连次数
     private void startScanAndConnect() {
         ViseBle.getInstance().connectByMac(macAddress, new IConnectCallback() {
             @Override
             public void onConnectSuccess(DeviceMirror deviceMirror) {
+                isConnection=true;
                 ToastUtils.showShort("蓝牙设备连接成功");
                 BluetoothGattChannel bluetoothGattChannel = new BluetoothGattChannel.Builder()
                         .setBluetoothGatt(deviceMirror.getBluetoothGatt())
@@ -547,22 +560,34 @@ public class HardwareActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(BleException exception) {
+                        //蓝牙连接失败后，就清空下蓝牙缓存数据
+                        ViseBle.getInstance().clear();
+                        if(connectNum==0){
+                            ++connectNum;
+                            new Handler().postDelayed(new Runnable() {
+                                public void run() {
+                                    Log.e("tag","重新扫描连接一次");
+                                    startScanAndConnect();
+                                }
+                            },1000);
+                            return;
+                        }
                         ToastUtils.showShort(exception.getDescription());
-
                     }
                 }, bluetoothGattChannel);
+                //在绑定初始化通道后需要注册通知，不然接收不到数据
                 deviceMirror.registerNotify(true);
 
             }
 
             @Override
             public void onConnectFailure(BleException exception) {
+                isConnection=false;
                 ToastUtils.showShort(exception.getDescription());
             }
 
             @Override
             public void onDisconnect(boolean isActive) {
-
             }
         });
     }

@@ -1435,14 +1435,15 @@
 
         var data = {}
         function dataText () {
+             data = {}
             //工程名称
             data.proName = document.querySelector('.proname').value
             //致监理项目部
             data.jianliname = document.querySelector('.jianliname').value
             //耐张段桩号
-            data.zhuanghao = []
+            data.zhuanghao = [];
             for (var i = 0; i <  document.querySelectorAll('.naizhanghao').length; i++) {
-                data.zhuanghao.push( document.querySelectorAll('.naizhanghao')[i].value)
+                data.zhuanghao.push(document.querySelectorAll('.naizhanghao')[i].value)
             }
             //压接管型号
             data.yajieguan = document.querySelector('.yajieguan').value

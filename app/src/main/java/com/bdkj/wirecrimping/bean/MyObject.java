@@ -21,8 +21,8 @@ import java.util.List;
 public class MyObject {
     private Context mcontext;
     private int index = 0;
-    private List<String> data = new ArrayList<>();
-    private List<String> wire = new ArrayList<>();
+    private List<String> data = new ArrayList<>();//型号
+    private List<String> wire = new ArrayList<>();//使用导线
     private String sign;
 
 

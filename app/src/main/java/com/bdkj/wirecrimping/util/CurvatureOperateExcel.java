@@ -95,21 +95,26 @@ public class CurvatureOperateExcel {
             cell = row.getCell(9);
             cell.setCellValue(attributeValuesBean.getWorkprson());
             cell.setCellStyle(style);
-            // 获取第5行 第20列的数据
-            row = sheetAt.getRow(4);
-            cell = row.getCell(19);
-            cell.setCellValue(attributeValuesBean.getDate().substring(0, 4));
-            cell.setCellStyle(style);
-            // 获取第5行 第21列的数据
-            row = sheetAt.getRow(4);
-            cell = row.getCell(20);
-            cell.setCellValue(attributeValuesBean.getDate().substring(5, 7));
-            cell.setCellStyle(style);
-            // 获取第5行 第23列的数据
-            row = sheetAt.getRow(4);
-            cell = row.getCell(22);
-            cell.setCellValue(attributeValuesBean.getDate().substring(8));
-            cell.setCellStyle(style);
+
+            //写入日期
+            String[] rightTime=attributeValuesBean.getDate().split("-");
+            if(rightTime!=null && rightTime.length==3){
+                // 获取第5行 第20列的数据
+                row = sheetAt.getRow(4);
+                cell = row.getCell(19);
+                cell.setCellValue(rightTime[0]);
+                cell.setCellStyle(style);
+                // 获取第5行 第21列的数据
+                row = sheetAt.getRow(4);
+                cell = row.getCell(20);
+                cell.setCellValue(rightTime[1]);
+                cell.setCellStyle(style);
+                // 获取第5行 第23列的数据
+                row = sheetAt.getRow(4);
+                cell = row.getCell(22);
+                cell.setCellValue(rightTime[2]);
+                cell.setCellStyle(style);
+            }
 
             // 获取第6行 第7列的数据
             row = sheetAt.getRow(5);

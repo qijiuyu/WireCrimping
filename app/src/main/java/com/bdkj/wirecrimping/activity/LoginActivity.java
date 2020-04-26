@@ -37,20 +37,21 @@ public class LoginActivity extends BaseActivity {
 
     @OnClick(R.id.tv_login)
     public void login() {
-        if (TextUtils.isEmpty(et_account.getText().toString())) {
+        final String etAccount=et_account.getText().toString().trim();
+        final String etPwd=et_pwd.getText().toString().trim();
+        if (TextUtils.isEmpty(etAccount)) {
             ToastUtils.showShort("用户名不能为空");
             return;
-        } else if (TextUtils.isEmpty(et_pwd.getText().toString())) {
+        }
+        if (TextUtils.isEmpty(etPwd)) {
             ToastUtils.showShort("密码不能为空");
             return;
+        }
+        if (!etAccount.equals(account) || !etPwd.equals(pwd)) {
+            ToastUtils.showShort("账号或密码错误");
+            return;
         } else {
-            if (!et_account.getText().toString().equals(account) || !et_pwd.getText().toString().equals(pwd)) {
-                ToastUtils.showShort("账号或密码错误");
-                return;
-            } else {
-                LoginAccount();
-            }
-
+            LoginAccount();
         }
     }
 

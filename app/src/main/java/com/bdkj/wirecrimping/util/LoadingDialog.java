@@ -30,6 +30,10 @@ public class LoadingDialog extends Dialog {
         this(context, R.style.LoadingDialog, "加载中...", R.drawable.ic_dialog_loading, false);
     }
 
+    public LoadingDialog(Context context,String msg){
+        this(context, R.style.LoadingDialog, msg, R.drawable.ic_dialog_loading, false);
+    }
+
     public LoadingDialog(Context context, int themeResId, String message, int imageId, boolean cancelable) {
         super(context, themeResId);
         mMessage = message;

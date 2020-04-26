@@ -90,21 +90,28 @@ public class HardwareStraightExcel {
             cell = row.getCell(15);
             cell.setCellValue(hardwareBean.getWorkzhijianyuan());
             cell.setCellStyle(style);
-            // 获取第6行 第22列的数据
-            row = sheetAt.getRow(5);
-            cell = row.getCell(21);
-            cell.setCellValue(hardwareBean.getDate().substring(0, 4));
-            cell.setCellStyle(style);
-            // 获取第6行 第24列的数据
-            row = sheetAt.getRow(5);
-            cell = row.getCell(23);
-            cell.setCellValue(hardwareBean.getDate().substring(5, 7));
-            cell.setCellStyle(style);
-            // 获取第6行 第25列的数据
-            row = sheetAt.getRow(5);
-            cell = row.getCell(24);
-            cell.setCellValue(hardwareBean.getDate().substring(8));
-            cell.setCellStyle(style);
+
+            //写入右上角时间
+            String[] rightTime=hardwareBean.getDate().split("-");
+            if(rightTime!=null && rightTime.length==3){
+                // 获取第6行 第22列的数据
+                row = sheetAt.getRow(5);
+                cell = row.getCell(21);
+                cell.setCellValue(rightTime[0]);
+                cell.setCellStyle(style);
+                // 获取第6行 第24列的数据
+                row = sheetAt.getRow(5);
+                cell = row.getCell(23);
+                cell.setCellValue(rightTime[1]);
+                cell.setCellStyle(style);
+                // 获取第6行 第25列的数据
+                row = sheetAt.getRow(5);
+                cell = row.getCell(24);
+                cell.setCellValue(rightTime[2]);
+                cell.setCellStyle(style);
+            }
+
+
             // 获取第7行 第9列的数据
             row = sheetAt.getRow(6);
             cell = row.getCell(8);
@@ -395,21 +402,27 @@ public class HardwareStraightExcel {
             cell = row.getCell(20);
             cell.setCellValue(hardwareBean.getJianliren());
             cell.setCellStyle(style);
-            // 获取第42行 第26列的数据
-            row = sheetAt.getRow(41);
-            cell = row.getCell(25);
-            cell.setCellValue(hardwareBean.getJianlidate().substring(0, 4));
-            cell.setCellStyle(style);
-            // 获取第42行 第28列的数据
-            row = sheetAt.getRow(41);
-            cell = row.getCell(27);
-            cell.setCellValue(hardwareBean.getJianlidate().substring(5, 7));
-            cell.setCellStyle(style);
-            // 获取第42行 第30列的数据
-            row = sheetAt.getRow(41);
-            cell = row.getCell(29);
-            cell.setCellValue(hardwareBean.getJianlidate().substring(8));
-            cell.setCellStyle(style);
+
+            //写入监理时间
+            String[] JianLiTime=hardwareBean.getJianlidate().split("-");
+            if(JianLiTime!=null && JianLiTime.length==3){
+                // 获取第42行 第26列的数据
+                row = sheetAt.getRow(41);
+                cell = row.getCell(25);
+                cell.setCellValue(JianLiTime[0]);
+                cell.setCellStyle(style);
+                // 获取第42行 第28列的数据
+                row = sheetAt.getRow(41);
+                cell = row.getCell(27);
+                cell.setCellValue(JianLiTime[1]);
+                cell.setCellStyle(style);
+                // 获取第42行 第30列的数据
+                row = sheetAt.getRow(41);
+                cell = row.getCell(29);
+                cell.setCellValue(JianLiTime[2]);
+                cell.setCellStyle(style);
+            }
+
 
             // 获取第46行 第14列的数据
             row = sheetAt.getRow(45);
@@ -465,6 +478,7 @@ public class HardwareStraightExcel {
 
         } catch (Exception e) {
             e.printStackTrace();
+            ToastUtils.showLong("Excel文档保存失败");
         } finally {
             if (fis != null) {
                 try {

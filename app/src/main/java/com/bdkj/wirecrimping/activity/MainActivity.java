@@ -3,6 +3,7 @@ package com.bdkj.wirecrimping.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -13,6 +14,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import com.bdkj.wirecrimping.Constant;
 import com.bdkj.wirecrimping.R;
@@ -84,6 +87,12 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        PermissionUtil.getPermission(this,true,true);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         mHandler.post(runnable);
@@ -105,6 +114,7 @@ public class MainActivity extends BaseActivity {
             case R.id.tv_title_two:
                 startActivity(new Intent(MainActivity.this, HardwareAndCurvatureActivity.class).putExtra("enterSign", "2"));
                 break;
+            //菜单
             case R.id.ll_menu:
                 View contentView = LayoutInflater.from(this).inflate(R.layout.popwindow_menu_layout, null);
                 //处理popWindow 显示内容
