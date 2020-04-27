@@ -23,6 +23,9 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <!--开机启动权限-->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--在sdcard中创建/删除文件的权限 -->
+    <uses-permission android:name="android.permission.MOUNT_FORMAT_FILESYSTEMS" />
 
     <application
         android:name=".MyApplication"

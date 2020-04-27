@@ -1,7 +1,7 @@
 package com.bdkj.wirecrimping.util;
 
 import android.graphics.Bitmap;
-import android.util.Log;
+import android.text.TextUtils;
 
 import com.bdkj.wirecrimping.bean.HardwareBean;
 
@@ -44,6 +44,7 @@ public class HardwareStraightExcel {
         Workbook workBook = null;
         FileInputStream fis = null;
         FileOutputStream fos = null;
+        Bitmap bitmap=null;
         try {
             boolean isFiled = null != filePath && !filePath.equals("")
                     && filePath.substring(filePath.length() - 4, filePath.length()).equals(".xls");
@@ -61,7 +62,7 @@ public class HardwareStraightExcel {
             //创建边框及字体颜色等
             CellStyle style = setFount(workBook);
             style.setBorderBottom(BorderStyle.THIN);
-            style.setBorderRight(BorderStyle.NONE);
+            style.setBorderLeft(BorderStyle.THIN);
             // 获取第3行 第3列的单位格
             Row row = sheetAt.getRow(2);
             Cell cell = row.getCell(2);
@@ -475,36 +476,41 @@ public class HardwareStraightExcel {
 
             style = setFount(workBook);
             cell.setCellStyle(style);
-//            Log.e("tag",hardwareBean.getImgUrl().size()+"+++++++++++++++++");
-            Log.e("tag",hardwareBean.getImgUrl().get(0)+"+++++++++++++++++");
             // 插入图片
-            String imgPath=hardwareBean.getImgUrl().get(0);
-			if (null != imgPath && !imgPath.equals("") && null != newFilePath && !newFilePath.equals("")) {
-				// 写入内存
-//				 BufferedImage bufferImg = null;
-				 ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
-//				 bufferImg = ImageIO.read(new File(imgPath));
-//				 ImageIO.write(bufferImg, "jpg", byteArrayOut);
+            if(hardwareBean.getImgUrl()!=null){
+                int cellNum=0;
+                for(int i=0;i<hardwareBean.getImgUrl().size();i++){
+                    String imgPath=hardwareBean.getImgUrl().get(i);
+                    if (!TextUtils.isEmpty(imgPath)) {
+                        if(imgPath.startsWith("file://")){
+                            imgPath=imgPath.replace("file://","");
+                        }
+                        // 写入内存
+                        ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
+                        bitmap=BitMapUtil.openImage(imgPath);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOut);
+                        fis = new FileInputStream(imgPath);
+                        byte[] bytes = IOUtils.toByteArray(fis);
+                        // 创建一个新的excel
+                        File file = new File(newFilePath);
+                        // 读取excel
+                        fos = new FileOutputStream(file);
+                        HSSFPatriarch patriarch = (HSSFPatriarch) sheetAt.createDrawingPatriarch();
+                        // 设置图片位置
+                        cellNum=cellNum+3;
+                        HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 1000, 100, (short) (cellNum+i), 42, (short) (cellNum+3+i), 43);
+                        patriarch.createPicture(anchor, workBook.addPicture(bytes, HSSFWorkbook.PICTURE_TYPE_JPEG));
+                        // 写入
+                        workBook.write(fos);
 
+                        if(bitmap!=null){
+                            bitmap.recycle();
+                            bitmap=null;
+                        }
+                    }
+                }
+            }
 
-                Bitmap bitmap=BitMapUtil.openImage(imgPath);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOut);
-                Log.e("tag","++++++++++++++++++++++++22");
-				fis = new FileInputStream(imgPath);
-                Log.e("tag","++++++++++++++++++++++++33");
-				byte[] bytes = IOUtils.toByteArray(fis);
-				// 创建一个新的excel
-				File file = new File(newFilePath);
-				// 读取excel
-				fos = new FileOutputStream(file);
-				HSSFPatriarch patriarch = (HSSFPatriarch) sheetAt.createDrawingPatriarch();
-				// 设置图片位置
-				HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 1023, 100, (short) 3, 7, (short) 6, 8);
-				patriarch.createPicture(anchor, workBook.addPicture(bytes, HSSFWorkbook.PICTURE_TYPE_JPEG));
-				// 写入
-				workBook.write(fos);
-				System.out.println("success!");
-			}
             fos = new FileOutputStream(newFilePath);
             // 写入
             workBook.write(fos);

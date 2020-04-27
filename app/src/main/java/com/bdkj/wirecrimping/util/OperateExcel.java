@@ -1,7 +1,12 @@
 package com.bdkj.wirecrimping.util;
 
+import android.graphics.Bitmap;
+import android.text.TextUtils;
+
 import com.bdkj.wirecrimping.bean.AttributeValuesBean;
 
+import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
+import org.apache.poi.hssf.usermodel.HSSFPatriarch;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -11,7 +16,10 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.util.IOUtils;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -36,6 +44,7 @@ public class OperateExcel {
         Workbook workBook = null;
         FileInputStream fis = null;
         FileOutputStream fos = null;
+        Bitmap bitmap=null;
         try {
             boolean isFiled = null != filePath && !filePath.equals("")
                     && filePath.substring(filePath.length() - 4, filePath.length()).equals(".xls");
@@ -157,27 +166,43 @@ public class OperateExcel {
             font.setColor(Font.COLOR_RED);
             style.setFont(font);
             cell.setCellStyle(style);
+
             // 插入图片
-//			if (null != imgPath && !imgPath.equals("") && null != newFilePath && !newFilePath.equals("")) {
-//				// 写入内存
-//				// BufferedImage bufferImg = null;
-//				// ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
-//				// bufferImg = ImageIO.read(new File(imgPath));
-//				// ImageIO.write(bufferImg, "jpg", byteArrayOut);
-//				fis = new FileInputStream(imgPath);
-//				byte[] bytes = IOUtils.toByteArray(fis);
-//				// 创建一个新的excel
-//				File file = new File(newFilePath);
-//				// 读取excel
-//				fos = new FileOutputStream(file);
-//				HSSFPatriarch patriarch = (HSSFPatriarch) sheetAt.createDrawingPatriarch();
-//				// 设置图片位置
-//				HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 1023, 100, (short) 3, 7, (short) 6, 8);
-//				patriarch.createPicture(anchor, workBook.addPicture(bytes, HSSFWorkbook.PICTURE_TYPE_JPEG));
-//				// 写入
-//				workBook.write(fos);
-//				System.out.println("success!");
-//			}
+            if(attributeValuesBean.getImgUrl()!=null){
+                int cellNum=0;
+                for(int i=0;i<attributeValuesBean.getImgUrl().size();i++){
+                    String imgPath=attributeValuesBean.getImgUrl().get(i);
+                    if (!TextUtils.isEmpty(imgPath)) {
+                        if(imgPath.startsWith("file://")){
+                            imgPath=imgPath.replace("file://","");
+                        }
+                        // 写入内存
+                        ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
+                        bitmap=BitMapUtil.openImage(imgPath);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOut);
+                        fis = new FileInputStream(imgPath);
+                        byte[] bytes = IOUtils.toByteArray(fis);
+                        // 创建一个新的excel
+                        File file = new File(newFilePath);
+                        // 读取excel
+                        fos = new FileOutputStream(file);
+                        HSSFPatriarch patriarch = (HSSFPatriarch) sheetAt.createDrawingPatriarch();
+                        // 设置图片位置
+                        cellNum=cellNum+3;
+                        HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 1023, 100, (short) 3, 7, (short) 6, 8);
+                        patriarch.createPicture(anchor, workBook.addPicture(bytes, HSSFWorkbook.PICTURE_TYPE_JPEG));
+                        // 写入
+                        workBook.write(fos);
+
+                        if(bitmap!=null){
+                            bitmap.recycle();
+                            bitmap=null;
+                        }
+                    }
+                }
+            }
+
+
             fos = new FileOutputStream(newFilePath);
             // 写入
             workBook.write(fos);

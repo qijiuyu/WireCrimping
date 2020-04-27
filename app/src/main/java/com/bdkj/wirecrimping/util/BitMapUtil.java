@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,6 +19,10 @@ public class BitMapUtil {
     public static Bitmap openImage(String path){
         Bitmap bitmap = null;
         try {
+            File dir = new File(path);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
             BufferedInputStream bis = new BufferedInputStream(new FileInputStream(path));
             bitmap = BitmapFactory.decodeStream(bis);
             bis.close();

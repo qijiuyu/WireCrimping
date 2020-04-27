@@ -29,6 +29,7 @@ public class PermissionUtil {
                 //所需危险权限可以在此处添加：
                 Permission.READ_PHONE_STATE,
                 Permission.WRITE_EXTERNAL_STORAGE,
+                Permission.READ_EXTERNAL_STORAGE,
                 Permission.ACCESS_FINE_LOCATION,
                 Permission.ACCESS_COARSE_LOCATION)
                 ) {
