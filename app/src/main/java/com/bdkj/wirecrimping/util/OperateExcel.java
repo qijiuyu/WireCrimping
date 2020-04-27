@@ -85,7 +85,7 @@ public class OperateExcel {
             // 获取第3行 第19列的数据
             row = sheetAt.getRow(2);
             cell = row.getCell(16);
-            cell.setCellValue(attributeValuesBean.getDaoxiannum() + "\\r\\n" + attributeValuesBean.getDixiannum());
+            cell.setCellValue(attributeValuesBean.getDaoxiannum() + "\r\n" + attributeValuesBean.getDixiannum());
             cell.setCellStyle(style);
             // 获取第3行 第25列的数据
             row = sheetAt.getRow(2);

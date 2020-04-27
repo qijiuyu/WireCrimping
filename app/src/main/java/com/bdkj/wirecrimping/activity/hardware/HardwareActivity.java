@@ -560,19 +560,7 @@ public class HardwareActivity extends BaseActivity {
 
                     @Override
                     public void onFailure(BleException exception) {
-                        //蓝牙连接失败后，就清空下蓝牙缓存数据
-                        ViseBle.getInstance().clear();
-                        if(connectNum==0){
-                            ++connectNum;
-                            new Handler().postDelayed(new Runnable() {
-                                public void run() {
-                                    Log.e("tag","重新扫描连接一次");
-                                    startScanAndConnect();
-                                }
-                            },1000);
-                            return;
-                        }
-                        ToastUtils.showShort(exception.getDescription());
+
                     }
                 }, bluetoothGattChannel);
                 //在绑定初始化通道后需要注册通知，不然接收不到数据
@@ -583,6 +571,18 @@ public class HardwareActivity extends BaseActivity {
             @Override
             public void onConnectFailure(BleException exception) {
                 isConnection=false;
+                //蓝牙连接失败后，就清空下蓝牙缓存数据
+                ViseBle.getInstance().clear();
+                if(connectNum==0){
+                    ++connectNum;
+                    new Handler().postDelayed(new Runnable() {
+                        public void run() {
+                            Log.e("tag","重新扫描连接一次");
+                            startScanAndConnect();
+                        }
+                    },1000);
+                    return;
+                }
                 ToastUtils.showShort(exception.getDescription());
             }
 

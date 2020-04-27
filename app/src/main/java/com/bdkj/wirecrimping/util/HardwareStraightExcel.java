@@ -1,7 +1,12 @@
 package com.bdkj.wirecrimping.util;
 
+import android.graphics.Bitmap;
+import android.util.Log;
+
 import com.bdkj.wirecrimping.bean.HardwareBean;
 
+import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
+import org.apache.poi.hssf.usermodel.HSSFPatriarch;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -11,12 +16,30 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.util.IOUtils;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class HardwareStraightExcel {
+
+    public static CellStyle setFount(Workbook workBook){
+        // 创建字体
+        Font font = workBook.createFont();
+        font.setFontName("黑体");
+        font.setFontHeightInPoints((short) 11);// 字体大小
+        // 设置字体的颜色
+        font.setColor(Font.COLOR_RED);
+        CellStyle style = workBook.createCellStyle();
+        // 垂直居中
+        style.setVerticalAlignment(VerticalAlignment.CENTER);
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setFont(font);
+        return style;
+    }
     public static void rwExcel(String filePath, String newFilePath, HardwareBean hardwareBean) {
         Workbook workBook = null;
         FileInputStream fis = null;
@@ -35,19 +58,10 @@ public class HardwareStraightExcel {
             }
             // 获取第一个sheet页
             org.apache.poi.ss.usermodel.Sheet sheetAt = workBook.getSheetAt(0);
-            CellStyle style = workBook.createCellStyle();
-            // 创建字体
-            Font font = workBook.createFont();
-            font.setFontName("黑体");
-            font.setFontHeightInPoints((short) 11);// 字体大小
-            // 设置字体的颜色
-            font.setColor(Font.COLOR_RED);
-            style.setFont(font);
-            // 设置上边框
-            style.setBorderTop(BorderStyle.THIN);
-            // 垂直居中
-            style.setVerticalAlignment(VerticalAlignment.CENTER);
-            style.setAlignment(HorizontalAlignment.CENTER);
+            //创建边框及字体颜色等
+            CellStyle style = setFount(workBook);
+            style.setBorderBottom(BorderStyle.THIN);
+            style.setBorderRight(BorderStyle.NONE);
             // 获取第3行 第3列的单位格
             Row row = sheetAt.getRow(2);
             Cell cell = row.getCell(2);
@@ -58,20 +72,25 @@ public class HardwareStraightExcel {
             row = sheetAt.getRow(3);
             cell = row.getCell(3);
             cell.setCellValue(hardwareBean.getJianliname());
-            cell.setCellStyle(style);
+            //创建边框及字体颜色等
+            CellStyle style1 = setFount(workBook);
+            style1.setBorderTop(BorderStyle.THIN);
+            cell.setCellStyle(style1);
             for (int i = 0; i < hardwareBean.getZhuanghao().size(); i++) {
+                //创建边框及字体颜色等
+                CellStyle style2 = setFount(workBook);
                 if (i == 0) {
                     // 获取第5行 第5列的数据
                     row = sheetAt.getRow(4);
                     cell = row.getCell(4);
                     cell.setCellValue(hardwareBean.getZhuanghao().get(0));
-                    cell.setCellStyle(style);
+                    cell.setCellStyle(style2);
                 } else if (i == 1) {
-                    // 获取第5行 第6列的数据
+                    // 获取第5行 第7列的数据
                     row = sheetAt.getRow(4);
-                    cell = row.getCell(5);
+                    cell = row.getCell(6);
                     cell.setCellValue(hardwareBean.getZhuanghao().get(i));
-                    cell.setCellStyle(style);
+                    cell.setCellStyle(style2);
                 }
 
             }
@@ -79,38 +98,46 @@ public class HardwareStraightExcel {
             row = sheetAt.getRow(4);
             cell = row.getCell(9);
             cell.setCellValue(hardwareBean.getYajieguan());
-            cell.setCellStyle(style);
+            //创建边框及字体颜色等
+            CellStyle style3 = setFount(workBook);
+            cell.setCellStyle(style3);
             // 获取第6行 第6列的数据
             row = sheetAt.getRow(5);
             cell = row.getCell(5);
             cell.setCellValue(hardwareBean.getProzhijianyuan());
-            cell.setCellStyle(style);
-            // 获取第6行 第16列的数据
+            //创建边框及字体颜色等
+            CellStyle style4 = setFount(workBook);
+            style4.setBorderBottom(BorderStyle.THIN);
+            cell.setCellStyle(style4);
+            // 获取第6行 第17列的数据
             row = sheetAt.getRow(5);
-            cell = row.getCell(15);
+            cell = row.getCell(16);
             cell.setCellValue(hardwareBean.getWorkzhijianyuan());
-            cell.setCellStyle(style);
+            cell.setCellStyle(style4);
 
             //写入右上角时间
             String[] rightTime=hardwareBean.getDate().split("-");
             if(rightTime!=null && rightTime.length==3){
-                // 获取第6行 第22列的数据
+                //创建边框及字体颜色等
+                CellStyle style5 = setFount(workBook);
+                style5.setBorderBottom(BorderStyle.THIN);
+
+                // 获取第6行 第23列的数据
                 row = sheetAt.getRow(5);
-                cell = row.getCell(21);
+                cell = row.getCell(22);
                 cell.setCellValue(rightTime[0]);
-                cell.setCellStyle(style);
-                // 获取第6行 第24列的数据
-                row = sheetAt.getRow(5);
-                cell = row.getCell(23);
-                cell.setCellValue(rightTime[1]);
-                cell.setCellStyle(style);
+                cell.setCellStyle(style5);
                 // 获取第6行 第25列的数据
                 row = sheetAt.getRow(5);
                 cell = row.getCell(24);
+                cell.setCellValue(rightTime[1]);
+                cell.setCellStyle(style5);
+                // 获取第6行 第27列的数据
+                row = sheetAt.getRow(5);
+                cell = row.getCell(26);
                 cell.setCellValue(rightTime[2]);
-                cell.setCellStyle(style);
+                cell.setCellStyle(style5);
             }
-
 
             // 获取第7行 第9列的数据
             row = sheetAt.getRow(6);
@@ -401,26 +428,32 @@ public class HardwareStraightExcel {
             row = sheetAt.getRow(41);
             cell = row.getCell(20);
             cell.setCellValue(hardwareBean.getJianliren());
-            cell.setCellStyle(style);
+            //创建边框及字体颜色等
+            CellStyle style6 = setFount(workBook);
+            style6.setBorderBottom(BorderStyle.THIN);
+            cell.setCellStyle(style6);
 
             //写入监理时间
             String[] JianLiTime=hardwareBean.getJianlidate().split("-");
             if(JianLiTime!=null && JianLiTime.length==3){
+                //创建边框及字体颜色等
+                CellStyle style7 = setFount(workBook);
+                style7.setBorderBottom(BorderStyle.THIN);
                 // 获取第42行 第26列的数据
                 row = sheetAt.getRow(41);
                 cell = row.getCell(25);
                 cell.setCellValue(JianLiTime[0]);
-                cell.setCellStyle(style);
+                cell.setCellStyle(style7);
                 // 获取第42行 第28列的数据
                 row = sheetAt.getRow(41);
                 cell = row.getCell(27);
                 cell.setCellValue(JianLiTime[1]);
-                cell.setCellStyle(style);
+                cell.setCellStyle(style7);
                 // 获取第42行 第30列的数据
                 row = sheetAt.getRow(41);
                 cell = row.getCell(29);
                 cell.setCellValue(JianLiTime[2]);
-                cell.setCellStyle(style);
+                cell.setCellStyle(style7);
             }
 
 
@@ -440,36 +473,38 @@ public class HardwareStraightExcel {
             cell = row.getCell(13);
             cell.setCellValue(hardwareBean.getChecked1());
 
-            style = workBook.createCellStyle();
-            style.setVerticalAlignment(VerticalAlignment.CENTER);
-            font = workBook.createFont();
-            font.setFontName("黑体");
-            font.setFontHeightInPoints((short) 11);// 字体大小
-            // 设置字体的颜色
-            font.setColor(Font.COLOR_RED);
-            style.setFont(font);
+            style = setFount(workBook);
             cell.setCellStyle(style);
+//            Log.e("tag",hardwareBean.getImgUrl().size()+"+++++++++++++++++");
+            Log.e("tag",hardwareBean.getImgUrl().get(0)+"+++++++++++++++++");
             // 插入图片
-//			if (null != imgPath && !imgPath.equals("") && null != newFilePath && !newFilePath.equals("")) {
-//				// 写入内存
-//				// BufferedImage bufferImg = null;
-//				// ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
-//				// bufferImg = ImageIO.read(new File(imgPath));
-//				// ImageIO.write(bufferImg, "jpg", byteArrayOut);
-//				fis = new FileInputStream(imgPath);
-//				byte[] bytes = IOUtils.toByteArray(fis);
-//				// 创建一个新的excel
-//				File file = new File(newFilePath);
-//				// 读取excel
-//				fos = new FileOutputStream(file);
-//				HSSFPatriarch patriarch = (HSSFPatriarch) sheetAt.createDrawingPatriarch();
-//				// 设置图片位置
-//				HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 1023, 100, (short) 3, 7, (short) 6, 8);
-//				patriarch.createPicture(anchor, workBook.addPicture(bytes, HSSFWorkbook.PICTURE_TYPE_JPEG));
-//				// 写入
-//				workBook.write(fos);
-//				System.out.println("success!");
-//			}
+            String imgPath=hardwareBean.getImgUrl().get(0);
+			if (null != imgPath && !imgPath.equals("") && null != newFilePath && !newFilePath.equals("")) {
+				// 写入内存
+//				 BufferedImage bufferImg = null;
+				 ByteArrayOutputStream byteArrayOut = new ByteArrayOutputStream();
+//				 bufferImg = ImageIO.read(new File(imgPath));
+//				 ImageIO.write(bufferImg, "jpg", byteArrayOut);
+
+
+                Bitmap bitmap=BitMapUtil.openImage(imgPath);
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOut);
+                Log.e("tag","++++++++++++++++++++++++22");
+				fis = new FileInputStream(imgPath);
+                Log.e("tag","++++++++++++++++++++++++33");
+				byte[] bytes = IOUtils.toByteArray(fis);
+				// 创建一个新的excel
+				File file = new File(newFilePath);
+				// 读取excel
+				fos = new FileOutputStream(file);
+				HSSFPatriarch patriarch = (HSSFPatriarch) sheetAt.createDrawingPatriarch();
+				// 设置图片位置
+				HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 1023, 100, (short) 3, 7, (short) 6, 8);
+				patriarch.createPicture(anchor, workBook.addPicture(bytes, HSSFWorkbook.PICTURE_TYPE_JPEG));
+				// 写入
+				workBook.write(fos);
+				System.out.println("success!");
+			}
             fos = new FileOutputStream(newFilePath);
             // 写入
             workBook.write(fos);

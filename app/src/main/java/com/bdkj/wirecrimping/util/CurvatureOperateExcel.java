@@ -104,14 +104,14 @@ public class CurvatureOperateExcel {
                 cell = row.getCell(19);
                 cell.setCellValue(rightTime[0]);
                 cell.setCellStyle(style);
-                // 获取第5行 第21列的数据
+                // 获取第5行 第22列的数据
                 row = sheetAt.getRow(4);
-                cell = row.getCell(20);
+                cell = row.getCell(21);
                 cell.setCellValue(rightTime[1]);
                 cell.setCellStyle(style);
-                // 获取第5行 第23列的数据
+                // 获取第5行 第24列的数据
                 row = sheetAt.getRow(4);
-                cell = row.getCell(22);
+                cell = row.getCell(23);
                 cell.setCellValue(rightTime[2]);
                 cell.setCellStyle(style);
             }

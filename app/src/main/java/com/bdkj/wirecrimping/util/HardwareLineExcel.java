@@ -63,27 +63,27 @@ public class HardwareLineExcel {
                 cell.setCellStyle(style);
                 for (int i = 0; i < hardwareTwoBean.getTahao().size(); i++) {
                     if (i == 0) {
-                        // 获取第3行 第11列的数据
+                        // 获取第3行 第10列的数据
                         row = sheetAt.getRow(2);
-                        cell = row.getCell(10);
+                        cell = row.getCell(9);
                         cell.setCellValue(hardwareTwoBean.getTahao().get(i));
                         cell.setCellStyle(style);
                     } else {
-                        // 获取第3行 第13列的数据
+                        // 获取第3行 第12列的数据
                         row = sheetAt.getRow(2);
-                        cell = row.getCell(12);
+                        cell = row.getCell(11);
                         cell.setCellValue(hardwareTwoBean.getTahao().get(i));
                         cell.setCellStyle(style);
                     }
                 }
-                // 获取第3行 第17列的数据
+                // 获取第3行 第15列的数据
                 row = sheetAt.getRow(2);
-                cell = row.getCell(16);
+                cell = row.getCell(14);
                 cell.setCellValue(hardwareTwoBean.getDaoxian());
                 cell.setCellStyle(style);
-                // 获取第3行 第19列的数据
+                // 获取第3行 第18列的数据
                 row = sheetAt.getRow(2);
-                cell = row.getCell(18);
+                cell = row.getCell(17);
                 cell.setCellValue(hardwareTwoBean.getDate());
                 cell.setCellStyle(style);
                 // 获取第7 - 31行 第1列的数据
@@ -297,15 +297,15 @@ public class HardwareLineExcel {
                 }
                 // 获取第7 - 31行 第20列的数据
                 int vv = 6;
-                for (int i = 0; i < hardwareTwoBean.getPingding().size(); i++) {
-                    row = sheetAt.getRow(vv);
-                    cell = row.getCell(19);
-                    cell.setCellValue(hardwareTwoBean.getPingding().get(i));
-                    style.setBorderBottom(BorderStyle.THIN);
-                    style.setBorderRight(BorderStyle.THIN);
-                    cell.setCellStyle(style);
-                    vv = vv + 1;
-                }
+//                for (int i = 0; i < hardwareTwoBean.getPingding().size(); i++) {
+//                    row = sheetAt.getRow(vv);
+//                    cell = row.getCell(19);
+//                    cell.setCellValue(hardwareTwoBean.getPingding().get(i));
+//                    style.setBorderBottom(BorderStyle.THIN);
+//                    style.setBorderRight(BorderStyle.THIN);
+//                    cell.setCellStyle(style);
+//                    vv = vv + 1;
+//                }
 
 
             } else {
@@ -340,9 +340,9 @@ public class HardwareLineExcel {
                         cell.setCellStyle(style);
                     }
                 }
-                // 获取第3行 第16列的数据
+                // 获取第3行 第15列的数据
                 row = sheetAt.getRow(2);
-                cell = row.getCell(15);
+                cell = row.getCell(14);
                 cell.setCellValue(hardwareTwoBean.getDaoxian());
                 cell.setCellStyle(style);
                 // 获取第3行 第18列的数据

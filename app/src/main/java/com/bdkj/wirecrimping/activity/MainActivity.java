@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import com.bdkj.wirecrimping.Constant;
 import com.bdkj.wirecrimping.R;
 import com.bdkj.wirecrimping.util.OpenFileUtils;
+import com.bdkj.wirecrimping.util.PermissionUtil;
 import com.bdkj.wirecrimping.util.SpUtils;
 import com.bdkj.wirecrimping.util.ToastUtils;
 import com.example.zhouwei.library.CustomPopWindow;
@@ -89,7 +90,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        PermissionUtil.getPermission(this,true,true);
+        PermissionUtil.getPermission(this,true,true);
     }
 
     @Override
