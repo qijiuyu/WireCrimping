@@ -59,7 +59,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -162,8 +164,7 @@ public class HardwareActivity extends BaseActivity {
         wv_hardware_straight.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.startsWith("http://")
-                        || url.startsWith("https://")) {
+                if (url.startsWith("http://") || url.startsWith("https://")) {
                     view.loadUrl(url);
                     return true;
                 }
@@ -173,102 +174,17 @@ public class HardwareActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                //webview页面加载完毕后通过mac地址扫描并连接
+                /**
+                 * 去扫描并连接蓝牙
+                 */
                 startScanAndConnect();
-                if ("1".equals(signStr)) {
-                    String filePath = "/storage/emulated/0/金具复测及对边测量/直线液压管/" + DateUtils.getCurrentDateTime() + ".xls";
-                    File file = new File(filePath);
-                    if (file.exists()) {
-                        String aaaa = SpUtils.getInstance(mContext).getString(Constant.HARDWARESTRAIGHTSAVE);
-                        HardwareBean hardwareBean = (HardwareBean) JsonUtil.stringToObject(aaaa, HardwareBean.class);
-                        if (!TextUtils.isEmpty(hardwareBean.getYajieguan())) {
-                            SpUtils.getInstance(mContext).savaString(Constant.MODEL, hardwareBean.getYajieguan());
-                            for (int i = 0; i < dataBeanList.size(); i++) {
-                                if (hardwareBean.getYajieguan().equals(dataBeanList.get(i).getModel())) {
-                                    hardwareBean.setGsValue(JsonUtil.objectToString(dataBeanList.get(i)));
-                                }
-                            }
 
-                        }
-                        String bbbb = JsonUtil.objectToString(hardwareBean);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                wv_hardware_straight.loadUrl("javascript:getValue('" + aaaa + "')");
-                            }
-                        });
-                    }
-                } else if ("2".equals(signStr)) {
-                    String filePath = "/storage/emulated/0/金具复测及对边测量/耐张液压管/" + DateUtils.getCurrentDateTime() + ".xls";
-                    File file = new File(filePath);
-                    if (file.exists()) {
-                        String aaaa = SpUtils.getInstance(mContext).getString(Constant.HARDWARETENSIONSAVE);
-                        HardwareBean hardwareBean = (HardwareBean) JsonUtil.stringToObject(aaaa, HardwareBean.class);
-                        if (!TextUtils.isEmpty(hardwareBean.getYajieguan())) {
-                            SpUtils.getInstance(mContext).savaString(Constant.MODEL, hardwareBean.getYajieguan());
-                            for (int i = 0; i < dataBeanList.size(); i++) {
-                                if (hardwareBean.getYajieguan().equals(dataBeanList.get(i).getModel())) {
-                                    hardwareBean.setGsValue(JsonUtil.objectToString(dataBeanList.get(i)));
-                                }
-                            }
-
-                        }
-                        String bbbb = JsonUtil.objectToString(hardwareBean);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                wv_hardware_straight.loadUrl("javascript:getValue('" + aaaa + "')");
-                            }
-                        });
-                    }
-                } else if ("3".equals(signStr)) {
-                    String filePath = "/storage/emulated/0/金具复测及对边测量/线线3/" + DateUtils.getCurrentDateTime() + ".xls";
-                    File file = new File(filePath);
-                    if (file.exists()) {
-                        String aaaa = SpUtils.getInstance(mContext).getString(Constant.HARDWARETHREESAVE);
-                        HardwareTwoBean hardwareBean = (HardwareTwoBean) JsonUtil.stringToObject(aaaa, HardwareTwoBean.class);
-                        if (!TextUtils.isEmpty(hardwareBean.getDaoxian())) {
-                            SpUtils.getInstance(mContext).savaString(Constant.WIRE, hardwareBean.getDaoxian());
-//                            for (int i = 0; i < dataBeanList.size(); i++) {
-//                                if (hardwareBean.getYajieguan().equals(dataBeanList.get(i).getModel())) {
-//                                    hardwareBean.setGsValue(JsonUtil.objectToString(dataBeanList.get(i)));
-//                                }
-//                            }
-
-                        }
-//                        String bbbb = JsonUtil.objectToString(hardwareBean);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                wv_hardware_straight.loadUrl("javascript:getValue('" + aaaa + "')");
-                            }
-                        });
-                    }
-                } else {
-                    String filePath = "/storage/emulated/0/金具复测及对边测量/线线2/" + DateUtils.getCurrentDateTime() + ".xls";
-                    File file = new File(filePath);
-                    if (file.exists()) {
-                        String aaaa = SpUtils.getInstance(mContext).getString(Constant.HARDWARETWOSAVE);
-                        HardwareTwoBean hardwareBean = (HardwareTwoBean) JsonUtil.stringToObject(aaaa, HardwareTwoBean.class);
-                        if (!TextUtils.isEmpty(hardwareBean.getDaoxian())) {
-                            SpUtils.getInstance(mContext).savaString(Constant.WIRE, hardwareBean.getDaoxian());
-//                            for (int i = 0; i < dataBeanList.size(); i++) {
-//                                if (hardwareBean.getYajieguan().equals(dataBeanList.get(i).getModel())) {
-//                                    hardwareBean.setGsValue(JsonUtil.objectToString(dataBeanList.get(i)));
-//                                }
-//                            }
-
-                        }
-//                        String bbbb = JsonUtil.objectToString(hardwareBean);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                wv_hardware_straight.loadUrl("javascript:getValue('" + aaaa + "')");
-                            }
-                        });
-                    }
-                }
-
+                /**
+                 * 获取手机当前日期传给html显示
+                 */
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String time = sdf.format(new Date());
+                wv_hardware_straight.loadUrl("javascript:getTime('" + time+ "')");
             }
         });
     }
@@ -301,20 +217,31 @@ public class HardwareActivity extends BaseActivity {
     public void saveExcel(HardwareBean hardwareBean) {
         if ("保存".equals(hardwareBean.getSaveInformation())) {
             runOnUiThread(new Runnable() {
-                @Override
                 public void run() {
-                    if(TextUtils.isEmpty(hardwareBean.getDate()) || hardwareBean.getDate().equals("--")){
-                        ToastUtils.showShort("请输入文档右上角的日期");
-                        return;
+                    /**
+                     * 组装文件夹路径（工程名_桩号_桩号）
+                     */
+                    StringBuffer sb=new StringBuffer(hardwareBean.getProName()+"_");
+                    for (int i = 0; i < hardwareBean.getZhuanghao().size(); i++) {
+                        final String zhuanghao=hardwareBean.getZhuanghao().get(i);
+                        if(!TextUtils.isEmpty(zhuanghao)){
+                            sb.append(zhuanghao+"_");
+                        }
                     }
-                    if(TextUtils.isEmpty(hardwareBean.getJianlidate()) || hardwareBean.getJianlidate().equals("--")){
-                        ToastUtils.showShort("请输入监理日期");
-                        return;
-                    }
+
+                    File dir;
                     if ("1".equals(signStr)) {
-                        HardwareStraightExcel.rwExcel("/storage/emulated/0/金具复测及对边测量/hardware_straight.xls", "/storage/emulated/0/金具复测及对边测量/直线液压管/" + DateUtils.getCurrentDateTime() + ".xls", hardwareBean);
+                        dir=new File("/storage/emulated/0/金具复测及对边测量/直线液压管/"+sb.substring(0,sb.length()-1)+"/");
+                        if (!dir.exists()) {
+                            dir.mkdirs();
+                        }
+                        HardwareStraightExcel.rwExcel("/storage/emulated/0/金具复测及对边测量/hardware_straight.xls", dir.getPath()+"/"+sb.toString() + DateUtils.getCurrentDateTime() + ".xls", hardwareBean);
                     } else if ("2".equals(signStr)) {
-                        HardwareStraightExcel.rwExcel("/storage/emulated/0/金具复测及对边测量/hardware_tension.xls", "/storage/emulated/0/金具复测及对边测量/耐张液压管/" + DateUtils.getCurrentDateTime() + ".xls", hardwareBean);
+                        dir=new File("/storage/emulated/0/金具复测及对边测量/耐张液压管/"+sb.substring(0,sb.length()-1)+"/");
+                        if (!dir.exists()) {
+                            dir.mkdirs();
+                        }
+                        HardwareStraightExcel.rwExcel("/storage/emulated/0/金具复测及对边测量/hardware_tension.xls", dir.getPath()+"/"+sb.toString() + DateUtils.getCurrentDateTime() + ".xls", hardwareBean);
                     }
                     ToastUtils.showShort("保存成功");
                     finish();
@@ -328,12 +255,38 @@ public class HardwareActivity extends BaseActivity {
     public void SaveExcel(HardwareTwoBean hardwareTwoBean) {
         if ("保存数据".equals(hardwareTwoBean.getSaveInformation())) {
             runOnUiThread(new Runnable() {
-                @Override
                 public void run() {
+                    /**
+                     * 组装文件夹路径（工程名_桩号_桩号）
+                     */
+                    StringBuffer sb=new StringBuffer(hardwareTwoBean.getProName()+"_");
                     if ("3".equals(signStr)) {
-                        HardwareLineExcel.rwExcel("/storage/emulated/0/金具复测及对边测量/hardware_three.xls", "/storage/emulated/0/金具复测及对边测量/线线3/" + DateUtils.getCurrentDateTime() + ".xls", hardwareTwoBean, signStr);
+                        final String zhuanghao=hardwareTwoBean.getZhuanghaoStr();
+                        if(!TextUtils.isEmpty(zhuanghao)){
+                            sb.append(zhuanghao+"_");
+                        }
+                    }else{
+                        for (int i = 0; i < hardwareTwoBean.getZhuanghao().size(); i++) {
+                            final String zhuanghao=hardwareTwoBean.getZhuanghao().get(i);
+                            if(!TextUtils.isEmpty(zhuanghao)){
+                                sb.append(zhuanghao+"_");
+                            }
+                        }
+                    }
+
+                    File dir;
+                    if ("3".equals(signStr)) {
+                        dir=new File("/storage/emulated/0/金具复测及对边测量/线线3/"+sb.substring(0,sb.length()-1)+"/");
+                        if (!dir.exists()) {
+                            dir.mkdirs();
+                        }
+                        HardwareLineExcel.rwExcel("/storage/emulated/0/金具复测及对边测量/hardware_three.xls", dir.getPath() +"/"+sb.toString() + DateUtils.getCurrentDateTime() + ".xls", hardwareTwoBean,signStr);
                     } else if ("4".equals(signStr)) {
-                        HardwareLineExcel.rwExcel("/storage/emulated/0/金具复测及对边测量/hardware_two.xls", "/storage/emulated/0/金具复测及对边测量/线线2/" + DateUtils.getCurrentDateTime() + ".xls", hardwareTwoBean, signStr);
+                        dir=new File("/storage/emulated/0/金具复测及对边测量/线线2/"+sb.substring(0,sb.length()-1)+"/");
+                        if (!dir.exists()) {
+                            dir.mkdirs();
+                        }
+                        HardwareLineExcel.rwExcel("/storage/emulated/0/金具复测及对边测量/hardware_two.xls", dir.getPath()+"/"+sb.toString() + DateUtils.getCurrentDateTime() + ".xls", hardwareTwoBean,signStr);
                     }
                     ToastUtils.showShort("保存成功");
                     finish();

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,7 +57,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -164,57 +167,17 @@ public class CurvatureActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+                /**
+                 * 去扫描并连接蓝牙
+                 */
                 startScanAndConnect();
-                if ("1".equals(signStr)) {
-                    String filePath = "/storage/emulated/0/弯曲度测量/直线液压管/" + DateUtils.getCurrentDateTime() + ".xls";
-                    File file = new File(filePath);
-                    if (file.exists()) {
-                        String aaaa = SpUtils.getInstance(mContext).getString(Constant.CURVATURESTRAIGHTSAVE);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                wv_hardware_straight.loadUrl("javascript:getValue('" + SpUtils.getInstance(mContext).getString(Constant.CURVATURESTRAIGHTSAVE) + "')");
-                            }
-                        });
-                    }
-                } else if ("2".equals(signStr)) {
-                    String filePath = "/storage/emulated/0/弯曲度测量/耐张液压管/" + DateUtils.getCurrentDateTime() + ".xls";
-                    File file = new File(filePath);
-                    if (file.exists()) {
-                        String aaaa = SpUtils.getInstance(mContext).getString(Constant.CURVATURETENSIONSAVE);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                wv_hardware_straight.loadUrl("javascript:getValue('" + SpUtils.getInstance(mContext).getString(Constant.CURVATURETENSIONSAVE) + "')");
-                            }
-                        });
-                    }
-                } else if ("3".equals(signStr)) {
-                    String filePath = "/storage/emulated/0/弯曲度测量/线线3/" + DateUtils.getCurrentDateTime() + ".xls";
-                    File file = new File(filePath);
-                    if (file.exists()) {
-                        String aaaa = SpUtils.getInstance(mContext).getString(Constant.CURVATURETHREESAVE);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                wv_hardware_straight.loadUrl("javascript:getValue('" + SpUtils.getInstance(mContext).getString(Constant.CURVATURETHREESAVE) + "')");
-                            }
-                        });
-                    }
-                } else if ("4".equals(signStr)) {
-                    String filePath = "/storage/emulated/0/弯曲度测量/线线2/" + DateUtils.getCurrentDateTime() + ".xls";
-                    File file = new File(filePath);
-                    if (file.exists()) {
-                        String aaaa = SpUtils.getInstance(mContext).getString(Constant.CURVATURETWOSAVE);
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                wv_hardware_straight.loadUrl("javascript:getValue('" + SpUtils.getInstance(mContext).getString(Constant.CURVATURETWOSAVE) + "')");
-                            }
-                        });
-                    }
-                }
 
+                /**
+                 * 获取手机当前日期传给html显示
+                 */
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String time = sdf.format(new Date());
+                wv_hardware_straight.loadUrl("javascript:getTime('" + time+ "')");
             }
         });
 
@@ -294,16 +257,50 @@ public class CurvatureActivity extends BaseActivity {
     public void saveExcel(AttributeValuesBean attributeValuesBean) {
         if ("保存".equals(attributeValuesBean.getMessage())) {
             runOnUiThread(new Runnable() {
-                @Override
                 public void run() {
+                    /**
+                     * 组装文件夹路径（工程名_桩号_桩号）
+                     */
+                    StringBuffer sb=new StringBuffer(attributeValuesBean.getProname()+"_");
+                    if("1".equals(signStr) || "2".equals(signStr)){
+                        for (int i = 0; i < attributeValuesBean.getNaizhangnum().size(); i++) {
+                             final String zhuanghao=attributeValuesBean.getNaizhangnum().get(i);
+                             if(!TextUtils.isEmpty(zhuanghao)){
+                                 sb.append(zhuanghao+"_");
+                             }
+                        }
+                    }else{
+                        final String zhuanghao=attributeValuesBean.getNaizhangNum();
+                        if(!TextUtils.isEmpty(zhuanghao)){
+                            sb.append(zhuanghao+"_");
+                        }
+                    }
+
+                    File dir;
                     if ("1".equals(signStr)) {
-                        CurvatureOperateExcel.rwExcel("/storage/emulated/0/弯曲度测量/straight.xls", "/storage/emulated/0/弯曲度测量/直线液压管/" + DateUtils.getCurrentDateTime() + ".xls", attributeValuesBean);
+                        dir=new File("/storage/emulated/0/弯曲度测量/直线液压管/"+sb.substring(0,sb.length()-1)+"/");
+                        if (!dir.exists()) {
+                            dir.mkdirs();
+                        }
+                        CurvatureOperateExcel.rwExcel("/storage/emulated/0/弯曲度测量/straight.xls", dir.getPath()+"/"+sb.toString() + DateUtils.getCurrentDateTime() + ".xls", attributeValuesBean);
                     } else if ("2".equals(signStr)) {
-                        CurvatureOperateExcel.rwExcel("/storage/emulated/0/弯曲度测量/tension.xls", "/storage/emulated/0/弯曲度测量/耐张液压管/" + DateUtils.getCurrentDateTime() + ".xls", attributeValuesBean);
+                        dir=new File("/storage/emulated/0/弯曲度测量/耐张液压管/"+sb.substring(0,sb.length()-1)+"/");
+                        if (!dir.exists()) {
+                            dir.mkdirs();
+                        }
+                        CurvatureOperateExcel.rwExcel("/storage/emulated/0/弯曲度测量/tension.xls", dir.getPath()+"/"+sb.toString()  + DateUtils.getCurrentDateTime() + ".xls", attributeValuesBean);
                     } else if ("3".equals(signStr)) {
-                        OperateExcel.rwExcel("/storage/emulated/0/弯曲度测量/curvature_three.xls", "/storage/emulated/0/弯曲度测量/线线3/" + DateUtils.getCurrentDateTime() + ".xls", attributeValuesBean);
+                        dir=new File("/storage/emulated/0/弯曲度测量/线线3/"+sb.substring(0,sb.length()-1)+"/");
+                        if (!dir.exists()) {
+                            dir.mkdirs();
+                        }
+                        OperateExcel.rwExcel("/storage/emulated/0/弯曲度测量/curvature_three.xls", dir.getPath()+"/"+sb.toString()  + DateUtils.getCurrentDateTime() + ".xls", attributeValuesBean);
                     } else if ("4".equals(signStr)) {
-                        OperateExcel.rwExcel("/storage/emulated/0/弯曲度测量/curvature_two.xls", "/storage/emulated/0/弯曲度测量/线线2/" + DateUtils.getCurrentDateTime() + ".xls", attributeValuesBean);
+                        dir=new File("/storage/emulated/0/弯曲度测量/线线2/"+sb.substring(0,sb.length()-1)+"/");
+                        if (!dir.exists()) {
+                            dir.mkdirs();
+                        }
+                        OperateExcel.rwExcel("/storage/emulated/0/弯曲度测量/curvature_two.xls", dir.getPath()+"/"+sb.toString() + DateUtils.getCurrentDateTime() + ".xls", attributeValuesBean);
                     }
                     ToastUtils.showShort("保存成功");
                     finish();
@@ -444,8 +441,6 @@ public class CurvatureActivity extends BaseActivity {
             public void onConnectSuccess(DeviceMirror deviceMirror) {
                 ToastUtils.showShort("蓝牙连接成功");
                 setBluetoothData(deviceMirror);
-
-
             }
 
             @Override
@@ -510,8 +505,7 @@ public class CurvatureActivity extends BaseActivity {
                         } else {
                             valueBean.setValueTwo("合格");
                         }
-                        String aa = JsonUtil.objectToString(valueBean);
-                        wv_hardware_straight.loadUrl("javascript:clo('" + aa + "')");
+                        wv_hardware_straight.loadUrl("javascript:clo('" + JsonUtil.objectToString(valueBean) + "')");
                     }
                 });
             }

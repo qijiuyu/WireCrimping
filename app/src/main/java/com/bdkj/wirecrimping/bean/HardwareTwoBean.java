@@ -77,6 +77,12 @@ public class HardwareTwoBean {
     private List<String> shigongzhuanghao;
     private List<String> maxOrmin;
 
+    public HardwareTwoBean(){}
+
+    public HardwareTwoBean(String date){
+        this.date=date;
+    }
+
     public String getProName() {
         return proName;
     }

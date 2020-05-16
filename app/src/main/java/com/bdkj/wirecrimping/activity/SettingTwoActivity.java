@@ -41,6 +41,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * 设置“耐张线”的标准值
+ */
 public class SettingTwoActivity extends BaseActivity {
 
     @BindView(R.id.ib_back)

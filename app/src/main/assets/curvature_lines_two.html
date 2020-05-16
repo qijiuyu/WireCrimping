@@ -621,8 +621,8 @@
 
             //导线
             data.daoxiannum = document.querySelector('.daoxian').value
-            //地线
-            data.dixiannum = document.querySelector('.dixian').value
+            //地线--因为上面的地线输入框被注释掉了，所以这里也要注释
+            <!--data.dixiannum = document.querySelector('.dixian').value-->
             //日期
             data.date = document.querySelector('.date').value
             //压接管位置
@@ -638,7 +638,7 @@
                 data.wanqudu.push( document.querySelectorAll('.numtex')[i].innerText)
             }
             data.imgUrl = []
-            for (var i = 0; i < document.querySelectorAll('img').length - 1; i++) {
+            for (var i = 0; i < document.querySelectorAll('img').length - 2; i++) {
             data.imgUrl.push(document.querySelectorAll('img')[i].src)
             }
               data.checked = "合格"
@@ -653,6 +653,14 @@
             dataText()
             myObj.save(data)
         })
+
+
+
+        //显示当前的日期
+        function getTime(time){
+           document.querySelector('.date').value = time
+        }
+
 
        function getValue(data) {
             data = JSON.parse(data)
@@ -683,7 +691,7 @@
                 document.querySelectorAll('.numtex')[i].innerText = data.wanqudu[i]
             }
 
-            for (var i = 0; i < data.imgUrl.length - 1; i++) {
+            for (var i = 0; i < data.imgUrl.length; i++) {
                 var img = document.createElement('img')
                 img.src = data.imgUrl[i]
                 img.className = 'imgsty'

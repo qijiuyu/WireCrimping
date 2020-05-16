@@ -17,17 +17,17 @@ public class Constant {
     public static final String ROLE = "ROLE";//token
     public static final String NAME = "name";//token
     public static final String IP = "ip";//token
-    public static final String STANDARDVALUES = "standardValues";
-    public static final String STANDARDVALUESTWO = "standardValuesTwo";
+    public static final String STANDARDVALUES = "standardValues";    //本地存储”直线线夹“的标准值
+    public static final String STANDARDVALUESTWO = "standardValuesTwo";  //本地存储的“耐张线”的标准值
     public static final String SELECT = "select";
     public static final String TYPE = "type";
     public static final String TYPETWO = "typeTwo";
-    public static final String MODEL = "model";
-    public static final String WIRE = "wire";
-    public static final String CURVATURESTRAIGHTSAVE = "curvatureStraightSave";
-    public static final String CURVATURETENSIONSAVE = "curvatureTensionSave";
-    public static final String CURVATURETHREESAVE = "curvatureThreeSave";
-    public static final String CURVATURETWOSAVE = "curvatureTwoSave";
+    public static final String MODEL = "model";   //存储选择的压接管型号
+    public static final String WIRE = "wire";     //存储选择的导线类型
+    public static final String CURVATURESTRAIGHTSAVE = "curvatureStraightSave";   //本地存储的-弯曲度测量--直线液压管的数据
+    public static final String CURVATURETENSIONSAVE = "curvatureTensionSave";    //本地存储的-弯曲度测量--耐张液压管的数据
+    public static final String CURVATURETHREESAVE = "curvatureThreeSave";      //本地存储的-弯曲度测量--线线3的数据
+    public static final String CURVATURETWOSAVE = "curvatureTwoSave";         //本地存储的-弯曲度测量--线线2的数据
 
     public static final String HARDWARESTRAIGHTSAVE = "hardwareStraightSave";
     public static final String HARDWARETENSIONSAVE = "hardwareTensionSave";

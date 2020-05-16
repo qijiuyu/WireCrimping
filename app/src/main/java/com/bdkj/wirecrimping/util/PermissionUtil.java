@@ -37,7 +37,10 @@ public class PermissionUtil {
             XXPermissions.with((Activity)context).permission(
                     //同时在此处添加：
                     Permission.READ_PHONE_STATE,
-                    Permission.WRITE_EXTERNAL_STORAGE
+                    Permission.WRITE_EXTERNAL_STORAGE,
+                    Permission.READ_EXTERNAL_STORAGE,
+                    Permission.ACCESS_FINE_LOCATION,
+                    Permission.ACCESS_COARSE_LOCATION
             ).request(new OnPermission() {
                 @Override
                 public void noPermission(List<String> denied, boolean quick) {

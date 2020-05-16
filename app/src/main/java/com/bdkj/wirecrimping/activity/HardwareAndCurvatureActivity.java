@@ -91,6 +91,7 @@ public class HardwareAndCurvatureActivity extends BaseActivity {
             case R.id.ib_back:
                 finish();
                 break;
+            //金具复测及对边测量
             case R.id.tv_hardware:
                 sign = "1";
                 tv_hardware.setTextColor(Color.parseColor("#afdcff"));
@@ -98,6 +99,7 @@ public class HardwareAndCurvatureActivity extends BaseActivity {
                 tv_curvature.setTextColor(Color.parseColor("#ffffff"));
                 v_curvature_line.setVisibility(View.GONE);
                 break;
+            //tv_curvature
             case R.id.tv_curvature:
                 sign = "2";
                 tv_hardware.setTextColor(Color.parseColor("#ffffff"));
@@ -105,6 +107,7 @@ public class HardwareAndCurvatureActivity extends BaseActivity {
                 tv_curvature.setTextColor(Color.parseColor("#afdcff"));
                 v_curvature_line.setVisibility(View.VISIBLE);
                 break;
+           //隐蔽工程（直线液压管）签证记录表
             case R.id.rl_straight:
                 if ("1".equals(sign)) {
                     startActivity(new Intent(HardwareAndCurvatureActivity.this, HardwareActivity.class).putExtra("sign", "1"));
@@ -113,6 +116,7 @@ public class HardwareAndCurvatureActivity extends BaseActivity {
                 }
 
                 break;
+            //隐蔽工程（耐张液压管）签证记录表
             case R.id.rl_tension:
                 if ("1".equals(sign)) {
                     startActivity(new Intent(HardwareAndCurvatureActivity.this, HardwareActivity.class).putExtra("sign", "2"));

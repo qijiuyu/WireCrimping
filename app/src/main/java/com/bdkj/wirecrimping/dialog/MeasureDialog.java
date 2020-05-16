@@ -34,7 +34,8 @@ import java.util.List;
 public class MeasureDialog extends Dialog {
 
     private Context context;
-    private TextView tv_value_one, tv_value_two, tv_value_three, tv_value_four, tv_value_five, tv_confirm;
+    private TextView tv_value_one, tv_value_two, tv_value_three, tv_value_four, tv_value_five;
+    //保存每次测量的值
     private List<String> listValue = new ArrayList<>();
     private MeasureBean measure = new MeasureBean();
     private List<StandardValuesBean.DataBean> dataBeanList = new ArrayList<>();
@@ -111,34 +112,52 @@ public class MeasureDialog extends Dialog {
             public void onClick(View view) {
                 measure.setListValue(listValue);
                 if ("1".equals(sign) || "2".equals(sign)) {
+
+                    //要先选择压接管型号
                     if (!TextUtils.isEmpty(SpUtils.getInstance(context).getString(Constant.MODEL))) {
-                        if (!TextUtils.isEmpty(tv_value_one.getText().toString()) && !TextUtils.isEmpty(tv_value_two.getText().toString())) {
-                            if (SpUtils.getInstance(context).getString(Constant.STANDARDVALUES) != null && !"".equals(SpUtils.getInstance(context).getString(Constant.STANDARDVALUES))) {
-                                dataBeanList.addAll(JsonUtil.stringToList(SpUtils.getInstance(context).getString(Constant.STANDARDVALUES), StandardValuesBean.DataBean.class));
+
+                        //最少测量三个数据
+                        if (!TextUtils.isEmpty(tv_value_one.getText().toString()) && !TextUtils.isEmpty(tv_value_two.getText().toString()) && !TextUtils.isEmpty(tv_value_three.getText().toString())) {
+
+                            //获取本地存储”直线线夹“的标准值
+                            final String STANDARDVALUES=SpUtils.getInstance(context).getString(Constant.STANDARDVALUES);
+                            if (!TextUtils.isEmpty(STANDARDVALUES)) {
+                                dataBeanList.addAll(JsonUtil.stringToList(STANDARDVALUES, StandardValuesBean.DataBean.class));
+
                                 for (int i = 0; i < dataBeanList.size(); i++) {
                                     if (dataBeanList.get(i).getModel().equals(SpUtils.getInstance(context).getString(Constant.MODEL))) {
+                                        //钢管-压前值-外径-最大和最小
                                         if ("gqwmax".equals(SpUtils.getInstance(context).getString(Constant.TYPE)) || "gqwmin".equals(SpUtils.getInstance(context).getString(Constant.TYPE))) {
                                             measure.setMax(dataBeanList.get(i).getSteel_D_big());
                                             measure.setMin(dataBeanList.get(i).getSteel_D_min());
-                                        } else if ("gqnmax".equals(SpUtils.getInstance(context).getString(Constant.TYPE)) || "gqnmin".equals(SpUtils.getInstance(context).getString(Constant.TYPE))) {
+                                        }
+                                        //钢管-压前值-内径-最大和最小
+                                        else if ("gqnmax".equals(SpUtils.getInstance(context).getString(Constant.TYPE)) || "gqnmin".equals(SpUtils.getInstance(context).getString(Constant.TYPE))) {
                                             measure.setMax(dataBeanList.get(i).getSteel_d_big());
                                             measure.setMin(dataBeanList.get(i).getSteel_d_min());
-                                        } else if ("gqduibianmax".equals(SpUtils.getInstance(context).getString(Constant.TYPE)) || "gqduibianmin".equals(SpUtils.getInstance(context).getString(Constant.TYPE))) {
+                                        }
+                                        //钢管-压后值-对边距-最大和最小
+                                        else if ("gqduibianmax".equals(SpUtils.getInstance(context).getString(Constant.TYPE)) || "gqduibianmin".equals(SpUtils.getInstance(context).getString(Constant.TYPE))) {
                                             measure.setMax(dataBeanList.get(i).getSteel_pressure_after());
                                             measure.setMin(dataBeanList.get(i).getSteel_pressure_after());
-                                        } else if ("lqwmax".equals(SpUtils.getInstance(context).getString(Constant.TYPE)) || "lqwmin".equals(SpUtils.getInstance(context).getString(Constant.TYPE))) {
+                                        }
+                                        //铝管-压前值-外径-最大和最小
+                                        else if ("lqwmax".equals(SpUtils.getInstance(context).getString(Constant.TYPE)) || "lqwmin".equals(SpUtils.getInstance(context).getString(Constant.TYPE))) {
                                             measure.setMax(dataBeanList.get(i).getAluminum_D());
                                             measure.setMin(dataBeanList.get(i).getAluminum_D());
-                                        } else if ("lnmax".equals(SpUtils.getInstance(context).getString(Constant.TYPE)) || "lnmin".equals(SpUtils.getInstance(context).getString(Constant.TYPE))) {
+                                        }
+                                        //铝管-压前值-内径-最大和最小
+                                        else if ("lnmax".equals(SpUtils.getInstance(context).getString(Constant.TYPE)) || "lnmin".equals(SpUtils.getInstance(context).getString(Constant.TYPE))) {
                                             measure.setMax(dataBeanList.get(i).getAluminum_d());
                                             measure.setMin(dataBeanList.get(i).getAluminum_d());
-                                        } else if ("lduibianmax".equals(SpUtils.getInstance(context).getString(Constant.TYPE)) || "lduibianmin".equals(SpUtils.getInstance(context).getString(Constant.TYPE))) {
+                                        }
+                                        //铝管-压后值-对边距-最大和最小
+                                        else if ("lduibianmax".equals(SpUtils.getInstance(context).getString(Constant.TYPE)) || "lduibianmin".equals(SpUtils.getInstance(context).getString(Constant.TYPE))) {
                                             measure.setMax(dataBeanList.get(i).getAluminum_pressure_after());
                                             measure.setMin(dataBeanList.get(i).getAluminum_pressure_after());
                                         }
                                     }
                                 }
-                                String aa = JsonUtil.objectToString(measure);
                                 if (HardwareActivity.activity != null) {
                                     HardwareActivity.activity.setLoadUrl(JsonUtil.objectToString(measure));
                                     dismiss();
@@ -148,16 +167,22 @@ public class MeasureDialog extends Dialog {
                                 ToastUtils.showShort("请先录入标准值");
                             }
                         } else {
-                            ToastUtils.showShort("请先测量值");
+                            ToastUtils.showShort("最少测量三个数据");
                         }
                     } else {
                         ToastUtils.showShort("请先选择压接管型号");
                     }
                 } else {
                     if (!TextUtils.isEmpty(SpUtils.getInstance(context).getString(Constant.WIRE))) {
-                        if (!TextUtils.isEmpty(tv_value_one.getText().toString()) && !TextUtils.isEmpty(tv_value_two.getText().toString())) {
-                            if (SpUtils.getInstance(context).getString(Constant.STANDARDVALUES) != null && !"".equals(SpUtils.getInstance(context).getString(Constant.STANDARDVALUES))) {
-                                dataBeanList.addAll(JsonUtil.stringToList(SpUtils.getInstance(context).getString(Constant.STANDARDVALUES), StandardValuesBean.DataBean.class));
+
+                        //最少测量三个数据
+                        if (!TextUtils.isEmpty(tv_value_one.getText().toString()) && !TextUtils.isEmpty(tv_value_two.getText().toString()) && !TextUtils.isEmpty(tv_value_three.getText().toString())) {
+
+                            //获取本地存储”直线线夹“的标准值
+                            final String STANDARDVALUES=SpUtils.getInstance(context).getString(Constant.STANDARDVALUES);
+                            if (!TextUtils.isEmpty(STANDARDVALUES)) {
+                                dataBeanList.addAll(JsonUtil.stringToList(STANDARDVALUES, StandardValuesBean.DataBean.class));
+
                                 for (int i = 0; i < dataBeanList.size(); i++) {
                                     if (dataBeanList.get(i).getApplyWire().equals(SpUtils.getInstance(context).getString(Constant.WIRE))) {
                                         if ("ggwqmax".equals(SpUtils.getInstance(context).getString(Constant.TYPETWO)) || "ggwqmin".equals(SpUtils.getInstance(context).getString(Constant.TYPETWO))) {
@@ -175,7 +200,6 @@ public class MeasureDialog extends Dialog {
                                         }
                                     }
                                 }
-                                String aa = JsonUtil.objectToString(measure);
                                 if (HardwareActivity.activity != null) {
                                     HardwareActivity.activity.setLoadUrl(JsonUtil.objectToString(measure));
                                     dismiss();
@@ -185,7 +209,7 @@ public class MeasureDialog extends Dialog {
                                 ToastUtils.showShort("请先录入标准值");
                             }
                         } else {
-                            ToastUtils.showShort("请先测量值");
+                            ToastUtils.showShort("最少测量三个数据");
                         }
                     } else {
                         ToastUtils.showShort("请先选择导线型号");

@@ -85,8 +85,6 @@ public class HardwareBean{
     private List<String> imgUrl;
     private String gsValue;
 
-
-
     public String getProName() {
         return proName;
     }

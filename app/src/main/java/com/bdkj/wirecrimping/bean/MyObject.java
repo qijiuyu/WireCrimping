@@ -2,6 +2,7 @@ package com.bdkj.wirecrimping.bean;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
 import android.webkit.JavascriptInterface;
 
 import androidx.appcompat.app.AlertDialog;
@@ -98,14 +99,23 @@ public class MyObject {
         }
     }
 
+
+    /**
+     * gqwmax：表示点击的是钢管-压前值-外径-最大
+     * gqwmin：表示点击的是钢管-压前值-外径-最小
+     * @param message
+     */
     @JavascriptInterface
     public void showValue(String message) {
+        Log.e("tag",message+"+++++++++++++++");
         JSValueBean jsValueBean = new JSValueBean();
         JSONArray array = JSON.parseArray(message);
         for (int i = 0; i < array.size(); i++) {
             if ("1".equals(sign) || "2".equals(sign)) {
                 if (i == 0) {
                     jsValueBean.setGqwmax(array.getString(0));
+
+                    //存储点击的某个类型，后面用于测量时做判断，在MeasureDialog中
                     SpUtils.getInstance(mcontext).savaString(Constant.TYPE, array.getString(0));
                 } else {
                     jsValueBean.setGqwnum1(array.getString(1));
@@ -142,6 +152,11 @@ public class MyObject {
         EventBus.getDefault().post("缩小图片");
     }
 
+
+    /**
+     * 保存弯曲度测量的数据
+     * @param message
+     */
     @JavascriptInterface
     public void save(String message) {
         if ("1".equals(sign)) {
@@ -153,11 +168,16 @@ public class MyObject {
         } else {
             SpUtils.getInstance(mcontext).savaString(Constant.CURVATURETWOSAVE, message);
         }
+        Log.e("弯曲度测量数据：","++++++++++++++"+message);
         AttributeValuesBean attributeValuesBean = (AttributeValuesBean) JsonUtil.stringToObject(message, AttributeValuesBean.class);
         attributeValuesBean.setMessage("保存");
         EventBus.getDefault().post(attributeValuesBean);
     }
 
+
+    /**保存“金具复测及对边测量”的数据
+     * @param message
+     */
     @JavascriptInterface
     public void hardwareSave(String message) {
         if ("1".equals(sign)) {

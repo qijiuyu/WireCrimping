@@ -41,6 +41,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+/**
+ * 设置”直线线夹“的标准值
+ */
 public class SettingActivity extends BaseActivity {
 
     @BindView(R.id.ib_back)

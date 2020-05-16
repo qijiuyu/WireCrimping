@@ -1583,7 +1583,23 @@
             }
            data = JSON.stringify(data)
         }
- //传值给html，直接展示
+
+
+        //显示当前的日期
+        function getTime(time){
+            //日期
+            document.querySelector('.year').value = time.split('-')[0]
+            document.querySelector('.mounth').value = time.split('-')[1]
+            document.querySelector('.day').value = time.split('-')[2]
+
+            //监理日期
+            document.querySelector('.yeartwo').value = time.split('-')[0]
+            document.querySelector('.mounthtwo').value = time.split('-')[1]
+            document.querySelector('.daytwo').value = time.split('-')[2]
+        }
+
+
+         //传值给html，直接展示
         function getValue (data) {
             data = JSON.parse(data)
             //工程名称

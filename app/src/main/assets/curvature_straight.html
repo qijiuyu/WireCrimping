@@ -590,7 +590,7 @@
                 data.wanqudu.push( document.querySelectorAll('.numtex')[i].innerText)
             }
             data.imgUrl = []
-            for (var i = 0; i < document.querySelectorAll('img').length - 1; i++) {
+            for (var i = 0; i < document.querySelectorAll('img').length - 2; i++) {
             data.imgUrl.push(document.querySelectorAll('img')[i].src)
             }
               data.checked = "合格"
@@ -606,6 +606,15 @@
             myObj.save(data)
         })
 
+
+          //显示当前的日期
+        function getTime(time){
+            document.querySelector('.year').value = time.split('-')[0]
+            document.querySelector('.mounth').value = time.split('-')[1]
+            document.querySelector('.day').value = time.split('-')[2]
+        }
+
+       //传值给html，直接展示
        function getValue (data){
             data = JSON.parse(data)
             document.querySelector('.proname').value = data.proname
@@ -631,7 +640,7 @@
             for (var i = 0; i < document.querySelectorAll('.numtex').length; i++) {
                 document.querySelectorAll('.numtex')[i].innerText = data.wanqudu[i]
             }
-            for (var i = 0; i < data.imgUrl.length - 1; i++) {
+            for (var i = 0; i < data.imgUrl.length; i++) {
                 var img = document.createElement('img')
                 img.src = data.imgUrl[i]
                 img.className = 'imgsty'

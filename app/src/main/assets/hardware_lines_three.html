@@ -2299,6 +2299,16 @@
             data = JSON.stringify(data)
 
         }
+
+
+
+         //显示当前的日期
+        function getTime(time){
+           document.querySelector('.date').value = time
+        }
+
+
+         //传值给html，直接展示
         function getValue (data) {
             data = JSON.parse(data)
             //工程名称

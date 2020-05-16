@@ -2,6 +2,7 @@ package com.bdkj.wirecrimping.util;
 
 import android.graphics.Bitmap;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.bdkj.wirecrimping.bean.AttributeValuesBean;
 
@@ -186,6 +187,7 @@ public class CurvatureOperateExcel {
                 int cellNum=0;
                 for(int i=0;i<attributeValuesBean.getImgUrl().size();i++){
                     String imgPath=attributeValuesBean.getImgUrl().get(i);
+                    Log.e("tag",imgPath+"++++++++++++++++++++++222");
                     if (!TextUtils.isEmpty(imgPath)) {
                         if(imgPath.startsWith("file://")){
                             imgPath=imgPath.replace("file://","");
@@ -203,7 +205,7 @@ public class CurvatureOperateExcel {
                         HSSFPatriarch patriarch = (HSSFPatriarch) sheetAt.createDrawingPatriarch();
                         // 设置图片位置
                         cellNum=cellNum+3;
-                        HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 1023, 100, (short) 3, 9, (short) 6, 10);
+                        HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 1023, 100, (short) (cellNum+i), 9, (short) (cellNum+3+i), 10);
                         patriarch.createPicture(anchor, workBook.addPicture(bytes, HSSFWorkbook.PICTURE_TYPE_JPEG));
                         // 写入
                         workBook.write(fos);
@@ -219,7 +221,7 @@ public class CurvatureOperateExcel {
             fos = new FileOutputStream(newFilePath);
             // 写入
             workBook.write(fos);
-            System.out.println("success!");
+            Log.e("tag","创建成功+++++++++++++++++++++++");
 
 
         } catch (Exception e) {

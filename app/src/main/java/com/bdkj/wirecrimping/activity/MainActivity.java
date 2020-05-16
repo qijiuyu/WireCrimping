@@ -109,9 +109,11 @@ public class MainActivity extends BaseActivity {
     @OnClick({R.id.tv_title_one, R.id.tv_title_two, R.id.ll_menu, R.id.ll_setting, R.id.tv_exit})
     public void onClick(View view) {
         switch (view.getId()) {
+            //金具复测及对边测量
             case R.id.tv_title_one:
                 startActivity(new Intent(MainActivity.this, HardwareAndCurvatureActivity.class).putExtra("enterSign", "1"));
                 break;
+             //弯曲度测量
             case R.id.tv_title_two:
                 startActivity(new Intent(MainActivity.this, HardwareAndCurvatureActivity.class).putExtra("enterSign", "2"));
                 break;
