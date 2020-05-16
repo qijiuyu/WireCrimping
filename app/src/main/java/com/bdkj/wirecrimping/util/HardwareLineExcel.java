@@ -647,7 +647,7 @@ public class HardwareLineExcel {
                         HSSFPatriarch patriarch = (HSSFPatriarch) sheetAt.createDrawingPatriarch();
                         // 设置图片位置
                         cellNum=cellNum+3;
-                        HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 1023, 100, (short) 3, 33, (short) 6, 34);
+                        HSSFClientAnchor anchor = new HSSFClientAnchor(0, 0, 1023, 100, (short) (cellNum+i), 33, (short) (cellNum+3+i), 34);
                         patriarch.createPicture(anchor, workBook.addPicture(bytes, HSSFWorkbook.PICTURE_TYPE_JPEG));
                         // 写入
                         workBook.write(fos);

@@ -216,6 +216,10 @@ public class HardwareActivity extends BaseActivity {
     @Subscribe
     public void saveExcel(HardwareBean hardwareBean) {
         if ("保存".equals(hardwareBean.getSaveInformation())) {
+            if(TextUtils.isEmpty(hardwareBean.getProName())){
+                ToastUtils.showLong("请输入工程名称");
+                return;
+            }
             runOnUiThread(new Runnable() {
                 public void run() {
                     /**
@@ -254,6 +258,10 @@ public class HardwareActivity extends BaseActivity {
     @Subscribe
     public void SaveExcel(HardwareTwoBean hardwareTwoBean) {
         if ("保存数据".equals(hardwareTwoBean.getSaveInformation())) {
+            if(TextUtils.isEmpty(hardwareTwoBean.getProName())){
+                ToastUtils.showLong("请输入工程名称");
+                return;
+            }
             runOnUiThread(new Runnable() {
                 public void run() {
                     /**
@@ -488,7 +496,6 @@ public class HardwareActivity extends BaseActivity {
     private int connectNum=0; //重连次数
     private void startScanAndConnect() {
         ViseBle.getInstance().connectByMac(macAddress, new IConnectCallback() {
-            @Override
             public void onConnectSuccess(DeviceMirror deviceMirror) {
                 isConnection=true;
                 ToastUtils.showShort("蓝牙设备连接成功");

@@ -391,11 +391,6 @@
 
 
 
-
-
-
-
-
     </style>
 </head>
 
@@ -491,38 +486,38 @@
                     <td><span>弯曲度测量</span></td>
                     <td>
                         <div class="flexbox">
-                            <div class="num tx1 numtex" onclick="myObj.getValues('tx1')"></div>
-                            <div class="num tx2 numtex" onclick="myObj.getValues('tx2')"></div>
-                            <div class="num tx3 numtex" onclick="myObj.getValues('tx3')"></div>
-                            <div class="num tx4 numtex" onclick="myObj.getValues('tx4')"></div>
-                            <div class="num tx5 numtex" onclick="myObj.getValues('tx5')"></div>
-                            <div class="num tx6 numtex" onclick="myObj.getValues('tx6')"></div>
-                            <div class="num tx7 numtex" onclick="myObj.getValues('tx7')"></div>
-                            <div class="num tx8 numtex" onclick="myObj.getValues('tx8')"></div>
+                            <div class="num tx1 numtex" onclick="myObj.getValues('tx1')" tabindex=1></div>
+                            <div class="num tx2 numtex" onclick="myObj.getValues('tx2')" tabindex=1></div>
+                            <div class="num tx3 numtex" onclick="myObj.getValues('tx3')" tabindex=1></div>
+                            <div class="num tx4 numtex" onclick="myObj.getValues('tx4')" tabindex=1></div>
+                            <div class="num tx5 numtex" onclick="myObj.getValues('tx5')" tabindex=1></div>
+                            <div class="num tx6 numtex" onclick="myObj.getValues('tx6')" tabindex=1></div>
+                            <div class="num tx7 numtex" onclick="myObj.getValues('tx7')" tabindex=1></div>
+                            <div class="num tx8 numtex" onclick="myObj.getValues('tx8')" tabindex=1></div>
                         </div>
                     </td>
                     <td>
                         <div class="flexbox">
-                            <div class="num tx9 numtex" onclick="myObj.getValues('tx9')"></div>
-                            <div class="num tx10 numtex" onclick="myObj.getValues('tx10')"></div>
-                            <div class="num tx11 numtex" onclick="myObj.getValues('tx11')"></div>
-                            <div class="num tx12 numtex" onclick="myObj.getValues('tx12')"></div>
-                            <div class="num tx13 numtex" onclick="myObj.getValues('tx13')"></div>
-                            <div class="num tx14 numtex" onclick="myObj.getValues('tx14')"></div>
-                            <div class="num tx15 numtex" onclick="myObj.getValues('tx15')"></div>
-                            <div class="num tx16 numtex" onclick="myObj.getValues('tx16')"></div>
+                            <div class="num tx9 numtex" onclick="myObj.getValues('tx9')" tabindex=1></div>
+                            <div class="num tx10 numtex" onclick="myObj.getValues('tx10')" tabindex=1></div>
+                            <div class="num tx11 numtex" onclick="myObj.getValues('tx11')" tabindex=1></div>
+                            <div class="num tx12 numtex" onclick="myObj.getValues('tx12')" tabindex=1></div>
+                            <div class="num tx13 numtex" onclick="myObj.getValues('tx13')" tabindex=1></div>
+                            <div class="num tx14 numtex" onclick="myObj.getValues('tx14')" tabindex=1></div>
+                            <div class="num tx15 numtex" onclick="myObj.getValues('tx15')" tabindex=1></div>
+                            <div class="num tx16 numtex" onclick="myObj.getValues('tx16')" tabindex=1></div>
                         </div>
                     </td>
                     <td>
                         <div class="flexbox">
-                            <div class="num tx17 numtex" onclick="myObj.getValues('tx17')"></div>
-                            <div class="num tx18 numtex" onclick="myObj.getValues('tx18')"></div>
-                            <div class="num tx19 numtex" onclick="myObj.getValues('tx19')"></div>
-                            <div class="num tx20 numtex" onclick="myObj.getValues('tx20')"></div>
-                            <div class="num tx21 numtex" onclick="myObj.getValues('tx21')"></div>
-                            <div class="num tx22 numtex" onclick="myObj.getValues('tx22')"></div>
-                            <div class="num tx23 numtex" onclick="myObj.getValues('tx23')"></div>
-                            <div class="num tx24 numtex" onclick="myObj.getValues('tx24')"></div>
+                            <div class="num tx17 numtex" onclick="myObj.getValues('tx17')" tabindex=1></div>
+                            <div class="num tx18 numtex" onclick="myObj.getValues('tx18')" tabindex=1></div>
+                            <div class="num tx19 numtex" onclick="myObj.getValues('tx19')" tabindex=1></div>
+                            <div class="num tx20 numtex" onclick="myObj.getValues('tx20')" tabindex=1></div>
+                            <div class="num tx21 numtex" onclick="myObj.getValues('tx21')" tabindex=1></div>
+                            <div class="num tx22 numtex" onclick="myObj.getValues('tx22')" tabindex=1></div>
+                            <div class="num tx23 numtex" onclick="myObj.getValues('tx23')" tabindex=1></div>
+                            <div class="num tx24 numtex" onclick="myObj.getValues('tx24')" tabindex=1></div>
                         </div>
                     </td>
                 </tr>
@@ -714,6 +709,9 @@
             document.querySelector('.dixian').value = val
         }
 
+		document.getElementsByTagName('.numtex').onfocus=function(){
+			this.style.border = '3px solid red';
+		}
 
 
 

@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.bdkj.wirecrimping.activity.ActivityManager;
+import com.bdkj.wirecrimping.util.ActivitysLifecycle;
 import com.vise.baseble.ViseBle;
 
 
@@ -39,6 +40,9 @@ public class MyApplication extends Application {
         //蓝牙信息初始化，全局唯一，必须在应用初始化时调用
         ViseBle.getInstance().init(this);
 
+
+        //管理Activity
+        registerActivityLifecycleCallbacks(ActivitysLifecycle.getInstance());
     }
 
 

@@ -256,6 +256,10 @@ public class CurvatureActivity extends BaseActivity {
     @Subscribe
     public void saveExcel(AttributeValuesBean attributeValuesBean) {
         if ("保存".equals(attributeValuesBean.getMessage())) {
+            if(TextUtils.isEmpty(attributeValuesBean.getProname())){
+                ToastUtils.showLong("请输入工程名称");
+                return;
+            }
             runOnUiThread(new Runnable() {
                 public void run() {
                     /**

@@ -1,5 +1,6 @@
 package com.bdkj.wirecrimping.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.os.Handler;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -19,6 +21,7 @@ import androidx.annotation.Nullable;
 
 import com.bdkj.wirecrimping.Constant;
 import com.bdkj.wirecrimping.R;
+import com.bdkj.wirecrimping.util.ActivitysLifecycle;
 import com.bdkj.wirecrimping.util.OpenFileUtils;
 import com.bdkj.wirecrimping.util.PermissionUtil;
 import com.bdkj.wirecrimping.util.SpUtils;
@@ -162,14 +165,10 @@ public class MainActivity extends BaseActivity {
                 String showContent = "";
                 switch (v.getId()) {
                     case R.id.tv_bending_measurement:
-                        showContent = "点击 Item菜单1";
-//                        startActivity(new Intent(MainActivity.this, TestActivity.class));
-                        FileMannage();
+                        FileMannage("/storage/emulated/0/弯曲度测量");
                         break;
                     case R.id.tv_hardware_measurement:
-                        showContent = "点击 Item菜单2";
-//                        startActivity(new Intent(MainActivity.this, TestTwoActivity.class));
-                        FileMannage();
+                        FileMannage("/storage/emulated/0/金具复测及对边测量");
                         break;
                 }
 //                Toast.makeText(MainActivity.this, showContent, Toast.LENGTH_SHORT).show();
@@ -206,16 +205,12 @@ public class MainActivity extends BaseActivity {
     }
 
     //打开系统文件管理器
-    private void FileMannage() {
+    private void FileMannage(String path) {
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             ToastUtils.showShort("暂无SD卡");
             return;
         }
-
-        //获取文件路径
-//        String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + FILENAME;
-        File dir = new File("/storage/emulated/0/弯曲度测量/线线2");
-        //file:///storage/emulated/0/HardwareFile
+        File dir = new File(path);
         if (!dir.exists()) {
             dir.mkdirs();
         }
@@ -226,5 +221,36 @@ public class MainActivity extends BaseActivity {
         startActivityForResult(intent, REQUEST_CHOOSEFILE);
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==-1){
+            Uri uri = data.getData();
+            OpenFileUtils.openFile(context,OpenFileUtils.uriToFile(context,uri));
+        }
+    }
+
+
+    // 按两次退出
+    protected long exitTime = 0;
+    /**
+     * 连续点击两次返回退出
+     * @param event
+     * @return
+     */
+    @SuppressLint("RestrictedApi")
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                ToastUtils.showLong("再按一次退出程序!");
+                exitTime = System.currentTimeMillis();
+            } else {
+                ActivitysLifecycle.getInstance().exit();
+            }
+            return false;
+        }
+        return super.dispatchKeyEvent(event);
+    }
 
 }
