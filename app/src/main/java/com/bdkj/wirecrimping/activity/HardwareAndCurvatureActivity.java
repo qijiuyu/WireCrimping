@@ -3,7 +3,6 @@ package com.bdkj.wirecrimping.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Environment;
 import android.os.Handler;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -14,11 +13,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import com.bdkj.wirecrimping.R;
 import com.bdkj.wirecrimping.activity.curvature.CurvatureActivity;
 import com.bdkj.wirecrimping.activity.hardware.HardwareActivity;
 import com.bdkj.wirecrimping.util.OpenFileUtils;
-import com.bdkj.wirecrimping.util.ToastUtils;
 import com.example.zhouwei.library.CustomPopWindow;
 
 import java.io.File;
@@ -177,10 +177,10 @@ public class HardwareAndCurvatureActivity extends BaseActivity {
                 }
                 switch (v.getId()) {
                     case R.id.tv_bending_measurement:
-                        FileMannage();
+                        FileMannage("/storage/emulated/0/弯曲度测量");
                         break;
                     case R.id.tv_hardware_measurement:
-                        FileMannage();
+                        FileMannage("/storage/emulated/0/金具复测及对边测量");
                         break;
                 }
             }
@@ -190,20 +190,29 @@ public class HardwareAndCurvatureActivity extends BaseActivity {
     }
 
     //打开系统文件管理器
-    private void FileMannage() {
-        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            ToastUtils.showShort("暂无SD卡");
-            return;
+    private void FileMannage(String path) {
+      try {
+          File dir = new File(path);
+          if (!dir.exists()) {
+              dir.mkdirs();
+          }
+          //调用系统文件管理器打开指定路径目录
+          Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+          intent.setDataAndType(Uri.fromFile(dir), OpenFileUtils.DATA_TYPE_EXCEL);
+          intent.addCategory(Intent.CATEGORY_OPENABLE);
+          startActivityForResult(intent, REQUEST_CHOOSEFILE);
+      }catch (Exception e){
+          e.printStackTrace();
+      }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==-1){
+            Uri uri = data.getData();
+            OpenFileUtils.openFile(context,OpenFileUtils.uriToFile(context,uri));
         }
-        //获取文件路径
-        File dir = new File("/storage/emulated/0/弯曲度测量/线线2");
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        //调用系统文件管理器打开指定路径目录
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setDataAndType(Uri.fromFile(dir), OpenFileUtils.DATA_TYPE_EXCEL);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        startActivityForResult(intent, REQUEST_CHOOSEFILE);
     }
 }

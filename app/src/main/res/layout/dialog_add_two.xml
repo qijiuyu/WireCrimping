@@ -262,6 +262,32 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="铝管基本尺寸：         "
+                    android:textColor="@color/one_gray"
+                    android:textSize="14sp" />
+
+                <Spinner
+                    android:id="@+id/sp_lg"
+                    android:layout_width="228dp"
+                    android:layout_height="34dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/add_edit_bg"
+                    android:inputType="numberDecimal"
+                    android:paddingLeft="2dp"
+                    android:textCursorDrawable="@drawable/edit_cursor_color" />
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -367,57 +393,57 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="horizontal">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="钢环直径d1:"
-                    android:textColor="@color/one_gray"
-                    android:textSize="14sp" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="钢环直径d1:"-->
+                    <!--android:textColor="@color/one_gray"-->
+                    <!--android:textSize="14sp" />-->
 
-                <EditText
-                    android:id="@+id/et_steel_diameter"
-                    android:layout_width="262dp"
-                    android:layout_height="34dp"
-                    android:layout_marginLeft="5dp"
-                    android:background="@drawable/add_edit_bg"
-                    android:inputType="number"
-                    android:paddingLeft="2dp"
-                    android:textCursorDrawable="@drawable/edit_cursor_color" />
+                <!--<EditText-->
+                    <!--android:id="@+id/et_steel_diameter"-->
+                    <!--android:layout_width="262dp"-->
+                    <!--android:layout_height="34dp"-->
+                    <!--android:layout_marginLeft="5dp"-->
+                    <!--android:background="@drawable/add_edit_bg"-->
+                    <!--android:inputType="number"-->
+                    <!--android:paddingLeft="2dp"-->
+                    <!--android:textCursorDrawable="@drawable/edit_cursor_color" />-->
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:orientation="horizontal">
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:gravity="center"-->
+                <!--android:orientation="horizontal">-->
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="不区压长l:"
-                    android:textColor="@color/one_gray"
-                    android:textSize="14sp" />
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="不区压长l:"-->
+                    <!--android:textColor="@color/one_gray"-->
+                    <!--android:textSize="14sp" />-->
 
-                <EditText
-                    android:id="@+id/et_pressureDistrict"
-                    android:layout_width="262dp"
-                    android:layout_height="34dp"
-                    android:layout_marginLeft="16dp"
-                    android:background="@drawable/add_edit_bg"
-                    android:inputType="number"
-                    android:paddingLeft="2dp"
-                    android:textCursorDrawable="@drawable/edit_cursor_color" />
+                <!--<EditText-->
+                    <!--android:id="@+id/et_pressureDistrict"-->
+                    <!--android:layout_width="262dp"-->
+                    <!--android:layout_height="34dp"-->
+                    <!--android:layout_marginLeft="16dp"-->
+                    <!--android:background="@drawable/add_edit_bg"-->
+                    <!--android:inputType="number"-->
+                    <!--android:paddingLeft="2dp"-->
+                    <!--android:textCursorDrawable="@drawable/edit_cursor_color" />-->
 
-            </LinearLayout>
+            <!--</LinearLayout>-->
 
 
             <TextView

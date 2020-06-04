@@ -1,10 +1,11 @@
 package com.bdkj.wirecrimping.activity.curvature;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -16,13 +17,10 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bdkj.wirecrimping.Constant;
 import com.bdkj.wirecrimping.R;
-import com.bdkj.wirecrimping.activity.BaseActivity;
 import com.bdkj.wirecrimping.bean.AttributeValuesBean;
 import com.bdkj.wirecrimping.bean.ByValueBean;
 import com.bdkj.wirecrimping.bean.ModelBean;
@@ -31,11 +29,9 @@ import com.bdkj.wirecrimping.bean.PhotoAddressBean;
 import com.bdkj.wirecrimping.bean.StandardValuesBean;
 import com.bdkj.wirecrimping.util.CurvatureOperateExcel;
 import com.bdkj.wirecrimping.util.DateUtils;
-import com.bdkj.wirecrimping.util.DialogUtils;
 import com.bdkj.wirecrimping.util.JsonUtil;
 import com.bdkj.wirecrimping.util.OpenFileUtils;
 import com.bdkj.wirecrimping.util.OperateExcel;
-import com.bdkj.wirecrimping.util.SpUtils;
 import com.bdkj.wirecrimping.util.ToastUtils;
 import com.example.zhouwei.library.CustomPopWindow;
 import com.luck.picture.lib.PictureSelector;
@@ -63,82 +59,57 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import butterknife.BindView;
-import butterknife.OnClick;
-
 @SuppressLint("JavascriptInterface")
-public class CurvatureActivity extends BaseActivity {
-    @BindView(R.id.ib_back)
-    ImageButton ib_back;
-    @BindView(R.id.tv_title)
-    TextView tv_title;
-    @BindView(R.id.ll_menu)
+public class CurvatureActivity extends Activity implements View.OnClickListener {
     LinearLayout ll_menu;
-    @BindView(R.id.wv_hardware_straight)
-    WebView wv_hardware_straight;
-    @BindView(R.id.tv_date_time)
+    static WebView wv_hardware_straight;
     TextView tv_date_time;
 
     private List<String> modelString = new ArrayList<>(); //型号
     private List<String> wireString = new ArrayList<>(); //使用导线
     private List<StandardValuesBean.DataBean> dataBeanList = new ArrayList<>();
     private Context mContext;
-    private Dialog selectImgDialog;
     private int maxSelectNum = 1;
     private List<LocalMedia> selectImgs = new ArrayList<>();
     private String macAddress = "9C:A5:25:12:C1:CC";
     private String serviceUUID = "0003cdd0-0000-1000-8000-00805f9b0131";
     private String characteristicUUID = "0003cdd1-0000-1000-8000-00805f9b0131";
-    private ByValueBean valueBean = new ByValueBean();
+    private static ByValueBean valueBean = new ByValueBean();
     private String signStr;
     private CustomPopWindow popWindow;
     public static final int REQUEST_CHOOSEFILE = 0X01;
-    public static CurvatureActivity activity;
     private Handler mHandler = new Handler();
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            mHandler.postDelayed(runnable, 1000);
-            long sysTime = System.currentTimeMillis();//获取系统时间
-            CharSequence sysTimeStr = DateFormat.format("yyyy-MM-dd HH:mm:ss", sysTime);//时间显示格式
-            tv_date_time.setText(sysTimeStr); //更新时间
-            Log.d("time", sysTimeStr + "");
-        }
-    };
 
     @Override
-    protected int getContentViewId() {
-        return R.layout.activity_hardware_straight;
-    }
-
-
-    @Override
-    protected void init() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_hardware_straight);
         mContext = this;
-        activity = this;
-        tv_title.setText("弯曲度测量");
-        signStr = getIntent().getStringExtra("sign");
-
         EventBus.getDefault().register(this);
-        initView();
-        initDatas();
-
-
-
-    }
-
-    private void initDatas() {
-        if (SpUtils.getInstance(mContext).getString(Constant.STANDARDVALUES) != null && !"".equals(SpUtils.getInstance(mContext).getString(Constant.STANDARDVALUES))) {
-            dataBeanList.addAll(JsonUtil.stringToList(SpUtils.getInstance(mContext).getString(Constant.STANDARDVALUES), StandardValuesBean.DataBean.class));
-            for (int i = 0; i < dataBeanList.size(); i++) {
-                modelString.add(dataBeanList.get(i).getModel());
-                wireString.add(dataBeanList.get(i).getApplyWire());
+        /**
+         * 去扫描并连接蓝牙
+         */
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                startScanAndConnect();
             }
-        }
-
+        });
+        initView();
     }
+
 
     private void initView() {
+        signStr = getIntent().getStringExtra("sign");
+        TextView tv_title=findViewById(R.id.tv_title);
+        tv_title.setText("弯曲度测量");
+        wv_hardware_straight=findViewById(R.id.wv_hardware_straight);
+        tv_date_time=findViewById(R.id.tv_date_time);
+        ll_menu=findViewById(R.id.ll_menu);
+        findViewById(R.id.ib_back).setOnClickListener(this);
+        ll_menu.setOnClickListener(this);
+
+
         WebSettings webSettings = wv_hardware_straight.getSettings();
         webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         webSettings.setJavaScriptEnabled(true);
@@ -157,7 +128,7 @@ public class CurvatureActivity extends BaseActivity {
         } else if ("4".equals(signStr)) {
             wv_hardware_straight.loadUrl("file:///android_asset/curvature_lines_two.html");
         }
-        wv_hardware_straight.addJavascriptInterface(new MyObject(this, modelString, wireString, signStr), "myObj");
+        wv_hardware_straight.addJavascriptInterface(new MyObject(this,signStr), "myObj");
         wv_hardware_straight.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -167,10 +138,6 @@ public class CurvatureActivity extends BaseActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                /**
-                 * 去扫描并连接蓝牙
-                 */
-                startScanAndConnect();
 
                 /**
                  * 获取手机当前日期传给html显示
@@ -184,8 +151,8 @@ public class CurvatureActivity extends BaseActivity {
 
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
-    @OnClick({R.id.ib_back, R.id.ll_menu})
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ib_back:
@@ -202,6 +169,7 @@ public class CurvatureActivity extends BaseActivity {
                 break;
         }
     }
+
 
     @Subscribe
     public void ResultModel(ModelBean modelBean) {
@@ -323,7 +291,6 @@ public class CurvatureActivity extends BaseActivity {
     @Subscribe
     public void SelectPhoto(String message) {
         if ("选择图片".equals(message)) {
-            DialogUtils.dismiss(selectImgDialog);
             PictureSelector.create(this)
                     .openGallery(PictureMimeType.ofImage())
                     .maxSelectNum(maxSelectNum)
@@ -364,28 +331,6 @@ public class CurvatureActivity extends BaseActivity {
         });
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mHandler.post(runnable);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mHandler.removeCallbacks(runnable);
-        ViseBle.getInstance().disconnect();
-        ViseBle.getInstance().clear();
-//        if (wv_hardware_straight != null) {
-//            wv_hardware_straight.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
-//            wv_hardware_straight.clearHistory();
-//
-//            ((ViewGroup) wv_hardware_straight.getParent()).removeView(wv_hardware_straight);
-//            wv_hardware_straight.destroy();
-//            wv_hardware_straight = null;
-//        }
-
-    }
 
     /**
      * 菜单处理弹出显示内容、点击事件等逻辑
@@ -431,12 +376,6 @@ public class CurvatureActivity extends BaseActivity {
         startActivityForResult(intent, REQUEST_CHOOSEFILE);
     }
 
-    //销毁Webview
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
 
     private int connectNum=0; //重连次数
     private void startScanAndConnect() {
@@ -499,9 +438,8 @@ public class CurvatureActivity extends BaseActivity {
         deviceMirror.setNotifyListener(key, new IBleCallback() {
             @Override
             public void onSuccess(byte[] data, BluetoothGattChannel bluetoothGattChannel, BluetoothLeDevice bluetoothLeDevice) {
-                ViseLog.i("callback success:" + HexUtil.encodeHexStr(data));
                 String result = HexUtil.encodeHexStr(data).substring(33, 34);
-                runOnUiThread(new Runnable() {
+                mHandler.post(new Runnable() {
                     @Override
                     public void run() {
                         if ("0".equals(result)) {
@@ -521,5 +459,38 @@ public class CurvatureActivity extends BaseActivity {
         });
     }
 
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            mHandler.postDelayed(runnable, 1000);
+            long sysTime = System.currentTimeMillis();//获取系统时间
+            CharSequence sysTimeStr = DateFormat.format("yyyy-MM-dd HH:mm:ss", sysTime);//时间显示格式
+            tv_date_time.setText(sysTimeStr); //更新时间
+        }
+    };
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mHandler.post(runnable);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mHandler.removeCallbacks(runnable);
+        ViseBle.getInstance().disconnect();
+        ViseBle.getInstance().clear();
+    }
+
+
+    //销毁Webview
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        wv_hardware_straight.clearCache(true);
+    }
 
 }

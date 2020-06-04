@@ -24,7 +24,7 @@ import com.bdkj.wirecrimping.R;
 import com.bdkj.wirecrimping.adapter.CommonAdapter;
 import com.bdkj.wirecrimping.adapter.OnItemClickListener;
 import com.bdkj.wirecrimping.adapter.ViewHolder;
-import com.bdkj.wirecrimping.bean.StandardValuesTwoBean;
+import com.bdkj.wirecrimping.bean.StandardValuesBean;
 import com.bdkj.wirecrimping.dialog.AddTwoDialog;
 import com.bdkj.wirecrimping.util.JsonUtil;
 import com.bdkj.wirecrimping.util.SpUtils;
@@ -59,9 +59,8 @@ public class SettingTwoActivity extends BaseActivity {
     private CustomPopWindow popWindow;
     public static final String FILENAME = "HardwareFile";
 
-    private List<StandardValuesTwoBean.DataBean> dataBeanList = new ArrayList<>();
-    private CommonAdapter<StandardValuesTwoBean.DataBean> commonAdapter;
-    private StandardValuesTwoBean.DataBean dataBean = new StandardValuesTwoBean.DataBean();
+    private List<StandardValuesBean.DataBean> dataBeanList = new ArrayList<>();
+    private CommonAdapter<StandardValuesBean.DataBean> commonAdapter;
     private Context mContext;
     private Handler mHandler = new Handler();
     private Runnable runnable = new Runnable() {
@@ -90,11 +89,11 @@ public class SettingTwoActivity extends BaseActivity {
 
     private void initView() {
         if (SpUtils.getInstance(mContext).getString(Constant.STANDARDVALUESTWO) != null && !"".equals(SpUtils.getInstance(mContext).getString(Constant.STANDARDVALUESTWO)))
-            dataBeanList.addAll(JsonUtil.stringToList(SpUtils.getInstance(mContext).getString(Constant.STANDARDVALUESTWO), StandardValuesTwoBean.DataBean.class));
+            dataBeanList.addAll(JsonUtil.stringToList(SpUtils.getInstance(mContext).getString(Constant.STANDARDVALUESTWO), StandardValuesBean.DataBean.class));
         rv_recycleView.setLayoutManager(new LinearLayoutManager(mContext));
-        commonAdapter = new CommonAdapter<StandardValuesTwoBean.DataBean>(mContext, R.layout.item_add_standard_values_two, dataBeanList) {
+        commonAdapter = new CommonAdapter<StandardValuesBean.DataBean>(mContext, R.layout.item_add_standard_values_two, dataBeanList) {
             @Override
-            public void convert(ViewHolder holder, StandardValuesTwoBean.DataBean dataBean) {
+            public void convert(ViewHolder holder, StandardValuesBean.DataBean dataBean) {
                 holder.setText(R.id.tv_serialNumber, String.valueOf(dataBean.getSerialNumber()));
                 holder.setText(R.id.tv_model, dataBean.getModel());
                 holder.setText(R.id.tv_applyWire, dataBean.getApplyWire());
@@ -108,8 +107,8 @@ public class SettingTwoActivity extends BaseActivity {
                 holder.setText(R.id.tv_aluminum_d, String.valueOf(dataBean.getAluminum_d()));
                 holder.setText(R.id.tv_aluminum_pressure_after, String.valueOf(dataBean.getAluminum_pressure_after()));
                 holder.setText(R.id.tv_aluminum_L, String.valueOf(dataBean.getAluminum_L()));
-                holder.setText(R.id.tv_steel_diameter, String.valueOf(dataBean.getSteel_diameter()));
-                holder.setText(R.id.tv_pressureDistrict, String.valueOf(dataBean.getPressureDistrict()));
+//                holder.setText(R.id.tv_steel_diameter, String.valueOf(dataBean.getSteel_diameter()));
+//                holder.setText(R.id.tv_pressureDistrict, String.valueOf(dataBean.getPressureDistrict()));
             }
         };
         rv_recycleView.setAdapter(commonAdapter);
@@ -154,7 +153,7 @@ public class SettingTwoActivity extends BaseActivity {
         if ("耐张数据".equals(message)) {
             dataBeanList.clear();
             if (SpUtils.getInstance(mContext).getString(Constant.STANDARDVALUESTWO) != null && !"".equals(SpUtils.getInstance(mContext).getString(Constant.STANDARDVALUESTWO)))
-                dataBeanList.addAll(JsonUtil.stringToList(SpUtils.getInstance(mContext).getString(Constant.STANDARDVALUESTWO), StandardValuesTwoBean.DataBean.class));
+                dataBeanList.addAll(JsonUtil.stringToList(SpUtils.getInstance(mContext).getString(Constant.STANDARDVALUESTWO), StandardValuesBean.DataBean.class));
             commonAdapter.notifyDataSetChanged();
         }
     }

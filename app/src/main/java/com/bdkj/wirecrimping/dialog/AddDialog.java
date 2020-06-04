@@ -169,8 +169,10 @@ public class AddDialog extends Dialog {
             et_aluminum_L.setText(String.valueOf(dataBeanModify.getAluminum_L()));
 
         }
-        if (SpUtils.getInstance(context).getString(Constant.STANDARDVALUES) != null && !"".equals(SpUtils.getInstance(context).getString(Constant.STANDARDVALUES))) {
-            dataBeanList.addAll(JsonUtil.stringToList(SpUtils.getInstance(context).getString(Constant.STANDARDVALUES), StandardValuesBean.DataBean.class));
+
+        final String STANDARDVALUES=SpUtils.getInstance(context).getString(Constant.STANDARDVALUES);
+        if (!TextUtils.isEmpty(STANDARDVALUES)) {
+            dataBeanList.addAll(JsonUtil.stringToList(STANDARDVALUES, StandardValuesBean.DataBean.class));
             if (!TextUtils.isEmpty(et_model.getText().toString())) {
                 for (int i = 0; i < dataBeanList.size(); i++) {
                     if (et_model.getText().toString().equals(dataBeanList.get(i).getModel())) {

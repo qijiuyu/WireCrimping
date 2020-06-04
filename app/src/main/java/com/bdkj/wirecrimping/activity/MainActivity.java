@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -22,8 +20,8 @@ import androidx.annotation.Nullable;
 import com.bdkj.wirecrimping.Constant;
 import com.bdkj.wirecrimping.R;
 import com.bdkj.wirecrimping.util.ActivitysLifecycle;
+import com.bdkj.wirecrimping.util.AddDataUtil;
 import com.bdkj.wirecrimping.util.OpenFileUtils;
-import com.bdkj.wirecrimping.util.PermissionUtil;
 import com.bdkj.wirecrimping.util.SpUtils;
 import com.bdkj.wirecrimping.util.ToastUtils;
 import com.example.zhouwei.library.CustomPopWindow;
@@ -88,13 +86,10 @@ public class MainActivity extends BaseActivity {
             finish();
             return;
         }
+
+        new AddDataUtil().addZXdata(this);
     }
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        PermissionUtil.getPermission(this,true,true);
-    }
 
     @Override
     protected void onResume() {
@@ -162,7 +157,6 @@ public class MainActivity extends BaseActivity {
                 if (popWindow != null) {
                     popWindow.dissmiss();
                 }
-                String showContent = "";
                 switch (v.getId()) {
                     case R.id.tv_bending_measurement:
                         FileMannage("/storage/emulated/0/弯曲度测量");
@@ -171,7 +165,6 @@ public class MainActivity extends BaseActivity {
                         FileMannage("/storage/emulated/0/金具复测及对边测量");
                         break;
                 }
-//                Toast.makeText(MainActivity.this, showContent, Toast.LENGTH_SHORT).show();
             }
         };
         contentView.findViewById(R.id.tv_bending_measurement).setOnClickListener(listener);
@@ -206,19 +199,19 @@ public class MainActivity extends BaseActivity {
 
     //打开系统文件管理器
     private void FileMannage(String path) {
-        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            ToastUtils.showShort("暂无SD卡");
-            return;
+        try {
+            File dir = new File(path);
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            //调用系统文件管理器打开指定路径目录
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setDataAndType(Uri.fromFile(dir), OpenFileUtils.DATA_TYPE_EXCEL);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            startActivityForResult(intent, REQUEST_CHOOSEFILE);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        File dir = new File(path);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        //调用系统文件管理器打开指定路径目录
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setDataAndType(Uri.fromFile(dir), OpenFileUtils.DATA_TYPE_EXCEL);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        startActivityForResult(intent, REQUEST_CHOOSEFILE);
     }
 
 

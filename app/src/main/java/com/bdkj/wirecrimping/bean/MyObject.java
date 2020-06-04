@@ -2,6 +2,7 @@ package com.bdkj.wirecrimping.bean;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.JavascriptInterface;
 
@@ -22,24 +23,36 @@ import java.util.List;
 public class MyObject {
     private Context mcontext;
     private int index = 0;
-    private List<String> data = new ArrayList<>();//型号
-    private List<String> wire = new ArrayList<>();//使用导线
+    private List<String> modelList = new ArrayList<>();//型号
+    private List<String> wireList = new ArrayList<>();//使用导线
     private String sign;
 
 
     //构造函数传入上下文
-    public MyObject(Context c, List<String> data, List<String> wire, String sign) {
+    public MyObject(Context c, String sign) {
         mcontext = c;
-        this.data = data;
         this.sign = sign;
-        this.wire = wire;
+        String STANDARDVALUES;
+        if(sign.equals("1") || sign.equals("4")){
+            STANDARDVALUES=SpUtils.getInstance(mcontext).getString(Constant.STANDARDVALUES);
+        }else{
+            STANDARDVALUES=SpUtils.getInstance(mcontext).getString(Constant.STANDARDVALUESTWO);
+        }
+        if (!TextUtils.isEmpty(STANDARDVALUES)) {
+            List<StandardValuesBean.DataBean> dataBeanList = new ArrayList<>();
+            dataBeanList.addAll(JsonUtil.stringToList(STANDARDVALUES, StandardValuesBean.DataBean.class));
+            for (int i = 0; i < dataBeanList.size(); i++) {
+                modelList.add(dataBeanList.get(i).getModel());
+                wireList.add(dataBeanList.get(i).getApplyWire());
+            }
+        }
     }
 
     @JavascriptInterface
     public void showList() {
         //创建对话框
-        if (data.size() > 0 && data != null) {
-            String[] items = data.toArray(new String[data.size()]);
+        if (modelList.size()>0) {
+            String[] items = modelList.toArray(new String[modelList.size()]);
             AlertDialog alertDialog = new AlertDialog.Builder(mcontext)
                     .setTitle("型号列表")
                     .setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
@@ -63,15 +76,15 @@ public class MyObject {
                     .create();
             alertDialog.show();
         } else {
-            ToastUtils.showShort("暂无压接管型号");
+            ToastUtils.showShort("暂无压接管型号数据");
         }
     }
 
     @JavascriptInterface
     public void showWireList() {
         //创建对话框
-        if (wire.size() > 0 && wire != null) {
-            String[] items = wire.toArray(new String[wire.size()]);
+        if (wireList.size()>0) {
+            String[] items = wireList.toArray(new String[wireList.size()]);
             AlertDialog alertDialog = new AlertDialog.Builder(mcontext)
                     .setTitle("导线列表")
                     .setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
@@ -95,7 +108,7 @@ public class MyObject {
                     .create();
             alertDialog.show();
         } else {
-            ToastUtils.showShort("暂无压接管型号");
+            ToastUtils.showShort("暂无导线数据");
         }
     }
 
@@ -113,10 +126,8 @@ public class MyObject {
         for (int i = 0; i < array.size(); i++) {
             if ("1".equals(sign) || "2".equals(sign)) {
                 if (i == 0) {
-                    jsValueBean.setGqwmax(array.getString(0));
-
-                    //存储点击的某个类型，后面用于测量时做判断，在MeasureDialog中
-                    SpUtils.getInstance(mcontext).savaString(Constant.TYPE, array.getString(0));
+                    jsValueBean.setGqwmax(array.getString(0));//点击的是钢管还是铝管等
+                    SpUtils.getInstance(mcontext).savaString(Constant.MODEL_OR_CONDUCTOR, array.getString(0));
                 } else {
                     jsValueBean.setGqwnum1(array.getString(1));
                 }
@@ -124,8 +135,8 @@ public class MyObject {
                 if (i == 1) {
                     jsValueBean.setGqwnum1(array.getString(1));
                 } else if (i == 2) {
-                    jsValueBean.setGqwmax(array.getString(2));
-                    SpUtils.getInstance(mcontext).savaString(Constant.TYPETWO, array.getString(2));
+                    jsValueBean.setGqwmax(array.getString(2));//点击的是钢管还是铝管等
+                    SpUtils.getInstance(mcontext).savaString(Constant.MODEL_OR_CONDUCTOR, array.getString(2));
                 }
 
             }

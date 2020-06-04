@@ -139,25 +139,25 @@
             android:textColor="@color/one_gray"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tv_steel_diameter"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.8"
-            android:gravity="center"
-            android:text="18"
-            android:textColor="@color/one_gray"
-            android:textSize="16sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/tv_steel_diameter"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="0.8"-->
+            <!--android:gravity="center"-->
+            <!--android:text="18"-->
+            <!--android:textColor="@color/one_gray"-->
+            <!--android:textSize="16sp" />-->
 
-        <TextView
-            android:id="@+id/tv_pressureDistrict"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.8"
-            android:gravity="center"
-            android:text="181"
-            android:textColor="@color/one_gray"
-            android:textSize="16sp" />
+        <!--<TextView-->
+            <!--android:id="@+id/tv_pressureDistrict"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="0.8"-->
+            <!--android:gravity="center"-->
+            <!--android:text="181"-->
+            <!--android:textColor="@color/one_gray"-->
+            <!--android:textSize="16sp" />-->
 
 
     </LinearLayout>

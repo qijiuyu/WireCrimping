@@ -1,9 +1,10 @@
 package com.bdkj.wirecrimping.activity.hardware;
 
-import android.app.Dialog;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -15,13 +16,11 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bdkj.wirecrimping.Constant;
 import com.bdkj.wirecrimping.R;
-import com.bdkj.wirecrimping.activity.BaseActivity;
 import com.bdkj.wirecrimping.bean.HardwareBean;
 import com.bdkj.wirecrimping.bean.HardwareTwoBean;
 import com.bdkj.wirecrimping.bean.JSValueBean;
@@ -29,13 +28,11 @@ import com.bdkj.wirecrimping.bean.MeasureBean;
 import com.bdkj.wirecrimping.bean.ModelBean;
 import com.bdkj.wirecrimping.bean.MyObject;
 import com.bdkj.wirecrimping.bean.PhotoAddressBean;
-import com.bdkj.wirecrimping.bean.StandardValuesBean;
 import com.bdkj.wirecrimping.dialog.MeasureDialog;
 import com.bdkj.wirecrimping.util.DateUtils;
-import com.bdkj.wirecrimping.util.DialogUtils;
 import com.bdkj.wirecrimping.util.HardwareLineExcel;
 import com.bdkj.wirecrimping.util.HardwareStraightExcel;
-import com.bdkj.wirecrimping.util.JsonUtil;
+import com.bdkj.wirecrimping.util.LogUtils;
 import com.bdkj.wirecrimping.util.OpenFileUtils;
 import com.bdkj.wirecrimping.util.SpUtils;
 import com.bdkj.wirecrimping.util.ToastUtils;
@@ -65,25 +62,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 
-public class HardwareActivity extends BaseActivity {
-    @BindView(R.id.ib_back)
-    ImageButton ib_back;
-    @BindView(R.id.tv_title)
-    TextView tv_title;
-    @BindView(R.id.wv_hardware_straight)
-    WebView wv_hardware_straight;
-    @BindView(R.id.ll_menu)
+public class HardwareActivity extends Activity  implements View.OnClickListener {
     LinearLayout ll_menu;
-    @BindView(R.id.tv_date_time)
+    static WebView wv_hardware_straight;
     TextView tv_date_time;
 
     private String signStr;
     private List<String> modelString = new ArrayList<>();//型号
     private List<String> wireString = new ArrayList<>(); //使用导线
-    private List<StandardValuesBean.DataBean> dataBeanList = new ArrayList<>();
     private Context mContext;
 
     private String macAddress = "FF:FF:40:00:01:AE";
@@ -92,7 +80,6 @@ public class HardwareActivity extends BaseActivity {
     private String descriptorUUID = "00001801-0000-1000-8000-00805f9b34fb";
     private MeasureBean measureBean = new MeasureBean();
     public static HardwareActivity activity;
-    private Dialog selectImgDialog;
     private int maxSelectNum = 1;
     private List<LocalMedia> selectImgs = new ArrayList<>();
     private CustomPopWindow popWindow;
@@ -103,46 +90,37 @@ public class HardwareActivity extends BaseActivity {
      */
     public boolean isConnection=false;
     private Handler mHandler = new Handler();
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            mHandler.postDelayed(runnable, 1000);
-            long sysTime = System.currentTimeMillis();//获取系统时间
-            CharSequence sysTimeStr = DateFormat.format("yyyy-MM-dd HH:mm:ss", sysTime);//时间显示格式
-            tv_date_time.setText(sysTimeStr); //更新时间
-            Log.d("time", sysTimeStr + "");
-        }
-    };
-
 
     @Override
-    protected int getContentViewId() {
-        return R.layout.activity_hardware_straight;
-    }
-
-    @Override
-    protected void init() {
-        activity = this;
-        signStr = getIntent().getStringExtra("sign");
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_hardware_straight);
+        activity=this;
         mContext = this;
-        tv_title.setText("金具复测及对边测量");
         EventBus.getDefault().register(this);
-        initDatas();
+        /**
+         * 去扫描并连接蓝牙
+         */
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                startScanAndConnect();
+            }
+        });
         initView();
     }
 
-    private void initDatas() {
-        if (SpUtils.getInstance(mContext).getString(Constant.STANDARDVALUES) != null && !"".equals(SpUtils.getInstance(mContext).getString(Constant.STANDARDVALUES))) {
-            dataBeanList.addAll(JsonUtil.stringToList(SpUtils.getInstance(mContext).getString(Constant.STANDARDVALUES), StandardValuesBean.DataBean.class));
-            for (int i = 0; i < dataBeanList.size(); i++) {
-                modelString.add(dataBeanList.get(i).getModel());
-                wireString.add(dataBeanList.get(i).getApplyWire());
-            }
-        }
-
-    }
 
     private void initView() {
+        signStr = getIntent().getStringExtra("sign");
+        TextView tv_title=findViewById(R.id.tv_title);
+        tv_title.setText("金具复测及对边测量");
+        wv_hardware_straight=findViewById(R.id.wv_hardware_straight);
+        tv_date_time=findViewById(R.id.tv_date_time);
+        ll_menu=findViewById(R.id.ll_menu);
+        findViewById(R.id.ib_back).setOnClickListener(this);
+        ll_menu.setOnClickListener(this);
+
         WebSettings webSettings = wv_hardware_straight.getSettings();
         webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         webSettings.setJavaScriptEnabled(true);
@@ -160,7 +138,7 @@ public class HardwareActivity extends BaseActivity {
         } else if ("4".equals(signStr)) {
             wv_hardware_straight.loadUrl("file:///android_asset/hardware_lines_two.html");
         }
-        wv_hardware_straight.addJavascriptInterface(new MyObject(this, modelString, wireString, signStr), "myObj");
+        wv_hardware_straight.addJavascriptInterface(new MyObject(this,signStr), "myObj");
         wv_hardware_straight.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -195,6 +173,7 @@ public class HardwareActivity extends BaseActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+                    LogUtils.e("选择的压接型号是："+modelBean.getResultModel());
                     wv_hardware_straight.loadUrl("javascript:yajieguan('" + modelBean.getResultModel() + "')");
                 }
             });
@@ -312,25 +291,10 @@ public class HardwareActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mHandler.post(runnable);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        ViseBle.getInstance().disconnect();
-        ViseBle.getInstance().clear();
-        mHandler.removeCallbacks(runnable);
-    }
-
 
     @Subscribe
     public void SelectPhoto(String message) {
         if ("选择图片".equals(message)) {
-            DialogUtils.dismiss(selectImgDialog);
             PictureSelector.create(this)
                     .openGallery(PictureMimeType.ofImage())
                     .maxSelectNum(maxSelectNum)
@@ -398,28 +362,19 @@ public class HardwareActivity extends BaseActivity {
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-        SpUtils.getInstance(mContext).savaString(Constant.MODEL, "");
-        SpUtils.getInstance(mContext).savaString(Constant.WIRE, "");
-    }
-
     public void setLoadUrl(String message) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                final String MODEL_OR_CONDUCTOR=SpUtils.getInstance(mContext).getString(Constant.MODEL_OR_CONDUCTOR);
                 if ("1".equals(signStr) || "2".equals(signStr)) {
-                    if ("gqduibianmax".equals(SpUtils.getInstance(mContext).getString(Constant.TYPE)) || "gqduibianmin".equals(SpUtils.getInstance(mContext).getString(Constant.TYPE))
-                            || "lduibianmax".equals(SpUtils.getInstance(mContext).getString(Constant.TYPE)) || "lduibianmin".equals(SpUtils.getInstance(mContext).getString(Constant.TYPE))) {
+                    if ("gqduibianmax".equals(MODEL_OR_CONDUCTOR)|| "gqduibianmin".equals(MODEL_OR_CONDUCTOR) || "lduibianmax".equals(MODEL_OR_CONDUCTOR) || "lduibianmin".equals(MODEL_OR_CONDUCTOR)) {
                         wv_hardware_straight.loadUrl("javascript:maxorminafter('" + message + "')");
                     } else {
                         wv_hardware_straight.loadUrl("javascript:maxormin('" + message + "')");
                     }
                 } else {
-                    if ("lhwqmax".equals(SpUtils.getInstance(mContext).getString(Constant.TYPETWO)) || "lhwqmin".equals(SpUtils.getInstance(mContext).getString(Constant.TYPETWO))
-                            || "ghwqmax".equals(SpUtils.getInstance(mContext).getString(Constant.TYPETWO)) || "ghwqmin".equals(SpUtils.getInstance(mContext).getString(Constant.TYPETWO))) {
+                    if ("lhwqmax".equals(MODEL_OR_CONDUCTOR) || "lhwqmin".equals(MODEL_OR_CONDUCTOR) || "ghwqmax".equals(MODEL_OR_CONDUCTOR) || "ghwqmin".equals(MODEL_OR_CONDUCTOR)) {
                         wv_hardware_straight.loadUrl("javascript:maxorminafter('" + message + "')");
                     } else {
                         wv_hardware_straight.loadUrl("javascript:maxormin('" + message + "')");
@@ -570,5 +525,40 @@ public class HardwareActivity extends BaseActivity {
                 ViseLog.i("callback fail:" + exception);
             }
         });
+    }
+
+
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            mHandler.postDelayed(runnable, 1000);
+            long sysTime = System.currentTimeMillis();//获取系统时间
+            CharSequence sysTimeStr = DateFormat.format("yyyy-MM-dd HH:mm:ss", sysTime);//时间显示格式
+            tv_date_time.setText(sysTimeStr); //更新时间
+            Log.d("time", sysTimeStr + "");
+        }
+    };
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mHandler.post(runnable);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        ViseBle.getInstance().disconnect();
+        ViseBle.getInstance().clear();
+        mHandler.removeCallbacks(runnable);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        SpUtils.getInstance(mContext).savaString(Constant.MODEL, "");
+        SpUtils.getInstance(mContext).savaString(Constant.WIRE, "");
     }
 }
