@@ -1346,28 +1346,33 @@
             document.querySelectorAll('.'+va.measureValueJs)[1].innerText = va.listValue[va.listValue.length-1]
 			//判断数值是否合格
 			//钢管min<=测量任一值<=max
-			//铝管：D 测量最大值<=标准最大值   d 测量最小值>=标准最小值
-			if(va.measureValueJs.index('gq') != -1){//钢管
-				if (va.listValue[0]> va.max || va.listValue[0]< va.min) {
-				    document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red'
+			if(va.measureValueJs.indexOf('gq') != -1){//钢管
+				if(va.listValue[0] <= va.max && va.listValue[va.listValue.length-1] >= va.min){
+				   document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black';
+				   document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black';			   
 				}else{
-				    document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black'
+				   document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red';
+				   document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red'
 				}
-				if (va.listValue[va.listValue.length-1] < va.min || va.listValue[va.listValue.length-1] > va.max) {
-				    document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red'
-				}else{
-				    document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black'
-				}
-			}else if(va.measureValueJs.index('lq') != -1){//铝管
-				if (va.listValue[0]<=va.max) {
-				    document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black'
-				}else{
-				    document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red'
-				}
-				if (va.listValue[va.listValue.length-1] >= va.min) {
-				    document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black'
-				}else{
-				    document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red'
+			}else if(va.measureValueJs.indexOf('lq') != -1){//铝管
+			// 铝管外径D的计算方式：APP会传max这个字段作为标准值，listValue是测量时的数据。 判断标准是：listValue里面的数据只有都小于或者等于标准值了，则合格。
+			//铝管内径d的计算方式：APP会传min这个字段作为标准值，，listValue是测量时的数据。 判断标准是：listValue里面的数据只有都大于或者等于标准值了，则合格。
+				if(va.measureValueJs.indexOf('lqw') != -1){//外径
+					if(va.listValue[0] <= va.max){
+						document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black';
+						document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black';	
+					}else{
+						document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red';
+						document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red'
+					}
+				}else{//内径
+					if(va.listValue[va.listValue.length-1] >= va.min){
+						document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black';
+						document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black';
+					}else{
+						document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red';
+						document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red'
+					}
 				}
 			}
             var gqwmax = document.querySelectorAll('.gqwmax')
@@ -1406,10 +1411,25 @@
             })
             document.querySelectorAll('.'+va.measureValueJs)[0].innerText = va.listValue[0]
             document.querySelectorAll('.'+va.measureValueJs)[1].innerText = va.listValue[va.listValue.length-1]
-			//对边距校验规则：测量的数值均小于标准值 或者  只有一个等于标准值   (max==min)
-			if(va.listValue.every(n=>n<va.max) || va.listValue.filter(n=>n==va.max).length == 1){
+			// 钢管--压后值--对边距S的计算方式:
+			// APP会传max这个字段作为标准值，然后listValue是测量时的数据。  判断标准是：（1）listValue里面的所有数据都小于标准值了是合格的。 （2）listValue里面的数据最多只能有一个是等于标准值的，其他小于标准值，这样也合格。
+			var arr = [];
+			if(va.listValue.every(n=>n<va.max)){
 				 document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black'
 				 document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black'
+			}else if((va.listValue.filter(i => i==va.max)).length == 1){
+				for(var i=0;i<va.listValue.length;i++){
+					if(va.listValue[i] != va.max){
+						arr.push(va.listValue[i]);
+					}
+				};
+				if(arr.every(i => i < va.max)){
+					document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black'
+					document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black'
+				}else{
+					document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red'
+					document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red'
+				}
 			}else{
 				document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red'
 				document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red'
@@ -1620,20 +1640,6 @@
                 data.checked1 = '合格'
             }
            data = JSON.stringify(data)
-        }
-
-
-        //显示当前的日期
-        function getTime(time){
-            //日期
-            document.querySelector('.year').value = time.split('-')[0]
-            document.querySelector('.mounth').value = time.split('-')[1]
-            document.querySelector('.day').value = time.split('-')[2]
-
-            //监理日期
-            document.querySelector('.yeartwo').value = time.split('-')[0]
-            document.querySelector('.mounthtwo').value = time.split('-')[1]
-            document.querySelector('.daytwo').value = time.split('-')[2]
         }
 
         //传值给html，直接展示

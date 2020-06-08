@@ -103,12 +103,16 @@ public class SettingTwoActivity extends BaseActivity {
                 holder.setText(R.id.tv_steel_d_min, String.valueOf(dataBean.getSteel_d_min()));
                 holder.setText(R.id.tv_steel_pressure_after, String.valueOf(dataBean.getSteel_pressure_after()));
                 holder.setText(R.id.tv_steel_L, String.valueOf(dataBean.getSteel_L()));
-                holder.setText(R.id.tv_aluminum_D, String.valueOf(dataBean.getAluminum_D()));
+
+                if(dataBean.getAluminum_type()==0){
+                    holder.setText(R.id.tv_aluminum_D, "最大值:"+dataBean.getAluminum_D_big()+"最小值:"+dataBean.getAluminum_D_min());
+                }else{
+                    holder.setText(R.id.tv_aluminum_D, String.valueOf(dataBean.getAluminum_D()));
+                }
+
                 holder.setText(R.id.tv_aluminum_d, String.valueOf(dataBean.getAluminum_d()));
                 holder.setText(R.id.tv_aluminum_pressure_after, String.valueOf(dataBean.getAluminum_pressure_after()));
                 holder.setText(R.id.tv_aluminum_L, String.valueOf(dataBean.getAluminum_L()));
-//                holder.setText(R.id.tv_steel_diameter, String.valueOf(dataBean.getSteel_diameter()));
-//                holder.setText(R.id.tv_pressureDistrict, String.valueOf(dataBean.getPressureDistrict()));
             }
         };
         rv_recycleView.setAdapter(commonAdapter);

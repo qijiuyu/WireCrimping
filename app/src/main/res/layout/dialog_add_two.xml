@@ -263,7 +263,6 @@
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -279,11 +278,9 @@
                 <Spinner
                     android:id="@+id/sp_lg"
                     android:layout_width="228dp"
-                    android:layout_height="34dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/add_edit_bg"
+                    android:layout_height="37dp"
+                    android:layout_marginLeft="30dp"
                     android:inputType="numberDecimal"
-                    android:paddingLeft="2dp"
                     android:textCursorDrawable="@drawable/edit_cursor_color" />
 
             </LinearLayout>
@@ -296,22 +293,86 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <TextView
+                <LinearLayout
+                    android:id="@+id/lin_lg1"
+                    android:visibility="gone"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="铝管主要尺寸：         D&lt;="
-                    android:textColor="@color/one_gray"
-                    android:textSize="14sp" />
+                    android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/et_aluminum_D"
-                    android:layout_width="228dp"
-                    android:layout_height="34dp"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/add_edit_bg"
-                    android:inputType="numberDecimal"
-                    android:paddingLeft="2dp"
-                    android:textCursorDrawable="@drawable/edit_cursor_color" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="铝管主要尺寸：         D&lt;="
+                        android:textColor="@color/one_gray"
+                        android:textSize="14sp" />
+
+                    <EditText
+                        android:id="@+id/et_aluminum_D"
+                        android:layout_width="228dp"
+                        android:layout_height="34dp"
+                        android:layout_marginLeft="10dp"
+                        android:background="@drawable/add_edit_bg"
+                        android:inputType="numberDecimal"
+                        android:paddingLeft="2dp"
+                        android:textCursorDrawable="@drawable/edit_cursor_color" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lin_lg2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="铝管主要尺寸："
+                        android:textColor="@color/one_gray"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="D     最大值"
+                        android:textColor="@color/one_gray"
+                        android:textSize="16sp"
+                        android:layout_marginLeft="15dp"/>
+
+                    <EditText
+                        android:id="@+id/et_aluminum_D_big"
+                        android:layout_width="68dp"
+                        android:layout_height="34dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/add_edit_bg"
+                        android:gravity="center"
+                        android:inputType="numberDecimal"
+                        android:textCursorDrawable="@drawable/edit_cursor_color" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:text="最小值"
+                        android:textColor="@color/one_gray"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/et_aluminum_D_min"
+                        android:layout_width="68dp"
+                        android:layout_height="34dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/add_edit_bg"
+                        android:gravity="center"
+                        android:inputType="numberDecimal"
+                        android:textCursorDrawable="@drawable/edit_cursor_color" />
+
+                </LinearLayout>
 
             </LinearLayout>
 

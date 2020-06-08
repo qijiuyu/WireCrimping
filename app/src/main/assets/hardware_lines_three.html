@@ -2065,28 +2065,51 @@
             document.querySelectorAll('.' + va.measureValueJs)[1].innerText = va.listValue[va.listValue.length - 1]
 			//判断数值是否合格
 			//钢管min<=测量任一值<=max
-			//铝管：D 测量最大值<=标准最大值   d 测量最小值>=标准最小值
-			if(va.measureValueJs.index('gq') != -1){//钢管
-				if (va.listValue[0]> va.max || va.listValue[0]< va.min) {
-				    document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red'
+			//铝管外径D的计算方式（有两种计算方式）
+			//（1）APP会传max这个字段作为标准值，listValue是测量时的数据。 判断标准是：listValue里面的数据只有都小于或者等于标准值了，则合格。
+			//（2） APP会传max（最大值），min（最小值）这两个字段作为标准值。 然后listValue是测量时的数据。 判断标准是min<=listValue<=max就是合格，否则不合格。
+						
+			// 铝管内径d的计算方式
+			// APP会传min这个字段作为标准值，，listValue是测量时的数据。 判断标准是：
+			// listValue里面的数据只有都大于或者等于标准值了，则合格。
+			if(va.measureValueJs.indexOf('gq') != -1){//钢管
+			   if(va.listValue[0] <= va.max && va.listValue[va.listValue.length-1] >= va.min){
+				   document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black';
+				   document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black';			   
+			   }else{
+				   document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red';
+				   document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red'
+			   }
+			 }else if(va.measureValueJs.indexOf('lq') != -1){//铝管
+			 //区分外径和内经
+			  if(va.measureValueJs.indexOf('lqw') != -1){
+					//外径
+					if(va.min == 0){
+						if(va.listValue[0] <= va.max){
+							document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black';
+							document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black'
+						}else{
+							 document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red';
+							 document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red'
+						};
+					}else{
+						if(va.listValue[va.listValue.length-1] >= va.min && va.listValue[0] <= va.max){
+							document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black';
+							document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black';
+						}else{
+							document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red';
+							document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red'
+						}
+					}
 				}else{
-				    document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black'
-				}
-				if (va.listValue[va.listValue.length-1] < va.min || va.listValue[va.listValue.length-1] > va.max) {
-				    document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red'
-				}else{
-				    document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black'
-				}
-			}else if(va.measureValueJs.index('lq') != -1){//铝管
-				if (va.listValue[0]<=va.max) {
-				    document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black'
-				}else{
-				    document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red'
-				}
-				if (va.listValue[va.listValue.length-1] >= va.min) {
-				    document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black'
-				}else{
-				    document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red'
+					//内径
+					if(va.listValue[va.listValue.length-1] >= va.min){
+						document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black';
+						document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black';
+					}else{
+						document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red';
+						document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red';
+					}								
 				}
 			}
 
@@ -2119,9 +2142,23 @@
             })
             document.querySelectorAll('.' + va.measureValueJs)[0].innerText = va.listValue[0]
             document.querySelectorAll('.' + va.measureValueJs)[1].innerText = va.listValue[va.listValue.length - 1]
-            if(va.listValue.every(n=>n<va.max) || va.listValue.filter(n=>n==va.max).length == 1){
+            var arr = [];
+            if(va.listValue.every(n=>n<va.max)){
             	 document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black'
             	 document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black'
+            }else if((va.listValue.filter(i => i==va.max)).length == 1){
+            	for(var i=0;i<va.listValue.length;i++){
+            		if(va.listValue[i] != va.max){
+            			arr.push(va.listValue[i]);
+            		}
+            	};
+            	if(arr.every(i => i < va.max)){
+            		document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black'
+            		document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black'
+            	}else{
+            		document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red'
+            		document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red'
+            	}
             }else{
             	document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red'
             	document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red'
@@ -2308,16 +2345,6 @@
             data = JSON.stringify(data)
 
         }
-
-
-
-         //显示当前的日期
-        function getTime(time){
-           document.querySelector('.date').value = time
-        }
-
-
-         //传值给html，直接展示
         function getValue (data) {
             data = JSON.parse(data)
             //工程名称
