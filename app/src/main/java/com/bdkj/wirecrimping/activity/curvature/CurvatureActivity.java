@@ -2,7 +2,6 @@ package com.bdkj.wirecrimping.activity.curvature;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,7 +25,6 @@ import com.bdkj.wirecrimping.bean.ByValueBean;
 import com.bdkj.wirecrimping.bean.ModelBean;
 import com.bdkj.wirecrimping.bean.MyObject;
 import com.bdkj.wirecrimping.bean.PhotoAddressBean;
-import com.bdkj.wirecrimping.bean.StandardValuesBean;
 import com.bdkj.wirecrimping.util.CurvatureOperateExcel;
 import com.bdkj.wirecrimping.util.DateUtils;
 import com.bdkj.wirecrimping.util.JsonUtil;
@@ -65,10 +63,6 @@ public class CurvatureActivity extends Activity implements View.OnClickListener 
     static WebView wv_hardware_straight;
     TextView tv_date_time;
 
-    private List<String> modelString = new ArrayList<>(); //型号
-    private List<String> wireString = new ArrayList<>(); //使用导线
-    private List<StandardValuesBean.DataBean> dataBeanList = new ArrayList<>();
-    private Context mContext;
     private int maxSelectNum = 1;
     private List<LocalMedia> selectImgs = new ArrayList<>();
     private String macAddress = "9C:A5:25:12:C1:CC";
@@ -84,17 +78,7 @@ public class CurvatureActivity extends Activity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hardware_straight);
-        mContext = this;
         EventBus.getDefault().register(this);
-        /**
-         * 去扫描并连接蓝牙
-         */
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                startScanAndConnect();
-            }
-        });
         initView();
     }
 
@@ -138,6 +122,9 @@ public class CurvatureActivity extends Activity implements View.OnClickListener 
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+
+                //去扫描并连接蓝牙
+                startScanAndConnect();
 
                 /**
                  * 获取手机当前日期传给html显示

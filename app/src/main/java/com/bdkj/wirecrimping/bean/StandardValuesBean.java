@@ -32,6 +32,43 @@ public class StandardValuesBean implements Serializable {
         private int aluminum_L;//铝管L值
         private int aluminum_type;//铝管基本尺寸标注
 
+        public DataBean(){}
+
+        public DataBean(int serialNumber, String model, String applyWire, double steel_D_big, double steel_D_min, double steel_d_big, double steel_d_min, double steel_pressure_after, int steel_L, double aluminum_D, double aluminum_d, double aluminum_pressure_after, int aluminum_L, int aluminum_type) {
+            this.serialNumber = serialNumber;
+            this.model = model;
+            this.applyWire = applyWire;
+            this.steel_D_big = steel_D_big;
+            this.steel_D_min = steel_D_min;
+            this.steel_d_big = steel_d_big;
+            this.steel_d_min = steel_d_min;
+            this.steel_pressure_after = steel_pressure_after;
+            this.steel_L = steel_L;
+            this.aluminum_D = aluminum_D;
+            this.aluminum_d = aluminum_d;
+            this.aluminum_pressure_after = aluminum_pressure_after;
+            this.aluminum_L = aluminum_L;
+            this.aluminum_type = aluminum_type;
+        }
+
+        public DataBean(int serialNumber, String model, String applyWire, double steel_D_big, double steel_D_min, double steel_d_big, double steel_d_min, double steel_pressure_after, int steel_L, double aluminum_D_big, double aluminum_D_min, double aluminum_d, double aluminum_pressure_after, int aluminum_L, int aluminum_type) {
+            this.serialNumber = serialNumber;
+            this.model = model;
+            this.applyWire = applyWire;
+            this.steel_D_big = steel_D_big;
+            this.steel_D_min = steel_D_min;
+            this.steel_d_big = steel_d_big;
+            this.steel_d_min = steel_d_min;
+            this.steel_pressure_after = steel_pressure_after;
+            this.steel_L = steel_L;
+            this.aluminum_D_big = aluminum_D_big;
+            this.aluminum_D_min = aluminum_D_min;
+            this.aluminum_d = aluminum_d;
+            this.aluminum_pressure_after = aluminum_pressure_after;
+            this.aluminum_L = aluminum_L;
+            this.aluminum_type = aluminum_type;
+        }
+
         public int getSerialNumber() {
             return serialNumber;
         }

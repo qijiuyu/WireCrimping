@@ -88,6 +88,7 @@ public class MainActivity extends BaseActivity {
         }
 
         new AddDataUtil().addZXdata(this);
+        new AddDataUtil().addNZdata(this);
     }
 
 

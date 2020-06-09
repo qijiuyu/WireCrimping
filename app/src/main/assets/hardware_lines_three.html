@@ -2124,14 +2124,28 @@
                 listTest.push(ggwqmax[i].style.color)
                 listTest.push(ggwqmin[i].style.color)
             }
-            if (listTest[z].indexOf('red') == -1) {
-                document.querySelector('#jbuhege').style.backgroundColor = 'red';
-                document.querySelector('#jhege').style.backgroundColor = 'white';
-                break
-            }else{
-                document.querySelector('#jbuhege').style.backgroundColor = 'white';
-                document.querySelector('#jhege').style.backgroundColor = '#00d400';
-            }
+			var _flag = true;
+			for(var i=0;i<listTest.length;i++){
+				if(listTest[i].indexOf('red') != -1){
+					_flag = false;
+					break;
+				}
+			}
+			if(_flag){
+				document.querySelector('#jbuhege').style.backgroundColor = 'white';
+				document.querySelector('#jhege').style.backgroundColor = '#00d400';
+			}else{
+				document.querySelector('#jbuhege').style.backgroundColor = 'red';
+				document.querySelector('#jhege').style.backgroundColor = 'white';
+			}
+            // if (listTest.some(i => i == 'red')) {
+            //     document.querySelector('#jbuhege').style.backgroundColor = 'red';
+            //     document.querySelector('#jhege').style.backgroundColor = 'white';
+            //     break
+            // }else{
+            //     document.querySelector('#jbuhege').style.backgroundColor = 'white';
+            //     document.querySelector('#jhege').style.backgroundColor = '#00d400';
+            // }
         }
 
         function maxorminafter(va) {
@@ -2142,27 +2156,58 @@
             })
             document.querySelectorAll('.' + va.measureValueJs)[0].innerText = va.listValue[0]
             document.querySelectorAll('.' + va.measureValueJs)[1].innerText = va.listValue[va.listValue.length - 1]
-            var arr = [];
-            if(va.listValue.every(n=>n<va.max)){
-            	 document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black'
-            	 document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black'
-            }else if((va.listValue.filter(i => i==va.max)).length == 1){
+            if(va.listValue[0]<va.max){
+            	document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black'
+            	document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black'
+            }else{
+            	var arr1 = [],arr2=[],flag=true;
             	for(var i=0;i<va.listValue.length;i++){
-            		if(va.listValue[i] != va.max){
-            			arr.push(va.listValue[i]);
+            		if(va.listValue[i] == va.max){
+            			arr1.push(va.listValue[i])
+            		}else{
+            			arr2.push(va.listValue[i])
             		}
             	};
-            	if(arr.every(i => i < va.max)){
-            		document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black'
-            		document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black'
+            	if(arr1.length == 1){
+            		for(var i=0;i<arr2.length;i++){
+            			if(arr2[i]>va.max){
+            				flag = false;
+            				break;
+            			}
+            		};
+            		if(flag){
+            			document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black'
+            			document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black'
+            		}else{
+            			document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red'
+            			document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red'
+            		}
             	}else{
             		document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red'
             		document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red'
             	}
-            }else{
-            	document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red'
-            	document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red'
             }
+			// var arr = [];
+            // if(va.listValue.every(n=>n<va.max)){
+            // 	 document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black'
+            // 	 document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black'
+            // }else if((va.listValue.filter(i => i==va.max)).length == 1){
+            // 	for(var i=0;i<va.listValue.length;i++){
+            // 		if(va.listValue[i] != va.max){
+            // 			arr.push(va.listValue[i]);
+            // 		}
+            // 	};
+            // 	if(arr.every(i => i < va.max)){
+            // 		document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'black'
+            // 		document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'black'
+            // 	}else{
+            // 		document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red'
+            // 		document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red'
+            // 	}
+            // }else{
+            // 	document.querySelectorAll('.'+va.measureValueJs)[0].style.color = 'red'
+            // 	document.querySelectorAll('.'+va.measureValueJs)[1].style.color = 'red'
+            // }
 
             var lhwqmax = document.querySelectorAll('.lhwqmax')
             var lhwqmin = document.querySelectorAll('.lhwqmin')
@@ -2175,14 +2220,28 @@
                 listTest.push(ghwqmax[i].style.color)
                 listTest.push(ghwqmin[i].style.color)
             }
-            if (listTest[z].indexOf('red') == -1) {
-                document.querySelector('#jbuhege').style.backgroundColor = 'red';
-                document.querySelector('#jhege').style.backgroundColor = 'white';
-                break
-            }else{
-                document.querySelector('#jbuhege').style.backgroundColor = 'white';
-                document.querySelector('#jhege').style.backgroundColor = '#00d400';
-            }
+			var _flag = true;
+			for(var i=0;i<listTest.length;i++){
+				if(listTest[i].indexOf('red') != -1){
+					_flag = false;
+					break;
+				}
+			}
+			if(_flag){
+				document.querySelector('#dbuhege').style.backgroundColor = 'white';
+				document.querySelector('#dhege').style.backgroundColor = '#00d400';
+			}else{
+				document.querySelector('#dbuhege').style.backgroundColor = 'red';
+				document.querySelector('#dhege').style.backgroundColor = 'white';
+			}
+            // if (listTest.some(i => i == 'red')) {
+            //     document.querySelector('#jbuhege').style.backgroundColor = 'red';
+            //     document.querySelector('#jhege').style.backgroundColor = 'white';
+            //     break
+            // }else{
+            //     document.querySelector('#jbuhege').style.backgroundColor = 'white';
+            //     document.querySelector('#jhege').style.backgroundColor = '#00d400';
+            // }
         }
         var imgUrl = '';
 
@@ -2506,7 +2565,10 @@
         }
 
 
-
+ //显示当前的日期
+        function getTime(time){
+           document.querySelector('.date').value = time
+        }
 
 
 

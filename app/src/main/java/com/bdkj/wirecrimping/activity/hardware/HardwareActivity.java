@@ -70,15 +70,13 @@ public class HardwareActivity extends Activity  implements View.OnClickListener 
     TextView tv_date_time;
 
     private String signStr;
-    private List<String> modelString = new ArrayList<>();//型号
-    private List<String> wireString = new ArrayList<>(); //使用导线
     private Context mContext;
 
     private String macAddress = "FF:FF:40:00:01:AE";
     private String serviceUUID = "0000ffff-0000-1000-8000-00805f9b34fb";
     private String characteristicUUID = "0000ff00-0000-1000-8000-00805f9b34fb";
     private String descriptorUUID = "00001801-0000-1000-8000-00805f9b34fb";
-    private MeasureBean measureBean = new MeasureBean();
+    private static MeasureBean measureBean = new MeasureBean();
     public static HardwareActivity activity;
     private int maxSelectNum = 1;
     private List<LocalMedia> selectImgs = new ArrayList<>();
@@ -98,15 +96,6 @@ public class HardwareActivity extends Activity  implements View.OnClickListener 
         activity=this;
         mContext = this;
         EventBus.getDefault().register(this);
-        /**
-         * 去扫描并连接蓝牙
-         */
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                startScanAndConnect();
-            }
-        });
         initView();
     }
 
@@ -152,9 +141,8 @@ public class HardwareActivity extends Activity  implements View.OnClickListener 
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                /**
-                 * 去扫描并连接蓝牙
-                 */
+
+                //去扫描并连接蓝牙
                 startScanAndConnect();
 
                 /**
@@ -363,6 +351,7 @@ public class HardwareActivity extends Activity  implements View.OnClickListener 
     }
 
     public void setLoadUrl(String message) {
+        LogUtils.e("++++++++++++++++++++++"+message);
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
