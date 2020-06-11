@@ -20,7 +20,7 @@ public class Constant {
     public static final String STANDARDVALUES = "standardValues";    //本地存储”直线线夹“的标准值
     public static final String STANDARDVALUESTWO = "standardValuesTwo";  //本地存储的“耐张线”的标准值
     public static final String SELECT = "select";
-    public static final String MODEL_OR_CONDUCTOR = "MODEL_OR_CONDUCTOR";  //选择的压接型号/导线
+    public static final String MODEL_OR_CONDUCTOR = "MODEL_OR_CONDUCTOR";  //存储h5页面上点击的位置
     public static final String MODEL = "model";   //存储选择的压接管型号
     public static final String WIRE = "wire";     //存储选择的导线类型
     public static final String CURVATURESTRAIGHTSAVE = "curvatureStraightSave";   //本地存储的-弯曲度测量--直线液压管的数据
