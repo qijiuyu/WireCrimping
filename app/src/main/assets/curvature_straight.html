@@ -656,6 +656,14 @@
             }
 
         }
+		for(var i=0;i<document.getElementsByClassName('numtex').length;i++){
+			document.getElementsByClassName('numtex')[i].onfocus = function(){
+				this.style.backgroundColor= '#409EFF'
+			}
+			document.getElementsByClassName('numtex')[i].onblur = function(){
+				this.style.backgroundColor= ''
+			}
+		}
 
 </script>
 </body>

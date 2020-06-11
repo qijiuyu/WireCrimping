@@ -200,6 +200,7 @@ public class MyObject {
         } else {
             SpUtils.getInstance(mcontext).savaString(Constant.HARDWARETWOSAVE, message);
         }
+        Log.e("金具复测及对边测量：","++++++++++++++"+message);
         if ("1".equals(sign) || "2".equals(sign)) {
             HardwareBean hardwareBean = (HardwareBean) JsonUtil.stringToObject(message, HardwareBean.class);
             hardwareBean.setSaveInformation("保存");

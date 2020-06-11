@@ -36,7 +36,7 @@ public class MeasureDialog extends Dialog {
     private Context context;
     private TextView tv_value_one, tv_value_two, tv_value_three, tv_value_four, tv_value_five;
     //保存每次测量的值
-    private List<String> listValue = new ArrayList<>();
+    private List<Double> listValue = new ArrayList<>();
     private MeasureBean measure = new MeasureBean();
     private List<StandardValuesBean.DataBean> dataBeanList = new ArrayList<>();
     private static final int COMPLETED = 0;
@@ -148,27 +148,32 @@ public class MeasureDialog extends Dialog {
                                         //钢管-压后值-对边距s-最大和最小
                                         else if ("gqduibianmax".equals(MODEL_OR_CONDUCTOR) || "gqduibianmin".equals(MODEL_OR_CONDUCTOR)) {
                                             measure.setMax(dataBeanList.get(i).getSteel_pressure_after());
+                                            measure.setMin(0);
                                         }
                                         //铝管-压前值-D外径-最大和最小
                                         else if ("lqwmax".equals(MODEL_OR_CONDUCTOR) || "lqwmin".equals(MODEL_OR_CONDUCTOR)) {
                                             if ("1".equals(sign)){   //直线
                                                 measure.setMax(dataBeanList.get(i).getAluminum_D());
+                                                measure.setMin(0);
                                             }else{                   //耐张线
                                                 if(dataBeanList.get(i).getAluminum_type()==0){
                                                     measure.setMax(dataBeanList.get(i).getAluminum_D_big());
                                                     measure.setMin(dataBeanList.get(i).getAluminum_D_min());
                                                 }else{
                                                     measure.setMax(dataBeanList.get(i).getAluminum_D());
+                                                    measure.setMin(0);
                                                 }
                                             }
                                         }
                                         //铝管-压前值-内径-最大和最小
                                         else if ("lnmax".equals(MODEL_OR_CONDUCTOR) || "lnmin".equals(MODEL_OR_CONDUCTOR)) {
                                             measure.setMin(dataBeanList.get(i).getAluminum_d());
+                                            measure.setMax(0);
                                         }
                                         //铝管-压后值-对边距-最大和最小
                                         else if ("lduibianmax".equals(MODEL_OR_CONDUCTOR) || "lduibianmin".equals(MODEL_OR_CONDUCTOR)) {
                                             measure.setMax(dataBeanList.get(i).getAluminum_pressure_after());
+                                            measure.setMin(0);
                                         }
                                     }
                                 }
@@ -204,22 +209,26 @@ public class MeasureDialog extends Dialog {
                                         else if ("lqwqmax".equals(MODEL_OR_CONDUCTOR) || "lqwqmin".equals(MODEL_OR_CONDUCTOR)) {
                                             if ("4".equals(sign)){   //直线
                                                 measure.setMax(dataBeanList.get(i).getAluminum_D());
+                                                measure.setMin(0);
                                             }else{                   //耐张线
                                                 if(dataBeanList.get(i).getAluminum_type()==0){
                                                     measure.setMax(dataBeanList.get(i).getAluminum_D_big());
                                                     measure.setMin(dataBeanList.get(i).getAluminum_D_min());
                                                 }else{
                                                     measure.setMax(dataBeanList.get(i).getAluminum_D());
+                                                    measure.setMin(0);
                                                 }
                                             }
                                         }
                                         //压后钢管-对边距
                                         else if ("ghwqmax".equals(MODEL_OR_CONDUCTOR) || "ghwqmin".equals(MODEL_OR_CONDUCTOR)) {
                                             measure.setMax(dataBeanList.get(i).getSteel_pressure_after());
+                                            measure.setMin(0);
                                         }
                                         //压后铝管-对边距
                                         else if ("lhwqmax".equals(MODEL_OR_CONDUCTOR) || "lhwqmin".equals(MODEL_OR_CONDUCTOR)) {
                                             measure.setMax(dataBeanList.get(i).getAluminum_pressure_after());
+                                            measure.setMin(0);
                                         }
                                     }
                                 }
@@ -248,7 +257,7 @@ public class MeasureDialog extends Dialog {
     public void getValue(MeasureBean measureBean) {
         if ("测量值".equals(measureBean.getMeasureDes())) {
             measure = measureBean;
-            listValue.add(String.valueOf(measureBean.getMeasureValue()));
+            listValue.add(measureBean.getMeasureValue());
             Message msg = new Message();
             msg.what = COMPLETED;
             msg.obj = measureBean.getMeasureValue();

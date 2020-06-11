@@ -397,7 +397,7 @@
 <body>
 <div class="main">
     <div class="contai">
-        <p>导线、地线耐张液压管施工检查以及评定记录表（线线2）</p>
+        <p>导线、地线直线压接管施工检查以及评定记录表（线线2）</p>
         <span class="main-title">工程名称: <input type="text" class="gctitle"> </span>
         <div class="tabel-conati">
             <table cellspacing="0">
@@ -712,7 +712,14 @@
         function dixian (val) {
             document.querySelector('.dixian').value = val
         }
-
+		for(var i=0;i<document.getElementsByClassName('numtex').length;i++){
+			document.getElementsByClassName('numtex')[i].onfocus = function(){
+				this.style.backgroundColor= '#409EFF'
+			}
+			document.getElementsByClassName('numtex')[i].onblur = function(){
+				this.style.backgroundColor= ''
+			}
+		}
 
 
 

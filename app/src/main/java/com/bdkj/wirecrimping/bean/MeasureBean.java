@@ -7,7 +7,7 @@ public class MeasureBean {
     private String measureDes; //测量描述
     private double measureValue; //测量值
     private String measureValueJs; // js传过来的值
-    private List<String> listValue = new ArrayList<>();
+    private List<Double> listValue = new ArrayList<>();
     private double max; //标准值最大
     private double min; //标准值最小
 
@@ -37,11 +37,11 @@ public class MeasureBean {
         this.measureValueJs = measureValueJs;
     }
 
-    public List<String> getListValue() {
+    public List<Double> getListValue() {
         return listValue;
     }
 
-    public void setListValue(List<String> listValue) {
+    public void setListValue(List<Double> listValue) {
         this.listValue = listValue;
     }
 

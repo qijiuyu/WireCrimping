@@ -615,14 +615,15 @@ public class HardwareLineExcel {
             }
             cell = row.getCell(8);
             cell.setCellValue(hardwareTwoBean.getChecked());
-            style = workBook.createCellStyle();
-            style.setVerticalAlignment(VerticalAlignment.CENTER);
-            font = workBook.createFont();
-            font.setFontName("黑体");
-            font.setFontHeightInPoints((short) 11);// 字体大小
-            // 设置字体的颜色
-            font.setColor(Font.COLOR_RED);
-            style.setFont(font);
+            cell.setCellStyle(style);
+
+            // 获取第38行 第9列的数据
+            row = sheetAt.getRow(37);
+            if (null == row.getCell(8)) {
+                cell = row.createCell(8);
+            }
+            cell = row.getCell(8);
+            cell.setCellValue(hardwareTwoBean.getChecked1());
             cell.setCellStyle(style);
 
             // 插入图片
