@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
+public abstract class BaseAdapter<T> extends RecyclerView.Adapter<ViewHolder> {
     protected Context mContext;
     protected int mLayoutId;
     protected List<T> mDatas;
@@ -22,7 +22,7 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
         this.mOnItemClickListener = onItemClickListener;
     }
 
-    public CommonAdapter(Context context, int layoutId, List<T> datas)
+    public BaseAdapter(Context context, int layoutId, List<T> datas)
     {
         mContext = context;
         mInflater = LayoutInflater.from(context);

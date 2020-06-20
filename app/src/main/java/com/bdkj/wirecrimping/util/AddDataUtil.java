@@ -1,6 +1,7 @@
 package com.bdkj.wirecrimping.util;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.bdkj.wirecrimping.Constant;
 import com.bdkj.wirecrimping.bean.StandardValuesBean;
@@ -36,6 +37,9 @@ public class AddDataUtil {
 
 
     public void addZXdata(Context context){
+        if(!TextUtils.isEmpty(SPUtil.getInstance(context).getString(Constant.STANDARDVALUES))){
+            return;
+        }
         List<StandardValuesBean.DataBean> dataBeanList = new ArrayList<>();
         for (int i=0;i<ZXModel.length;i++){
             StandardValuesBean.DataBean dataBean = new StandardValuesBean.DataBean();
@@ -55,12 +59,15 @@ public class AddDataUtil {
             dataBean.setSerialNumber(i+1);
             dataBeanList.add(dataBean);
         }
-
-        SpUtils.getInstance(context).savaString(Constant.STANDARDVALUES, JsonUtil.objectToString(dataBeanList));
+        SPUtil.getInstance(context).addString(Constant.STANDARDVALUES,JsonUtil.objectToString(dataBeanList));
     }
 
 
     public void addNZdata(Context context){
+        if(!TextUtils.isEmpty(SPUtil.getInstance(context).getString(Constant.STANDARDVALUESTWO))){
+            return;
+        }
+
         List<StandardValuesBean.DataBean> dataBeanList = new ArrayList<>();
         StandardValuesBean.DataBean dataBean = new StandardValuesBean.DataBean(1,"NY-150/20","LGJ-150/20",12.2, 11.8, 6.35, 6.05, 10.52, 290, 30.4, 29.6, 17.7, 26, 290,0);
         dataBeanList.add(dataBean);
@@ -113,8 +120,9 @@ public class AddDataUtil {
         StandardValuesBean.DataBean dataBean24= new StandardValuesBean.DataBean(25,"NY-630/80","LGJ-630/80",24.4, 23.8, 12.5, 12.1, 20.84, 290, 61, 36, 51.8, 550,1);
         dataBeanList.add(dataBean24);
 
-        SpUtils.getInstance(context).savaString(Constant.STANDARDVALUESTWO, JsonUtil.objectToString(dataBeanList));
+        SPUtil.getInstance(context).addString(Constant.STANDARDVALUESTWO,JsonUtil.objectToString(dataBeanList));
     }
+
 
 
 

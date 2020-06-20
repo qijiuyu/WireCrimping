@@ -21,7 +21,7 @@ import com.bdkj.wirecrimping.activity.hardware.HardwareActivity;
 import com.bdkj.wirecrimping.bean.MeasureBean;
 import com.bdkj.wirecrimping.bean.StandardValuesBean;
 import com.bdkj.wirecrimping.util.JsonUtil;
-import com.bdkj.wirecrimping.util.SpUtils;
+import com.bdkj.wirecrimping.util.SPUtil;
 import com.bdkj.wirecrimping.util.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -79,9 +79,9 @@ public class MeasureDialog extends Dialog {
 
         String STANDARDVALUES;
         if(sign.equals("1") || sign.equals("4")){
-            STANDARDVALUES=SpUtils.getInstance(context).getString(Constant.STANDARDVALUES);
+            STANDARDVALUES= SPUtil.getInstance(context).getString(Constant.STANDARDVALUES);
         }else{
-            STANDARDVALUES=SpUtils.getInstance(context).getString(Constant.STANDARDVALUESTWO);
+            STANDARDVALUES=SPUtil.getInstance(context).getString(Constant.STANDARDVALUESTWO);
         }
         if (!TextUtils.isEmpty(STANDARDVALUES)) {
             dataBeanList.addAll(JsonUtil.stringToList(STANDARDVALUES, StandardValuesBean.DataBean.class));
@@ -123,18 +123,18 @@ public class MeasureDialog extends Dialog {
             public void onClick(View view) {
                 measure.setListValue(listValue);
                 //获取点击的位置是钢管还是铝管等
-                MODEL_OR_CONDUCTOR=SpUtils.getInstance(context).getString(Constant.MODEL_OR_CONDUCTOR);
+                MODEL_OR_CONDUCTOR=SPUtil.getInstance(context).getString(Constant.MODEL_OR_CONDUCTOR);
                 if ("1".equals(sign) || "2".equals(sign)) {
 
                     //要先选择压接管型号
-                    if (!TextUtils.isEmpty(SpUtils.getInstance(context).getString(Constant.MODEL))) {
+                    if (!TextUtils.isEmpty(SPUtil.getInstance(context).getString(Constant.MODEL))) {
 
                         //最少测量三个数据
                         if (!TextUtils.isEmpty(tv_value_one.getText().toString()) && !TextUtils.isEmpty(tv_value_two.getText().toString()) && !TextUtils.isEmpty(tv_value_three.getText().toString())) {
 
                             if (dataBeanList!=null && dataBeanList.size()>0) {
                                 for (int i = 0; i < dataBeanList.size(); i++) {
-                                    if (dataBeanList.get(i).getModel().equals(SpUtils.getInstance(context).getString(Constant.MODEL))) {
+                                    if (dataBeanList.get(i).getModel().equals(SPUtil.getInstance(context).getString(Constant.MODEL))) {
                                         //钢管-压前值-D外径-最大和最小
                                         if ("gqwmax".equals(MODEL_OR_CONDUCTOR) || "gqwmin".equals(MODEL_OR_CONDUCTOR)) {
                                             measure.setMax(dataBeanList.get(i).getSteel_D_big());
@@ -192,14 +192,14 @@ public class MeasureDialog extends Dialog {
                         ToastUtils.showShort("请先选择压接管型号");
                     }
                 } else {
-                    if (!TextUtils.isEmpty(SpUtils.getInstance(context).getString(Constant.WIRE))) {
+                    if (!TextUtils.isEmpty(SPUtil.getInstance(context).getString(Constant.WIRE))) {
 
                         //最少测量三个数据
                         if (!TextUtils.isEmpty(tv_value_one.getText().toString()) && !TextUtils.isEmpty(tv_value_two.getText().toString()) && !TextUtils.isEmpty(tv_value_three.getText().toString())) {
 
                             if (dataBeanList!=null && dataBeanList.size()>0) {
                                 for (int i = 0; i < dataBeanList.size(); i++) {
-                                    if (dataBeanList.get(i).getApplyWire().equals(SpUtils.getInstance(context).getString(Constant.WIRE))) {
+                                    if (dataBeanList.get(i).getApplyWire().equals(SPUtil.getInstance(context).getString(Constant.WIRE))) {
                                         //压前钢管-外径
                                         if ("ggwqmax".equals(MODEL_OR_CONDUCTOR) || "ggwqmin".equals(MODEL_OR_CONDUCTOR)) {
                                             measure.setMax(dataBeanList.get(i).getSteel_D_big());

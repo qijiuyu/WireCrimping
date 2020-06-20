@@ -5,12 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -19,38 +22,42 @@ import androidx.annotation.Nullable;
 
 import com.bdkj.wirecrimping.Constant;
 import com.bdkj.wirecrimping.R;
+import com.bdkj.wirecrimping.bean.NameBean;
 import com.bdkj.wirecrimping.util.ActivitysLifecycle;
-import com.bdkj.wirecrimping.util.AddDataUtil;
+import com.bdkj.wirecrimping.util.JsonUtil;
+import com.bdkj.wirecrimping.util.MainPopwindow;
 import com.bdkj.wirecrimping.util.OpenFileUtils;
-import com.bdkj.wirecrimping.util.SpUtils;
+import com.bdkj.wirecrimping.util.SPUtil;
 import com.bdkj.wirecrimping.util.ToastUtils;
 import com.example.zhouwei.library.CustomPopWindow;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity  implements View.OnFocusChangeListener, TextWatcher {
     @BindView(R.id.ib_back)
     ImageButton ib_back;
-    @BindView(R.id.tv_title_one)
-    TextView tv_title_one;
-    @BindView(R.id.tv_title_two)
-    TextView tv_title_two;
     @BindView(R.id.ll_menu)
     LinearLayout ll_menu;
-    @BindView(R.id.ll_setting)
-    LinearLayout ll_setting;
     @BindView(R.id.tv_date_time)
     TextView tv_date_time;
     @BindView(R.id.tv_foot_des)
     TextView tv_foot_des;
-    @BindView(R.id.tv_exit)
-    TextView tv_exit;
+    @BindView(R.id.et_project)
+    EditText etProject;
+    @BindView(R.id.et_model)
+    EditText etModel;
+    @BindView(R.id.et_supervision)
+    EditText etSupervision;
+    @BindView(R.id.et_construction)
+    EditText etConstruction;
+    private MainPopwindow mainPopwindow;
     private Context mContext;
     private CustomPopWindow popWindow;
-    private CustomPopWindow settingPopWindow;
     public static final int REQUEST_CHOOSEFILE = 0X01;
     public static final String FILENAME = "弯曲度测量";
     private Handler mHandler = new Handler();
@@ -73,22 +80,24 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void init() {
         mContext = this;
-        ll_setting.setVisibility(View.VISIBLE);
-        tv_exit.setVisibility(View.VISIBLE);
         tv_foot_des.setVisibility(View.GONE);
         ib_back.setVisibility(View.GONE);
-//        TestUtils.main();
 
-        String token = SpUtils.getInstance(this).getString(Constant.USERNAME);
-        if (TextUtils.isEmpty(token)) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-            return;
-        }
+        /**
+         * 监听获得焦点
+         */
+        etProject.setOnFocusChangeListener(this);
+        etModel.setOnFocusChangeListener(this);
+        etSupervision.setOnFocusChangeListener(this);
+        etConstruction.setOnFocusChangeListener(this);
+        /**
+         * 监听输入框输入
+         */
+        etProject.addTextChangedListener(this);
+        etModel.addTextChangedListener(this);
+        etSupervision.addTextChangedListener(this);
+        etConstruction.addTextChangedListener(this);
 
-        new AddDataUtil().addZXdata(this);
-        new AddDataUtil().addNZdata(this);
     }
 
 
@@ -105,16 +114,44 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.tv_title_one, R.id.tv_title_two, R.id.ll_menu, R.id.ll_setting, R.id.tv_exit})
+    @OnClick({ R.id.ll_menu,R.id.tv_login_out, R.id.tv_go})
     public void onClick(View view) {
         switch (view.getId()) {
-            //金具复测及对边测量
-            case R.id.tv_title_one:
-                startActivity(new Intent(MainActivity.this, HardwareAndCurvatureActivity.class).putExtra("enterSign", "1"));
+            //退出
+            case R.id.tv_login_out:
+                SPUtil.getInstance(this).removeMessage(Constant.ACCOUNT);
+                Intent intent=new Intent(this,LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+                finish();
                 break;
-             //弯曲度测量
-            case R.id.tv_title_two:
-                startActivity(new Intent(MainActivity.this, HardwareAndCurvatureActivity.class).putExtra("enterSign", "2"));
+            //进入
+            case R.id.tv_go:
+                String project=etProject.getText().toString().trim();
+                String model=etModel.getText().toString().trim();
+                String superVision=etSupervision.getText().toString().trim();
+                String construction=etConstruction.getText().toString().trim();
+                if(TextUtils.isEmpty(project)){
+                    ToastUtils.showLong("请输入工程名");
+                    return;
+                }
+                if(TextUtils.isEmpty(model)){
+                    ToastUtils.showLong("请输入导线型号");
+                    return;
+                }
+                if(TextUtils.isEmpty(superVision)){
+                    ToastUtils.showLong("请输入监理单位");
+                    return;
+                }
+                if(TextUtils.isEmpty(construction)){
+                    ToastUtils.showLong("请输入施工单位");
+                    return;
+                }
+                SPUtil.getInstance(this).addString(Constant.MAIN_PROJECT_NAME,project);
+                SPUtil.getInstance(this).addString(Constant.MAIN_MODEL,model);
+                SPUtil.getInstance(this).addString(Constant.MAIN_SUPERVISION,superVision);
+                SPUtil.getInstance(this).addString(Constant.MAIN_CONSTRUCTION,construction);
+                startActivity(new Intent(MainActivity.this, HardwareAndCurvatureActivity.class).putExtra("enterSign", "1"));
                 break;
             //菜单
             case R.id.ll_menu:
@@ -127,22 +164,173 @@ public class MainActivity extends BaseActivity {
                         .showAsDropDown(ll_menu, -30, -195);
 
                 break;
-            case R.id.ll_setting:
-                View settingContentView = LayoutInflater.from(this).inflate(R.layout.popwindow_setting_layout, null);
-                //处理popWindow 显示内容
-                settingHandleLogic(settingContentView);
-                settingPopWindow = new CustomPopWindow.PopupWindowBuilder(this)
-                        .setView(settingContentView)
-                        .create()
-                        .showAsDropDown(ll_setting, -30, -195);
-                break;
-            case R.id.tv_exit:
-                SpUtils.getInstance(this).savaString(Constant.USERNAME, "");
-                ActivityManager.getInstance().finishAllActivity();
-                startActivity(new Intent(MainActivity.this, LoginActivity.class));
-                finish();
-                break;
 
+        }
+    }
+
+
+    /**
+     * 监听获得焦点
+     */
+    String tag;
+    public void onFocusChange(View v, boolean hasFocus) {
+        if(hasFocus){
+            tag=v.getTag().toString();
+            //设置下拉框显示的数据
+            getShowData();
+        }else{
+            //关闭下拉框
+            closePopwindow();
+            //保存最新的值
+            saveNewData(((EditText)v).getText().toString().trim());
+        }
+    }
+
+
+    /**
+     * 监听输入框内容
+     */
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    }
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    }
+    @Override
+    public void afterTextChanged(Editable s) {
+        if(s.length()>0){
+            //关闭下拉框
+            closePopwindow();
+        }else{
+            //设置下拉框显示的数据
+            getShowData();
+        }
+    }
+
+
+    /**
+     * 设置下拉框显示的数据
+     */
+    private void getShowData(){
+        String message;
+        switch (tag){
+            case "1":
+                message=SPUtil.getInstance(this).getString(Constant.PROJECT_NAME);
+                showPopwindow(etProject,message,2);
+                break;
+            case "2":
+                message=SPUtil.getInstance(this).getString(Constant.STANDARDVALUES);
+                showPopwindow(etModel,message,1);
+                break;
+            case "3":
+                message=SPUtil.getInstance(this).getString(Constant.SUPERVISION);
+                showPopwindow(etSupervision,message,2);
+                break;
+            case "4":
+                message=SPUtil.getInstance(this).getString(Constant.CONSTRUCTION);
+                showPopwindow(etConstruction,message,2);
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    /**
+     * 展示下拉框
+     */
+    private void showPopwindow(EditText editText,String message,int type){
+        if(mainPopwindow!=null && mainPopwindow.isShowing()){
+            return;
+        }
+        if(TextUtils.isEmpty(message)){
+            return;
+        }
+        mainPopwindow = new MainPopwindow(this);
+        mainPopwindow.showAsDropDown(editText);
+        mainPopwindow.setData(editText,message,type);
+        mainPopwindow.openShow();
+    }
+
+
+    /**
+     * 关闭下拉框
+     */
+    private void closePopwindow(){
+        if (mainPopwindow != null && mainPopwindow.isShowing()) {
+            mainPopwindow.closeShow();
+            mainPopwindow=null;
+        }
+    }
+
+
+    /**
+     * 保存最新的值
+     */
+    private void saveNewData(String data){
+        if(TextUtils.isEmpty(data)){
+            return;
+        }
+        String totalMsg=null;
+        boolean isAdd=true;
+        List<NameBean> dataBeanList=new ArrayList<>();
+        NameBean nameBean=new NameBean();
+        switch (tag){
+            case "1":
+                totalMsg=SPUtil.getInstance(this).getString(Constant.PROJECT_NAME);
+                if (!TextUtils.isEmpty(totalMsg)) {
+                    dataBeanList.addAll(JsonUtil.stringToList(totalMsg, NameBean.class));
+                    for (int i=0,len=dataBeanList.size();i<len;i++){
+                        if(dataBeanList.get(i).getName().equals(data)){
+                            isAdd=false;
+                            break;
+                        }
+                    }
+                }
+                if(isAdd){
+                    nameBean.setName(data);
+                    dataBeanList.add(nameBean);
+                    SPUtil.getInstance(this).addString(Constant.PROJECT_NAME, JsonUtil.objectToString(dataBeanList));
+                }
+                break;
+            case "2":
+                break;
+            case "3":
+                totalMsg=SPUtil.getInstance(this).getString(Constant.SUPERVISION);
+                if (!TextUtils.isEmpty(totalMsg)) {
+                    dataBeanList.addAll(JsonUtil.stringToList(totalMsg, NameBean.class));
+                    for (int i=0,len=dataBeanList.size();i<len;i++){
+                        if(dataBeanList.get(i).getName().equals(data)){
+                            isAdd=false;
+                            break;
+                        }
+                    }
+                }
+                if(isAdd){
+                    nameBean.setName(data);
+                    dataBeanList.add(nameBean);
+                    SPUtil.getInstance(this).addString(Constant.SUPERVISION, JsonUtil.objectToString(dataBeanList));
+                }
+                break;
+            case "4":
+                totalMsg=SPUtil.getInstance(this).getString(Constant.CONSTRUCTION);
+                if (!TextUtils.isEmpty(totalMsg)) {
+                    dataBeanList.addAll(JsonUtil.stringToList(totalMsg, NameBean.class));
+                    for (int i=0,len=dataBeanList.size();i<len;i++){
+                        if(dataBeanList.get(i).getName().equals(data)){
+                            isAdd=false;
+                            break;
+                        }
+                    }
+                }
+                if(isAdd){
+                    nameBean.setName(data);
+                    dataBeanList.add(nameBean);
+                    SPUtil.getInstance(this).addString(Constant.CONSTRUCTION, JsonUtil.objectToString(dataBeanList));
+                }
+                break;
+            default:
+                break;
         }
     }
 
@@ -170,32 +358,6 @@ public class MainActivity extends BaseActivity {
         };
         contentView.findViewById(R.id.tv_bending_measurement).setOnClickListener(listener);
         contentView.findViewById(R.id.tv_hardware_measurement).setOnClickListener(listener);
-    }
-
-    /**
-     * 设置处理弹出显示内容、点击事件等逻辑
-     *
-     * @param contentView
-     */
-    private void settingHandleLogic(View contentView) {
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (settingPopWindow != null) {
-                    settingPopWindow.dissmiss();
-                }
-                switch (v.getId()) {
-                    case R.id.tv_tension_line:
-                        startActivity(new Intent(MainActivity.this, SettingTwoActivity.class));
-                        break;
-                    case R.id.tv_straight_line:
-                        startActivity(new Intent(MainActivity.this, SettingActivity.class));
-                        break;
-                }
-            }
-        };
-        contentView.findViewById(R.id.tv_tension_line).setOnClickListener(listener);
-        contentView.findViewById(R.id.tv_straight_line).setOnClickListener(listener);
     }
 
     //打开系统文件管理器

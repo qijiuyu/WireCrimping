@@ -34,7 +34,7 @@ import com.bdkj.wirecrimping.util.HardwareLineExcel;
 import com.bdkj.wirecrimping.util.HardwareStraightExcel;
 import com.bdkj.wirecrimping.util.LogUtils;
 import com.bdkj.wirecrimping.util.OpenFileUtils;
-import com.bdkj.wirecrimping.util.SpUtils;
+import com.bdkj.wirecrimping.util.SPUtil;
 import com.bdkj.wirecrimping.util.ToastUtils;
 import com.example.zhouwei.library.CustomPopWindow;
 import com.luck.picture.lib.PictureSelector;
@@ -355,7 +355,7 @@ public class HardwareActivity extends Activity  implements View.OnClickListener 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                final String MODEL_OR_CONDUCTOR=SpUtils.getInstance(mContext).getString(Constant.MODEL_OR_CONDUCTOR);
+                final String MODEL_OR_CONDUCTOR=SPUtil.getInstance(mContext).getString(Constant.MODEL_OR_CONDUCTOR);
                 if ("1".equals(signStr) || "2".equals(signStr)) {
                     if ("gqduibianmax".equals(MODEL_OR_CONDUCTOR)|| "gqduibianmin".equals(MODEL_OR_CONDUCTOR) || "lduibianmax".equals(MODEL_OR_CONDUCTOR) || "lduibianmin".equals(MODEL_OR_CONDUCTOR)) {
                         wv_hardware_straight.loadUrl("javascript:maxorminafter('" + message + "')");
@@ -547,7 +547,7 @@ public class HardwareActivity extends Activity  implements View.OnClickListener 
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        SpUtils.getInstance(mContext).savaString(Constant.MODEL, "");
-        SpUtils.getInstance(mContext).savaString(Constant.WIRE, "");
+        SPUtil.getInstance(mContext).addString(Constant.MODEL, "");
+        SPUtil.getInstance(mContext).addString(Constant.WIRE, "");
     }
 }

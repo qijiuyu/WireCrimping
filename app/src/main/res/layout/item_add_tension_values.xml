@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_serialNumber"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="@color/one_gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_model"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="JYD-185/25"
+            android:textColor="@color/one_gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_applyWire"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2"
+            android:gravity="center"
+            android:text="LGJ-185/25"
+            android:textColor="@color/one_gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_steel_D_big"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="18.3"
+            android:textColor="@color/one_gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_steel_D_min"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="18.3"
+            android:textColor="@color/one_gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_steel_d_big"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="18.3"
+            android:textColor="@color/one_gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_steel_d_min"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:text="18.3"
+            android:textColor="@color/one_gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_steel_L"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:gravity="center"
+            android:text="18"
+            android:textColor="@color/one_gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_steel_pressure_after"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2"
+            android:gravity="center"
+            android:text="18.3"
+            android:textColor="@color/one_gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_aluminum_D"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="18.3"
+            android:textColor="@color/one_gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_aluminum_d"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="18.3"
+            android:textColor="@color/one_gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_aluminum_L"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8"
+            android:gravity="center"
+            android:text="184"
+            android:textColor="@color/one_gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_aluminum_pressure_after"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2"
+            android:gravity="center"
+            android:text="18.34"
+            android:textColor="@color/one_gray"
+            android:textSize="16sp" />
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_steel_diameter"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="0.8"-->
+            <!--android:gravity="center"-->
+            <!--android:text="18"-->
+            <!--android:textColor="@color/one_gray"-->
+            <!--android:textSize="16sp" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/tv_pressureDistrict"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="0.8"-->
+            <!--android:gravity="center"-->
+            <!--android:text="181"-->
+            <!--android:textColor="@color/one_gray"-->
+            <!--android:textSize="16sp" />-->
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorView" />
+
+</LinearLayout>

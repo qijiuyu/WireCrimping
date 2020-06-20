@@ -33,6 +33,23 @@ public class Constant {
     public static final String HARDWARETHREESAVE = "hardwareThreeSave";
     public static final String HARDWARETWOSAVE = "hardwareTwoSave";
 
+
+    public static final String ACCOUNT="ACCOUNT";//登录的账号
+
+    public static final String PROJECT_NAME="PROJECT_NAME";//保存录入的“工程名”数据
+
+    public static final String SUPERVISION="SUPERVISION";//保存录入的“监理单位”数据
+
+    public static final String CONSTRUCTION="CONSTRUCTION"; //保存录入的“施工单位”数据
+
+    public static final String MAIN_PROJECT_NAME="MAIN_PROJECT_NAME"; //保存首页选择的“工程名”
+
+    public static final String MAIN_MODEL="MAIN_MODEL"; //保存首页选择的“导线型号”
+
+    public static final String MAIN_SUPERVISION="MAIN_SUPERVISION"; //保存首页选择的“监理单位”
+
+    public static final String MAIN_CONSTRUCTION="MAIN_CONSTRUCTION"; //保存首页选择的“施工单位”
+
 }
 
 

@@ -35,31 +35,13 @@
                 android:textColor="@color/white"
                 android:visibility="gone"/>
 
-            <LinearLayout
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tv_title_one"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="金具复测及对边测量"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/tv_title_two"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="66dp"
-                    android:text="弯曲度测量"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-            </LinearLayout>
+                android:text="@string/title"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -74,11 +56,137 @@
 
         </RelativeLayout>
 
-        <ImageView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/icon_bj2" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/icon_bj2" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/et_project"
+                    android:layout_width="300dp"
+                    android:layout_height="45dp"
+                    android:tag="1"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/ll_login_one"
+                    android:hint="请输入工程名"
+                    android:textColorHint="#c8ffff"
+                    android:textColor="#c8ffff"
+                    android:textSize="20sp"
+                    android:gravity="center"/>
+
+                <EditText
+                    android:id="@+id/et_model"
+                    android:layout_width="300dp"
+                    android:layout_height="45dp"
+                    android:tag="2"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/ll_login_one"
+                    android:hint="请输入导线型号"
+                    android:textColorHint="#c8ffff"
+                    android:textColor="#c8ffff"
+                    android:textSize="20sp"
+                    android:gravity="center"/>
+
+                <EditText
+                    android:id="@+id/et_supervision"
+                    android:layout_width="300dp"
+                    android:layout_height="45dp"
+                    android:tag="3"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/ll_login_one"
+                    android:hint="请输入监理单位"
+                    android:textColorHint="#c8ffff"
+                    android:textColor="#c8ffff"
+                    android:textSize="20sp"
+                    android:gravity="center"/>
+
+                <EditText
+                    android:id="@+id/et_construction"
+                    android:layout_width="300dp"
+                    android:layout_height="45dp"
+                    android:tag="4"
+                    android:layout_marginTop="30dp"
+                    android:background="@drawable/ll_login_one"
+                    android:hint="请输入施工单位"
+                    android:textColorHint="#c8ffff"
+                    android:textColor="#c8ffff"
+                    android:textSize="20sp"
+                    android:gravity="center"/>
+
+
+                <RelativeLayout
+                    android:layout_width="500dp"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="60dp">
+
+                    <TextView
+                        android:id="@+id/tv_login_out"
+                        android:layout_width="150dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ll_login_one"
+                        android:text="退出"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/tv_go"
+                        android:layout_width="150dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/ll_login_one"
+                        android:text="进入"
+                        android:textColor="@android:color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:gravity="center"/>
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="110dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <View
+                        android:layout_width="180dp"
+                        android:layout_height="0.5dp"
+                        android:background="#c9ffff"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="40dp"
+                        android:text="南方电网公司"
+                        android:textSize="20sp"
+                        android:textColor="@color/white"/>
+                    <View
+                        android:layout_width="180dp"
+                        android:layout_height="0.5dp"
+                        android:layout_marginLeft="40dp"
+                        android:background="#c9ffff"/>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </LinearLayout>
 
@@ -92,14 +200,6 @@
 
     </LinearLayout>
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="导线压接质量检测系统"
-        android:textColor="@color/white"
-        android:textSize="40sp" />
 </RelativeLayout>
 
 

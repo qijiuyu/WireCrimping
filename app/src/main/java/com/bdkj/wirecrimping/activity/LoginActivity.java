@@ -6,8 +6,13 @@ import android.widget.EditText;
 
 import com.bdkj.wirecrimping.Constant;
 import com.bdkj.wirecrimping.R;
-import com.bdkj.wirecrimping.util.SpUtils;
+import com.bdkj.wirecrimping.activity.setting.SettingActivity;
+import com.bdkj.wirecrimping.util.AddDataUtil;
+import com.bdkj.wirecrimping.util.SPUtil;
 import com.bdkj.wirecrimping.util.ToastUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -18,47 +23,68 @@ public class LoginActivity extends BaseActivity {
     EditText et_account;
     @BindView(R.id.et_pwd)
     EditText et_pwd;
-
-    private String account;
-    private String pwd;
-
+    /**
+     * 存储账号和密码
+     */
+    private Map<String ,String> accountMap=new HashMap<>();
 
     @Override
     protected int getContentViewId() {
+        final String account=SPUtil.getInstance(this).getString(Constant.ACCOUNT);
+        if(!TextUtils.isEmpty(account)){
+            Intent intent=new Intent();
+            if(account.equals("admin")){
+                intent.setClass(this,SettingActivity.class);
+            }else{
+                intent.setClass(this,MainActivity.class);
+            }
+            finish();
+        }
         return R.layout.activity_login;
     }
 
     @Override
     protected void init() {
         context = this;
-        account = "admin";
-        pwd = "123456";
+        accountMap.put("admin","123456");
+        accountMap.put("dxyj","123456");
+
+        new AddDataUtil().addZXdata(this);
+        new AddDataUtil().addNZdata(this);
     }
 
     @OnClick(R.id.tv_login)
     public void login() {
-        final String etAccount=et_account.getText().toString().trim();
-        final String etPwd=et_pwd.getText().toString().trim();
-        if (TextUtils.isEmpty(etAccount)) {
+        final String account=et_account.getText().toString().trim();
+        final String pwd=et_pwd.getText().toString().trim();
+        if (TextUtils.isEmpty(account)) {
             ToastUtils.showShort("用户名不能为空");
             return;
         }
-        if (TextUtils.isEmpty(etPwd)) {
+        if (TextUtils.isEmpty(pwd)) {
             ToastUtils.showShort("密码不能为空");
             return;
         }
-        if (!etAccount.equals(account) || !etPwd.equals(pwd)) {
-            ToastUtils.showShort("账号或密码错误");
-            return;
-        } else {
-            LoginAccount();
+        if(accountMap.get(account)!=null && accountMap.get(account).equals(pwd)){
+            //登录成功
+            loginSuccess(account);
+        }else{
+            ToastUtils.showLong("用户名或密码错误");
         }
     }
 
-    private void LoginAccount() {
-        startActivity(new Intent(context, MainActivity.class));
-        SpUtils.getInstance(context).savaString(Constant.USERNAME, account);
+    /**
+     * 登录成功
+     */
+    private void loginSuccess(String account){
+        SPUtil.getInstance(this).addString(Constant.ACCOUNT,account);
+        Intent intent=new Intent();
+        if(account.equals("admin")){
+            intent.setClass(this,SettingActivity.class);
+        }else{
+            intent.setClass(this,MainActivity.class);
+        }
+        startActivity(intent);
         finish();
-
     }
 }

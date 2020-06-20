@@ -12,7 +12,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.bdkj.wirecrimping.Constant;
 import com.bdkj.wirecrimping.util.JsonUtil;
-import com.bdkj.wirecrimping.util.SpUtils;
+import com.bdkj.wirecrimping.util.SPUtil;
 import com.bdkj.wirecrimping.util.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -34,9 +34,9 @@ public class MyObject {
         this.sign = sign;
         String STANDARDVALUES;
         if(sign.equals("1") || sign.equals("4")){
-            STANDARDVALUES=SpUtils.getInstance(mcontext).getString(Constant.STANDARDVALUES);
+            STANDARDVALUES= SPUtil.getInstance(mcontext).getString(Constant.STANDARDVALUES);
         }else{
-            STANDARDVALUES=SpUtils.getInstance(mcontext).getString(Constant.STANDARDVALUESTWO);
+            STANDARDVALUES=SPUtil.getInstance(mcontext).getString(Constant.STANDARDVALUESTWO);
         }
         if (!TextUtils.isEmpty(STANDARDVALUES)) {
             List<StandardValuesBean.DataBean> dataBeanList = new ArrayList<>();
@@ -67,7 +67,7 @@ public class MyObject {
                             ModelBean modelBean = new ModelBean();
                             modelBean.setModel("型号");
                             modelBean.setResultModel(items[index]);
-                            SpUtils.getInstance(mcontext).savaString(Constant.MODEL, items[index]);
+                            SPUtil.getInstance(mcontext).addString(Constant.MODEL, items[index]);
                             EventBus.getDefault().post(modelBean);
 
                         }
@@ -99,7 +99,7 @@ public class MyObject {
                             ModelBean modelBean = new ModelBean();
                             modelBean.setModel("导线");
                             modelBean.setResultModel(items[index]);
-                            SpUtils.getInstance(mcontext).savaString(Constant.WIRE, items[index]);
+                            SPUtil.getInstance(mcontext).addString(Constant.WIRE, items[index]);
                             EventBus.getDefault().post(modelBean);
 
                         }
@@ -127,7 +127,7 @@ public class MyObject {
             if ("1".equals(sign) || "2".equals(sign)) {
                 if (i == 0) {
                     jsValueBean.setGqwmax(array.getString(0));//点击的是钢管还是铝管等
-                    SpUtils.getInstance(mcontext).savaString(Constant.MODEL_OR_CONDUCTOR, array.getString(0));
+                    SPUtil.getInstance(mcontext).addString(Constant.MODEL_OR_CONDUCTOR, array.getString(0));
                 } else {
                     jsValueBean.setGqwnum1(array.getString(1));
                 }
@@ -136,7 +136,7 @@ public class MyObject {
                     jsValueBean.setGqwnum1(array.getString(1));
                 } else if (i == 2) {
                     jsValueBean.setGqwmax(array.getString(2));//点击的是钢管还是铝管等
-                    SpUtils.getInstance(mcontext).savaString(Constant.MODEL_OR_CONDUCTOR, array.getString(2));
+                    SPUtil.getInstance(mcontext).addString(Constant.MODEL_OR_CONDUCTOR, array.getString(2));
                 }
 
             }
@@ -171,13 +171,13 @@ public class MyObject {
     @JavascriptInterface
     public void save(String message) {
         if ("1".equals(sign)) {
-            SpUtils.getInstance(mcontext).savaString(Constant.CURVATURESTRAIGHTSAVE, message);
+            SPUtil.getInstance(mcontext).addString(Constant.CURVATURESTRAIGHTSAVE, message);
         } else if ("2".equals(sign)) {
-            SpUtils.getInstance(mcontext).savaString(Constant.CURVATURETENSIONSAVE, message);
+            SPUtil.getInstance(mcontext).addString(Constant.CURVATURETENSIONSAVE, message);
         } else if ("3".equals(sign)) {
-            SpUtils.getInstance(mcontext).savaString(Constant.CURVATURETHREESAVE, message);
+            SPUtil.getInstance(mcontext).addString(Constant.CURVATURETHREESAVE, message);
         } else {
-            SpUtils.getInstance(mcontext).savaString(Constant.CURVATURETWOSAVE, message);
+            SPUtil.getInstance(mcontext).addString(Constant.CURVATURETWOSAVE, message);
         }
         Log.e("弯曲度测量数据：","++++++++++++++"+message);
         AttributeValuesBean attributeValuesBean = (AttributeValuesBean) JsonUtil.stringToObject(message, AttributeValuesBean.class);
@@ -192,13 +192,13 @@ public class MyObject {
     @JavascriptInterface
     public void hardwareSave(String message) {
         if ("1".equals(sign)) {
-            SpUtils.getInstance(mcontext).savaString(Constant.HARDWARESTRAIGHTSAVE, message);
+            SPUtil.getInstance(mcontext).addString(Constant.HARDWARESTRAIGHTSAVE, message);
         } else if ("2".equals(sign)) {
-            SpUtils.getInstance(mcontext).savaString(Constant.HARDWARETENSIONSAVE, message);
+            SPUtil.getInstance(mcontext).addString(Constant.HARDWARETENSIONSAVE, message);
         } else if ("3".equals(sign)) {
-            SpUtils.getInstance(mcontext).savaString(Constant.HARDWARETHREESAVE, message);
+            SPUtil.getInstance(mcontext).addString(Constant.HARDWARETHREESAVE, message);
         } else {
-            SpUtils.getInstance(mcontext).savaString(Constant.HARDWARETWOSAVE, message);
+            SPUtil.getInstance(mcontext).addString(Constant.HARDWARETWOSAVE, message);
         }
         Log.e("金具复测及对边测量：","++++++++++++++"+message);
         if ("1".equals(sign) || "2".equals(sign)) {

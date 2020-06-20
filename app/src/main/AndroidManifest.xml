@@ -39,7 +39,7 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.LoginActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="landscape"
@@ -51,14 +51,39 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.LoginActivity"
-            android:screenOrientation="landscape"/>
         <activity
-            android:name=".activity.SettingActivity"
+            android:name=".activity.MainActivity"
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <activity
+            android:name=".activity.setting.SettingActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden" />
+
         <activity
-            android:name=".activity.SettingTwoActivity"
+            android:name=".activity.setting.StraightLineActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <activity
+            android:name=".activity.setting.TensionActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <activity
+            android:name=".activity.setting.ProjectNameActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <activity
+            android:name=".activity.setting.SupervisionActivity"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <activity
+            android:name=".activity.setting.ConstructionActivity"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
