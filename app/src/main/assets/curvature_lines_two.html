@@ -398,7 +398,7 @@
 <div class="main">
     <div class="contai">
         <p>导线、地线直线压接管施工检查以及评定记录表（线线2）</p>
-        <span class="main-title">工程名称: <input type="text" class="gctitle"> </span>
+        <span class="main-title">工程名称: <input type="text" class="gctitle" readonly> </span>
         <div class="tabel-conati">
             <table cellspacing="0">
                 <thead>
@@ -420,7 +420,6 @@
                             </div>
                             <div class="box6" style="box-sizing: border-box;padding-left: 6px;">
                                 <div><span>导线：</span><input type="text" class="daoxian" readonly
-                                                            onclick="myObj.showWireList()"
                                                             style="width: 90px;"></div>
                                 <!--<div>地线：<input type="text" class="dixian"-->
                                                <!--onclick="myObj.showWireList()" readonly-->
@@ -720,6 +719,12 @@
 			document.getElementsByClassName('numtex')[i].onblur = function(){
 				this.style.backgroundColor= ''
 			}
+		}
+		//获取工程名、地线型号基本信息
+		function getBaseInfo(info){
+			var data = JSON.parse(info);
+			document.querySelector('.gctitle').value = data.project;
+			document.querySelector('.daoxian').value = data.model;
 		}
 
 

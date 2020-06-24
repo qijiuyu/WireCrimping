@@ -24,6 +24,7 @@ import com.bdkj.wirecrimping.R;
 import com.bdkj.wirecrimping.bean.HardwareBean;
 import com.bdkj.wirecrimping.bean.HardwareTwoBean;
 import com.bdkj.wirecrimping.bean.JSValueBean;
+import com.bdkj.wirecrimping.bean.MainBean;
 import com.bdkj.wirecrimping.bean.MeasureBean;
 import com.bdkj.wirecrimping.bean.ModelBean;
 import com.bdkj.wirecrimping.bean.MyObject;
@@ -32,6 +33,7 @@ import com.bdkj.wirecrimping.dialog.MeasureDialog;
 import com.bdkj.wirecrimping.util.DateUtils;
 import com.bdkj.wirecrimping.util.HardwareLineExcel;
 import com.bdkj.wirecrimping.util.HardwareStraightExcel;
+import com.bdkj.wirecrimping.util.JsonUtil;
 import com.bdkj.wirecrimping.util.LogUtils;
 import com.bdkj.wirecrimping.util.OpenFileUtils;
 import com.bdkj.wirecrimping.util.SPUtil;
@@ -144,6 +146,14 @@ public class HardwareActivity extends Activity  implements View.OnClickListener 
 
                 //去扫描并连接蓝牙
                 startScanAndConnect();
+
+
+                /**
+                 * 将首页设置的数据赋值到Html上
+                 */
+                final MainBean mainBean= (MainBean) JsonUtil.stringToObject(SPUtil.getInstance(mContext).getString(Constant.MAIN_DATA),MainBean.class);
+                wv_hardware_straight.loadUrl("javascript:getBaseInfo('" + JsonUtil.objectToString(mainBean)+ "')");
+
 
                 /**
                  * 获取手机当前日期传给html显示
@@ -548,6 +558,5 @@ public class HardwareActivity extends Activity  implements View.OnClickListener 
         super.onDestroy();
         EventBus.getDefault().unregister(this);
         SPUtil.getInstance(mContext).addString(Constant.MODEL, "");
-        SPUtil.getInstance(mContext).addString(Constant.WIRE, "");
     }
 }

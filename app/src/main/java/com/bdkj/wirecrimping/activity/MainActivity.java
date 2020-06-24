@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 
 import com.bdkj.wirecrimping.Constant;
 import com.bdkj.wirecrimping.R;
+import com.bdkj.wirecrimping.bean.MainBean;
 import com.bdkj.wirecrimping.bean.NameBean;
 import com.bdkj.wirecrimping.util.ActivitysLifecycle;
 import com.bdkj.wirecrimping.util.JsonUtil;
@@ -147,10 +148,9 @@ public class MainActivity extends BaseActivity  implements View.OnFocusChangeLis
                     ToastUtils.showLong("请输入施工单位");
                     return;
                 }
-                SPUtil.getInstance(this).addString(Constant.MAIN_PROJECT_NAME,project);
-                SPUtil.getInstance(this).addString(Constant.MAIN_MODEL,model);
-                SPUtil.getInstance(this).addString(Constant.MAIN_SUPERVISION,superVision);
-                SPUtil.getInstance(this).addString(Constant.MAIN_CONSTRUCTION,construction);
+                MainBean mainBean=new MainBean(project,model,superVision,construction);
+                SPUtil.getInstance(this).addString(Constant.MAIN_DATA,JsonUtil.objectToString(mainBean));
+
                 startActivity(new Intent(MainActivity.this, HardwareAndCurvatureActivity.class).putExtra("enterSign", "1"));
                 break;
             //菜单

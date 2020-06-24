@@ -339,14 +339,14 @@
 <div class="main">
     <div class="contai">
         <p>隐蔽工程（直线液压管）签证记录表</p>
-        <span class="main-title">工程名称: <input type="text" class="gctitle proname"> </span>
+        <span class="main-title">工程名称: <input type="text" class="gctitle proname" readonly> </span>
         <div class="tabel-conati">
             <table cellspacing="0">
                 <thead>
                 <tr>
                     <td colspan="4">
                         <div class="title">
-                            <p>致监理项目部: <input type="text" class="xmname projianliname"></p>
+                            <p>致监理项目部: <input type="text" class="xmname projianliname" readonly></p>
                             <p>耐张段桩号 <input class="xiahuax naizhangzhuanghao" type="text"></input> 至
                                 <input
                                         class="xiahuax naizhangzhuanghao"
@@ -664,6 +664,12 @@
 			document.getElementsByClassName('numtex')[i].onblur = function(){
 				this.style.backgroundColor= ''
 			}
+		}
+		//获取工程名、致监理项目部基本信息
+		function getBaseInfo(info){
+			var data = JSON.parse(info);
+			document.querySelector('.proname').value = data.project;
+			document.querySelector('.projianliname').value = data.superVision;
 		}
 
 </script>

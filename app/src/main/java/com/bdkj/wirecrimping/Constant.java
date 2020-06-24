@@ -22,7 +22,7 @@ public class Constant {
     public static final String SELECT = "select";
     public static final String MODEL_OR_CONDUCTOR = "MODEL_OR_CONDUCTOR";  //存储h5页面上点击的位置
     public static final String MODEL = "model";   //存储选择的压接管型号
-    public static final String WIRE = "wire";     //存储选择的导线类型
+//    public static final String WIRE = "wire";     //存储选择的导线类型
     public static final String CURVATURESTRAIGHTSAVE = "curvatureStraightSave";   //本地存储的-弯曲度测量--直线液压管的数据
     public static final String CURVATURETENSIONSAVE = "curvatureTensionSave";    //本地存储的-弯曲度测量--耐张液压管的数据
     public static final String CURVATURETHREESAVE = "curvatureThreeSave";      //本地存储的-弯曲度测量--线线3的数据
@@ -42,13 +42,7 @@ public class Constant {
 
     public static final String CONSTRUCTION="CONSTRUCTION"; //保存录入的“施工单位”数据
 
-    public static final String MAIN_PROJECT_NAME="MAIN_PROJECT_NAME"; //保存首页选择的“工程名”
-
-    public static final String MAIN_MODEL="MAIN_MODEL"; //保存首页选择的“导线型号”
-
-    public static final String MAIN_SUPERVISION="MAIN_SUPERVISION"; //保存首页选择的“监理单位”
-
-    public static final String MAIN_CONSTRUCTION="MAIN_CONSTRUCTION"; //保存首页选择的“施工单位”
+    public static final String MAIN_DATA="MAIN_DATA";  //首页设置的数据
 
 }
 

@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import com.bdkj.wirecrimping.Constant;
 import com.bdkj.wirecrimping.R;
 import com.bdkj.wirecrimping.activity.hardware.HardwareActivity;
+import com.bdkj.wirecrimping.bean.MainBean;
 import com.bdkj.wirecrimping.bean.MeasureBean;
 import com.bdkj.wirecrimping.bean.StandardValuesBean;
 import com.bdkj.wirecrimping.util.JsonUtil;
@@ -192,14 +193,14 @@ public class MeasureDialog extends Dialog {
                         ToastUtils.showShort("请先选择压接管型号");
                     }
                 } else {
-                    if (!TextUtils.isEmpty(SPUtil.getInstance(context).getString(Constant.WIRE))) {
-
+                    final MainBean mainBean= (MainBean) JsonUtil.stringToObject(SPUtil.getInstance(context).getString(Constant.MAIN_DATA),MainBean.class);
+                    if (!TextUtils.isEmpty(mainBean.getModel())) {
                         //最少测量三个数据
                         if (!TextUtils.isEmpty(tv_value_one.getText().toString()) && !TextUtils.isEmpty(tv_value_two.getText().toString()) && !TextUtils.isEmpty(tv_value_three.getText().toString())) {
 
                             if (dataBeanList!=null && dataBeanList.size()>0) {
                                 for (int i = 0; i < dataBeanList.size(); i++) {
-                                    if (dataBeanList.get(i).getApplyWire().equals(SPUtil.getInstance(context).getString(Constant.WIRE))) {
+                                    if (dataBeanList.get(i).getApplyWire().equals(mainBean.getModel())) {
                                         //压前钢管-外径
                                         if ("ggwqmax".equals(MODEL_OR_CONDUCTOR) || "ggwqmin".equals(MODEL_OR_CONDUCTOR)) {
                                             measure.setMax(dataBeanList.get(i).getSteel_D_big());

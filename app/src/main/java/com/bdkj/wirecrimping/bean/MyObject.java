@@ -83,33 +83,33 @@ public class MyObject {
     @JavascriptInterface
     public void showWireList() {
         //创建对话框
-        if (wireList.size()>0) {
-            String[] items = wireList.toArray(new String[wireList.size()]);
-            AlertDialog alertDialog = new AlertDialog.Builder(mcontext)
-                    .setTitle("导线列表")
-                    .setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            index = i;
-                        }
-                    })
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            ModelBean modelBean = new ModelBean();
-                            modelBean.setModel("导线");
-                            modelBean.setResultModel(items[index]);
-                            SPUtil.getInstance(mcontext).addString(Constant.WIRE, items[index]);
-                            EventBus.getDefault().post(modelBean);
-
-                        }
-                    })
-                    .setNegativeButton("取消", null)
-                    .create();
-            alertDialog.show();
-        } else {
-            ToastUtils.showShort("暂无导线数据");
-        }
+//        if (wireList.size()>0) {
+//            String[] items = wireList.toArray(new String[wireList.size()]);
+//            AlertDialog alertDialog = new AlertDialog.Builder(mcontext)
+//                    .setTitle("导线列表")
+//                    .setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            index = i;
+//                        }
+//                    })
+//                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            ModelBean modelBean = new ModelBean();
+//                            modelBean.setModel("导线");
+//                            modelBean.setResultModel(items[index]);
+//                            SPUtil.getInstance(mcontext).addString(Constant.MAIN_DX_MODEL, items[index]);
+//                            EventBus.getDefault().post(modelBean);
+//
+//                        }
+//                    })
+//                    .setNegativeButton("取消", null)
+//                    .create();
+//            alertDialog.show();
+//        } else {
+//            ToastUtils.showShort("暂无导线数据");
+//        }
     }
 
 

@@ -2,6 +2,7 @@ package com.bdkj.wirecrimping.activity.curvature;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,9 +20,11 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bdkj.wirecrimping.Constant;
 import com.bdkj.wirecrimping.R;
 import com.bdkj.wirecrimping.bean.AttributeValuesBean;
 import com.bdkj.wirecrimping.bean.ByValueBean;
+import com.bdkj.wirecrimping.bean.MainBean;
 import com.bdkj.wirecrimping.bean.ModelBean;
 import com.bdkj.wirecrimping.bean.MyObject;
 import com.bdkj.wirecrimping.bean.PhotoAddressBean;
@@ -30,6 +33,7 @@ import com.bdkj.wirecrimping.util.DateUtils;
 import com.bdkj.wirecrimping.util.JsonUtil;
 import com.bdkj.wirecrimping.util.OpenFileUtils;
 import com.bdkj.wirecrimping.util.OperateExcel;
+import com.bdkj.wirecrimping.util.SPUtil;
 import com.bdkj.wirecrimping.util.ToastUtils;
 import com.example.zhouwei.library.CustomPopWindow;
 import com.luck.picture.lib.PictureSelector;
@@ -73,11 +77,13 @@ public class CurvatureActivity extends Activity implements View.OnClickListener 
     private CustomPopWindow popWindow;
     public static final int REQUEST_CHOOSEFILE = 0X01;
     private Handler mHandler = new Handler();
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hardware_straight);
+        mContext=this;
         EventBus.getDefault().register(this);
         initView();
     }
@@ -125,6 +131,14 @@ public class CurvatureActivity extends Activity implements View.OnClickListener 
 
                 //去扫描并连接蓝牙
                 startScanAndConnect();
+
+
+                /**
+                 * 将首页设置的数据赋值到Html上
+                 */
+                final MainBean mainBean= (MainBean) JsonUtil.stringToObject(SPUtil.getInstance(mContext).getString(Constant.MAIN_DATA),MainBean.class);
+                wv_hardware_straight.loadUrl("javascript:getBaseInfo('" + JsonUtil.objectToString(mainBean)+ "')");
+
 
                 /**
                  * 获取手机当前日期传给html显示

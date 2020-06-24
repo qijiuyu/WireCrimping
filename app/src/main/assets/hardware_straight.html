@@ -175,13 +175,13 @@
 <body>
 <div class="main">
     <div class="title">隐蔽工程（直线液压管）签证记录表</div>
-    <div class="title1">工程名称: <input type="text" class="proname"></div>
+    <div class="title1">工程名称: <input type="text" class="proname" readonly></div>
     <div class="container">
         <table border="1">
             <tr style="height: 120px;">
                 <td colspan="32">
                     <p class="alginRight maginLf20" style="padding-top: 10px;">致监理项目部: <input
-                            type="text" class="jianliname"></p>
+                            type="text" class="jianliname" readonly></p>
                     <p class="alginRight maginLf60">耐张段桩号 <input type="text" class="naizhanghao"
                                                                  style="border-bottom:1px solid black;height: 18px;">
                         至<input type="text" class="naizhanghao"
@@ -1893,6 +1893,11 @@
 			document.getElementsByClassName('highLight')[i].onblur = function(){
 				this.style.backgroundColor= ''
 			}
+		}
+		function getBaseInfo(info){
+			var data = JSON.parse(info);
+			document.querySelector('.proname').value = data.project;
+			document.querySelector('.jianliname').value = data.superVision;
 		}
 
 		 //显示当前的日期
