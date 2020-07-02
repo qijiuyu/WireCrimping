@@ -38,6 +38,7 @@ public class LoginActivity extends BaseActivity {
             }else{
                 intent.setClass(this,MainActivity.class);
             }
+            startActivity(intent);
             finish();
         }
         return R.layout.activity_login;

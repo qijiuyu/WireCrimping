@@ -78,7 +78,7 @@ public class AddProjectNameDialog extends Dialog {
                     return;
                 }
                 NameBean nameBean=new NameBean();
-                nameBean.setName(etName.getText().toString());
+                nameBean.setName(etName.getText().toString().trim());
 
                 //判断是新增，还是修改
                 if(editBean==null){

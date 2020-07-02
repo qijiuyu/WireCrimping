@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -26,6 +27,7 @@ import com.bdkj.wirecrimping.bean.MainBean;
 import com.bdkj.wirecrimping.bean.NameBean;
 import com.bdkj.wirecrimping.util.ActivitysLifecycle;
 import com.bdkj.wirecrimping.util.JsonUtil;
+import com.bdkj.wirecrimping.util.LogUtils;
 import com.bdkj.wirecrimping.util.MainPopwindow;
 import com.bdkj.wirecrimping.util.OpenFileUtils;
 import com.bdkj.wirecrimping.util.SPUtil;
@@ -99,6 +101,16 @@ public class MainActivity extends BaseActivity  implements View.OnFocusChangeLis
         etSupervision.addTextChangedListener(this);
         etConstruction.addTextChangedListener(this);
 
+        String data=SPUtil.getInstance(context).getString(Constant.MAIN_DATA);
+        if(!TextUtils.isEmpty(data)){
+            final MainBean mainBean= (MainBean) JsonUtil.stringToObject(data,MainBean.class);
+            if(mainBean!=null){
+                etProject.setText(mainBean.getProject());
+                etModel.setText(mainBean.getModel());
+                etSupervision.setText(mainBean.getSuperVision());
+                etConstruction.setText(mainBean.getConstruction());
+            }
+        }
     }
 
 
@@ -177,7 +189,12 @@ public class MainActivity extends BaseActivity  implements View.OnFocusChangeLis
         if(hasFocus){
             tag=v.getTag().toString();
             //设置下拉框显示的数据
-            getShowData();
+            if(((EditText)v).getText().length()==0){
+                getShowData();
+            }else{
+                //关闭下拉框
+                closePopwindow();
+            }
         }else{
             //关闭下拉框
             closePopwindow();

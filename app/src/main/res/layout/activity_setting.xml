@@ -82,7 +82,7 @@
             android:layout_marginTop="30dp"
             android:background="@drawable/ll_login_one"
             android:text="退出"
-            android:textColor="#c8ffff"
+            android:textColor="@color/colorAccent"
             android:textSize="20sp"
             android:gravity="center"/>
 
